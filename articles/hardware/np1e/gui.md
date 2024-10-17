@@ -10,7 +10,7 @@ The `NeuropixelsV1e` headstage has a graphical user interface when the `OpenEphy
 
 For `NeuropixelsV1eHeadstage`, the GUI allows for an easy way to change settings and visualize the effect. From the GUI, you can:
 
-- Configure the <xref:OpenEphys.Onix1.NeuropixelsV1eProbeConfiguration>
+- Configure the <xref:OpenEphys.Onix1.NeuropixelsV1ProbeConfiguration>
     - Choose the ADC calibration file
     - Choose the gain calibration file
     - Choose the AP and LFP gain values
@@ -29,7 +29,7 @@ For `NeuropixelsV1e`, there will always be 384 channels enabled across the entir
 
 As an example, let us assume that electrodes `0` through `383` are initially enabled (this corresponds to 384 channels). Then, electrodes `384` and `385` are enabled. When these electrodes are enabled, electrodes `0` and `1` will be disabled. In this way, there will always be 384 channels enabled.
 
-In addition to the absolute number of channels, there are other restrictions in place regarding which combinations of electrodes can be enabled at any given time. Specifically, in the <xref:OpenEphys.Onix1.NeuropixelsV1eElectrode> there is a `Channel` property which defines the channel index of an electrode. Across the entire probe, no two electrodes that share the same `Channel` can be simultaneously enabled. 
+In addition to the absolute number of channels, there are other restrictions in place regarding which combinations of electrodes can be enabled at any given time. Specifically, in the <xref:OpenEphys.Onix1.NeuropixelsV1Electrode> there is a `Channel` property which defines the channel index of an electrode. Across the entire probe, no two electrodes that share the same `Channel` can be simultaneously enabled. 
 
 [Channel presets](#channel-presets) take this into account automatically and ensure that the rules are followed. When manually enabling electrodes, the indexing logic is applied in the order that electrodes are selected. If two (or more) electrodes are selected that share a `Channel` value, the highest indexed electrode is the only one that will be enabled.
 
@@ -95,7 +95,7 @@ Towards the bottom of the GUI, there is a status strip that reports the serial n
 
 ### View ADC correction values
 
-Once a valid ADC calibration file has been selected, the <kbd>View ADC Correction Values</kbd> button will be enabled. This button can be pressed to open a new dialog that displays the correction values for all ADCs. Refer to <xref:OpenEphys.Onix1.NeuropixelsV1eAdc> for more details on the specific calibration values.
+Once a valid ADC calibration file has been selected, the <kbd>View ADC Correction Values</kbd> button will be enabled. This button can be pressed to open a new dialog that displays the correction values for all ADCs. Refer to <xref:OpenEphys.Onix1.NeuropixelsV1Adc> for more details on the specific calibration values.
 
 ![View ADC correction values](../../../images/neuropixelsv1e-gui-tut/view-adc-calibration-values.png)
 
