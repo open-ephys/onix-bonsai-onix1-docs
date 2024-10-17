@@ -11,6 +11,7 @@
 
 - name: Hardware Guides
   href: hardware/index.md
+  expanded: true
   items:
   - href: hardware/breakout/overview.md
     items: 
