@@ -25,16 +25,6 @@
       {{{description}}}
     </td>
   </tr>
-    <tr>
-      <td style = "white-space: no-wrap">
-        <code>
-          {{{field&value}}}
-        </code>
-      </td>
-      <td>
-        {{{description}}}
-      </td>
-    </tr>
   {{/oe.enum}}
 
 </table>
