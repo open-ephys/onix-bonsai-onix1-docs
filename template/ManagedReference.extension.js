@@ -73,7 +73,6 @@ function extractConstituentOperatorsData(model) {
 }
 
 function extractOperatorData(model) {
-
   const checkForCategory = (category) => model.syntax?.content[0].value.includes(`[WorkflowElementCategory(ElementCategory.${category})]`);
   const checkInheritance = (inheritance) => model.inheritance?.some(inherited => inherited.uid.includes(inheritance));
   source = checkForCategory('Source') || checkInheritance('Bonsai.Source');
@@ -83,11 +82,7 @@ function extractOperatorData(model) {
   hub = checkInheritance('OpenEphys.Onix1.MultiDeviceFactory');
   configureDevice = checkInheritance('OpenEphys.Onix1.SingleDeviceFactory');
   type = model.uid.includes('DeviceFactory') ? false : sink ? 'sink' : combinator ? 'combinator' : source ? 'source' : transform ? 'transform' : false;
-
-  if (hub) {
-    model = model.__global._shared['~/api/OpenEphys.Onix1.MultiDeviceFactory.yml'];
-  }
-
+  if (hub) {model = model.__global._shared['~/api/OpenEphys.Onix1.MultiDeviceFactory.yml'];}
   overloads = model.children
     .filter(child => child.name[0].value.includes('Process') || child.name[0].value.includes('Generate'))
     .map(child => ({
@@ -95,7 +90,6 @@ function extractOperatorData(model) {
       'input': [child.syntax?.parameters[0].description, child.syntax?.parameters[0].remarks].join(''),
       'output': [child.syntax.return.description, child.syntax.return.remarks].join(''),
     }));
-
   return {
     'type': type,
     'hub': hub,
@@ -109,7 +103,7 @@ function extractOperatorData(model) {
  * This method will be called at the start of exports.transform in ManagedReference.html.primary.js
  */
 exports.preTransform = function (model) {
-  if (model.type === 'class') {
+  if (model.type === 'class' || model.type === 'struct') {
     operator = extractOperatorData(model);
     if (operator.hub) {
       properties = extractConstituentOperatorsData(model);
