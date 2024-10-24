@@ -64,5 +64,5 @@ if ($PSBoundParameters.ContainsKey("all"))
     Start-Sleep -Seconds 2
     doclinkchecker
     Start-Sleep -Seconds 2
-    linkcheck($all)
+    lychee $all $remote
 }
