@@ -8,23 +8,20 @@
 <h2>Fields</h2>
 
 <table>
-
   <tr>
     <th style="white-space: no-wrap">Field & Value</th>
     <th>Description</th>
   </tr>
-
   {{#oe.enum}}
   <tr>
     <td style="white-space: no-wrap">
-      <code>
-        {{{field&value}}}
-      </code>
-    </td>
-    <td>
-      {{{description}}}
-    </td>
+        <code>
+          {{{field&value}}}
+        </code>
+      </td>
+      <td class="tableFormat">
+        {{{description}}}
+      </td>
   </tr>
   {{/oe.enum}}
-
 </table>

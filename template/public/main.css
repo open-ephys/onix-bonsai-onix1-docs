@@ -1,10 +1,10 @@
 @import "workflow.css";
 
-div.tableFormat *:last-child {
+.tableFormat *:last-child {
   margin-bottom: 0;
 }
 
-div.tableFormat table {
+.tableFormat table {
   display: grid;
   grid-template-columns: auto; 
   margin-top: 1rem; 
@@ -14,12 +14,12 @@ div.tableFormat table {
   border-collapse: collapse; 
 }
 
-div.tableFormat td {
+.tableFormat td {
   padding: 0;
   border: 0 hidden;
 }
 
-div.tableFormat td.term {
+.tableFormat td.term {
   /* !important tag prevents overrides from dotnet.css associated with:
    body[data-yaml-mime="ManagedReference"] article td.term, body[data-yaml-mime="ApiPage"] article td.term 
    important tags are not good practice*/
@@ -27,7 +27,7 @@ div.tableFormat td.term {
   white-space: nowrap;
 }
 
-div.tableFormat td.description {
+.tableFormat td.description {
   padding-left: 1rem;
 }
 
