@@ -5,8 +5,7 @@ param
     [parameter(mandatory=$false)][switch][Alias("b")]$build,
     [parameter(mandatory=$false)][switch][Alias("d")]$doclinkchecker,
     [parameter(mandatory=$false)][string][Alias("l")]$lychee,
-    [parameter(mandatory=$false)][string][Alias("a")]$all,
-    [parameter(mandatory=$false)][switch][Alias("r")]$remote
+    [parameter(mandatory=$false)][string][Alias("a")]$all
 )
 
 # this is called removeartifacts instead of clean because clean might be already mean something in powershell?
@@ -19,16 +18,11 @@ function removeartifacts
 
 function build{.\build.ps1 --logLevel Suggestion --warningsAsErrors}
 
-function lychee($lycheePath, $remote)
+function lychee($lycheePath)
 {
     Write-Output "`nRunning lychee..."
     Write-Output "------------------------------------------`n"
-    if ($remote){ 
-        Invoke-Expression "& `"$lycheePath`" --no-progress --base _site --exclude ^https://github\.com.*merge.* --exclude ^https://github\.com.*apiSpec.* '_site/**/*.html'"
-    }
-    else{
-        Invoke-Expression "& `"$lycheePath`" --no-progress --base _site --exclude ^https://github\.com.*merge.* --exclude ^https://github\.com.*apiSpec.* --exclude ^https://github\.com/open-ephys/onix1-bonsai-docs/blob/.*/#L1 '_site/**/*.html'"
-    }
+    Invoke-Expression "& `"$lycheePath`" --no-progress --base _site --exclude ^https://github\.com.*merge.* --exclude ^https://github\.com.*apiSpec.* --exclude ^https://github\.com/open-ephys/onix1-bonsai-docs/blob/.*/#L1 '_site/**/*.html'"
     Write-Output "`n"
 }
 
@@ -45,7 +39,7 @@ if ($build){build}
 
 if ($doclinkchecker){doclinkchecker}
 
-if ($PSBoundParameters.ContainsKey("lychee")){lychee $lychee $remote}
+if ($PSBoundParameters.ContainsKey("lychee")){lychee $lychee}
 
 if ($PSBoundParameters.ContainsKey("all"))
 {
@@ -64,5 +58,5 @@ if ($PSBoundParameters.ContainsKey("all"))
     Start-Sleep -Seconds 2
     doclinkchecker
     Start-Sleep -Seconds 2
-    lychee $all $remote
+    lychee $all
 }
