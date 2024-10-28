@@ -186,3 +186,7 @@ To take the screenshot (in Windows), use the `Windows+Shift+S` hotkey, select th
 #### Bonsai Package Manager Screenshot Edits
 
 The layer group consisting of the highlight layer and 1,2,3,4 layers of the screenshots in the bonsai-install\*.xcf or bonsai-update\*.xcf files can be copy and pasted on top of other screenshots. This enables an expedited editing process for creating new edited screenshots. When creating the screenshot, do not change the size of the package manager after opening it.
+
+## Style Guide
+
+Refer to the [Style Guide](style-guide.md).
