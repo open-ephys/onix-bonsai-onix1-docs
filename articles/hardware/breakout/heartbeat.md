@@ -5,10 +5,12 @@ hardware: true
 device: heartbeat
 ---
 
-The breakout board provides a heartbeat function that prevents the breakout board from blocking. It must be enabled so
-that the software doesn't wait forever to receive data if the hardware isn't transmitting data (i.e. if no data sources
-are enabled). In practice, you can ignore the Heartbeat functionality after confirming it's enabled. The following excerpt 
-from the Breakout Board [example workflow](xref:breakout_workflow) demonstrates how to observe the heartbeat functionality.
+ONIX has a single special devce, called a heartbeat, that produces data at regular intervals and is always enabled.
+When data is read from the hardware by software, the reading thread will block until enough data has been produced
+by the hardware. If no devices are enabled, the sofware would block forever. The heartbeat prevents this from happening
+since it is always enabled and always producing data. In practice, you can ignore the Heartbeat functionality. The
+following excerpt from the Breakout Board [example workflow](xref:breakout_workflow) demonstrates how to observe the
+heartbeat functionality.
 
 ::: workflow
 ![/workflows/hardware/breakout/heartbeat.bonsai workflow](../../../workflows/hardware/breakout/heartbeat.bonsai)
@@ -21,4 +23,4 @@ interval defined during <xref:breakout_configuration> using the <xref:OpenEphys.
 "BreakoutBoard/Heartbeat". This links the `HeartbeatData` operator to the corresponding configuration operator. The
 [MemberSelector](https://bonsai-rx.org/docs/api/Bonsai.Expressions.MemberSelectorBuilder.html) operator selects the
 `Clock` member from the `HeartbeatDataFrame` so the user can visualize the number of clock cycles that have passed for
-a given heartbeat pulse if they double-click the `Clock` node. 
+a given heartbeat pulse if they double-click the `Clock` node.
