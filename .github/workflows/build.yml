@@ -22,7 +22,7 @@ jobs:
           dotnet-version: 8.x
 
       - name: Install DocLinkChecker
-        run: dotnet tool install DocLinkChecker
+        run: dotnet tool install DocLinkChecker --version 1.19.0
 
       # Check for missing / broken links in the *.md files prior to building the website
       - name: Check Documentation Links
