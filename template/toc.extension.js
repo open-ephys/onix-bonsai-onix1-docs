@@ -46,8 +46,6 @@ exports.preTransform = function (model) {
         }, 
         {
           'name': 'Other',
-          'href' : 'other.html',
-          'topicHref': 'other.html',
           'topicUid': 'other',
           'items': 
           [
