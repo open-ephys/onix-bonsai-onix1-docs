@@ -1,6 +1,8 @@
 <tr>
   <td style = "white-space: nowrap;">
     <code>{{{name}}}</code>
+    {{#acquisition}}<div style="padding-top: 0.5rem"><small class="mb-3 px-2 py-1 fw-semibold text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-2">acquisition</small></div>{{/acquisition}}
+    {{#configuration}}<div style="padding-top: 0.5rem"><small class="mb-3 px-2 py-1 fw-semibold text-warning-emphasis bg-warning-subtle border border-warning-subtle rounded-2">configuration</small></div>{{/configuration}}
   </td>
   <td style = "white-space: nowrap;">
     {{{type}}}
