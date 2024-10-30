@@ -31,17 +31,10 @@ exports.preTransform = function (model) {
           'items': []
         }, 
         {
-          'name': 'Device Configuration Operators',
-          'href' : 'device-configure.html',
-          'topicHref': 'device-configure.html',
-          'topicUid': 'device-configure',
-          'items': []
-        }, 
-        {
-          'name': 'Data Frames',
-          'href' : 'dataframes.html',
-          'topicHref': 'dataframes.html',
-          'topicUid': 'dataframes',
+          'name': 'Data Elements',
+          'href' : 'data-elements.html',
+          'topicHref': 'data-elements.html',
+          'topicUid': 'data-elements',
           'items': []
         }, 
         {
@@ -50,10 +43,17 @@ exports.preTransform = function (model) {
           'items': 
           [
             {
-              'name': 'Enums',
-              'href' : 'enums.html',
-              'topicHref': 'enums.html',
-              'topicUid': 'enums',
+              'name': 'Device Configuration Operators',
+              'href' : 'device-configure.html',
+              'topicHref': 'device-configure.html',
+              'topicUid': 'device-configure',
+              'items': []
+            },
+            {
+              'name': 'Constants',
+              'href' : 'constants.html',
+              'topicHref': 'constants.html',
+              'topicUid': 'constants',
               'items': []
             }
           ]
@@ -75,7 +75,7 @@ exports.preTransform = function (model) {
           }
           else if (globalModel?.inheritance.some(inherited => inherited.uid === 'OpenEphys.Onix1.SingleDeviceFactory'))
           {
-            items[3].items.push(model.items[0].items[i]);
+            items[4].items[0].items.push(model.items[0].items[i]);
           }
           else if ((globalModel.syntax?.content[0].value.includes('ElementCategory.Source') || 
           globalModel.syntax?.content[0].value.includes('ElementCategory.Sink') ||
@@ -89,12 +89,12 @@ exports.preTransform = function (model) {
           model.items[0].items[i].name.includes('OutputClockParameters') ||
           globalModel?.inheritance.some(inherited => inherited.uid === 'OpenEphys.Onix1.DataFrame' || inherited.uid === 'OpenEphys.Onix1.BufferedDataFrame'))
           {
-            items[4].items.push(model.items[0].items[i]);
+            items[3].items.push(model.items[0].items[i]);
           }
         }
         else if (globalModel && globalModel.type === 'enum') 
         {
-          items[5].items[0].items.push(model.items[0].items[i]);
+          items[4].items[1].items.push(model.items[0].items[i]);
         }
       }
       model.items[0].items = items;
