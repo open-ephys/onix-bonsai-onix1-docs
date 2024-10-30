@@ -5,12 +5,12 @@ hardware: true
 device: heartbeat
 ---
 
-ONIX has a single special devce, called a heartbeat, that produces data at regular intervals and is always enabled.
-When data is read from the hardware by software, the reading thread will block until enough data has been produced
-by the hardware. If no devices are enabled, the sofware would block forever. The heartbeat prevents this from happening
-since it is always enabled and always producing data. In practice, you can ignore the Heartbeat functionality. The
-following excerpt from the Breakout Board [example workflow](xref:breakout_workflow) demonstrates how to observe the
-heartbeat functionality.
+ONIX has a single special device, called a heartbeat, that produces data at regular intervals and is always enabled.
+When data is read from the hardware by software, the reading thread will block until enough data has been produced by
+the hardware. If no devices are enabled, the software would block forever. The heartbeat prevents this from happening
+since it is always enabled and always producing data. In practice, you can ignore the heartbeat functionality. In any
+case, the following excerpt from the Breakout Board [example workflow](xref:breakout_workflow) demonstrates how to
+observe the heartbeat.
 
 ::: workflow
 ![/workflows/hardware/breakout/heartbeat.bonsai workflow](../../../workflows/hardware/breakout/heartbeat.bonsai)
