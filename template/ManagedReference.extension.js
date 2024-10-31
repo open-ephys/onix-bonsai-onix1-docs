@@ -28,6 +28,8 @@ function processChildProperty(child, sharedModel) {
   const enumFields = sharedModel[`~/api/${child.syntax.return.type.uid}.yml`]?.type === 'enum' ?
     extractEnumData(sharedModel[`~/api/${child.syntax.return.type.uid}.yml`]) :
     [];
+    const acquisition = child?.attributes.some(attribute => attribute.type === 'System.ComponentModel.CategoryAttribute' && attribute?.arguments[0].value === 'Acquisition');
+    const configuration = child?.attributes.some(attribute => attribute.type === 'System.ComponentModel.CategoryAttribute' && attribute?.arguments[0].value === 'Configuration');
   return {
     'name': child.name[0].value,
     'type': child.syntax.return.type.specName[0].value,
@@ -35,7 +37,9 @@ function processChildProperty(child, sharedModel) {
       'text': addCodeTag([child.summary, child.remarks].join('')),
       'hasEnum': enumFields.length > 0,
       'enum': enumFields,
-    }
+    },
+    'configuration': configuration,
+    'acquisition': acquisition
   }
 }
 
