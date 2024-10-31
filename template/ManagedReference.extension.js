@@ -28,38 +28,50 @@ function processChildProperty(child, sharedModel) {
   const enumFields = sharedModel[`~/api/${child.syntax.return.type.uid}.yml`]?.type === 'enum' ?
     extractEnumData(sharedModel[`~/api/${child.syntax.return.type.uid}.yml`]) :
     [];
+    const acquisition = child?.attributes.some(attribute => attribute.type === 'System.ComponentModel.CategoryAttribute' && attribute?.arguments[0].value === 'Acquisition');
+    const configuration = child?.attributes.some(attribute => attribute.type === 'System.ComponentModel.CategoryAttribute' && attribute?.arguments[0].value === 'Configuration');
   return {
     'name': child.name[0].value,
     'type': child.syntax.return.type.specName[0].value,
-    'propertyDescription': {
+    'propertyDescription': 
+    {
       'text': addCodeTag([child.summary, child.remarks].join('')),
       'hasEnum': enumFields.length > 0,
       'enum': enumFields,
-    }
+    },
+    'configuration': configuration,
+    'acquisition': acquisition
   }
 }
 
+const filterProperties = propertyCandidate => propertyCandidate.type === 'property' && !propertyCandidate?.attributes.some(attribute => 
+  attribute.type === 'System.ComponentModel.BrowsableAttribute' && attribute.arguments[0].value === false);
+
 function extractPropertiesData(model, sharedModel) {
   return model?.children
-    .filter(child => child.type === 'property' && child.syntax)
+    .filter(filterProperties)
     .map(child => processChildProperty(child, sharedModel));
 }
 
 function extractPropertiesFromInheritedMembersData(model, sharedModel) {
   return model.inheritedMembers
-    .filter(inheritedMember => inheritedMember.type === 'property')
-    .map(inheritedMember => (
-      processChildProperty(
+    .filter(filterProperties)
+    .map(inheritedMember => 
+    (
+      processChildProperty
+      (
         sharedModel[`~/api/${inheritedMember.parent}.yml`].children.find(inheritedMemberChild => inheritedMemberChild.uid === inheritedMember.uid),
         sharedModel
       )
-    ));
+    )
+  );
 }
 
 function extractConstituentOperatorsData(model) {
   return model?.children
     .filter(child => child.type === 'property' && model.__global._shared?.[`~/api/${child.syntax.return.type.uid}.yml`].type === 'class')
-    .map(child => {
+    .map(child => 
+      {
       const deviceModel = model.__global._shared?.[`~/api/${child.syntax.return.type.uid}.yml`];
       const properties = sortPropertiesData(extractPropertiesData(deviceModel, model.__global._shared));
       return {
@@ -69,7 +81,8 @@ function extractConstituentOperatorsData(model) {
         'hasProperties': properties === undefined || properties.length === 0 ? false : true,
         'properties': properties,
       };
-    });
+    }
+  );
 }
 
 function extractOperatorData(model) {
