@@ -62,7 +62,8 @@
         "attributes",
         "customcontainers",
         "footnotes",
-        "figures"
+        "figures",
+        "emphasisextras"
       ],
       "alerts": {
         "IMPORTANT": "alert alert-warning"
