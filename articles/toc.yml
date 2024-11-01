@@ -45,6 +45,7 @@
     - name: Orientation Data & Commutation
       href: hardware/np1e/bno055.md
     - href: hardware/np1e/gui.md
+    - href: hardware/np1e/load-data.md
   - href: hardware/np2e/overview.md
     items: 
     - name: Configuration
