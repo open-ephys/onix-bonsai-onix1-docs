@@ -13,69 +13,63 @@
     {{#sourceurl}}<a class="header-action link-secondary" title="View source" href="{{sourceurl}}"><i class="bi bi-code-slash"></i></a>{{/sourceurl}}
   </h1>
   {{#oe.operator.type}}
-    <p style="display: inline; text-transform: capitalize"> {{oe.operator.type}} Operator</p>
+  <p style="display: inline; text-transform: capitalize"> {{oe.operator.type}} Operator</p>
   {{/oe.operator.type}}
 </div>
 
 <div>{{{oe.description}}}</div>
 
 {{#oe.operator.workflow}}
-  <div class="workflow"><p><img src="~/workflows/operators/{{oe.name}}.bonsai" alt="{{oe.name}} Workflow"></p></div>
-  {{#oe.operator}} 
-    <h2>Inputs & Outputs</h2>
-    {{>partials/diagram}}
-  {{/oe.operator}}
+<div class="workflow"><p><img src="~/workflows/operators/{{oe.name}}.bonsai" alt="{{oe.name}} Workflow"></p></div>
+{{#oe.operator}} 
+<h2>Inputs & Outputs</h2>
+{{>partials/diagram}}
+{{/oe.operator}}
 {{/oe.operator.workflow}}
 
 <h2>Properties</h2>
 
 {{#oe.operator.hub}}
 
-  <p>{{oe.name}} is an aggregate operator. Its properties comprise of the following operators' properties: </p>
+<h3>Configuration</h3>
 
-  {{#oe.properties}}
+{{#oe.properties}}
+{{^constituentOperator}}
 
-    <h3>{{{object}}}</h3>
+<p>These are properties of the aggregate operator:</p>
 
-    {{#constituentOperator}}
-      <p>{{{object}}} is a {{{type}}} operator encapsulated by the {{oe.name}} operator.</p>
-    {{/constituentOperator}}
+{{#hasProperties}}
+{{>partials/propertyTable}}
+{{/hasProperties}}
+{{^hasProperties}}
+<p>This operator does not have any configuration options.</p>
+{{/hasProperties}}
+{{/constituentOperator}}
+{{/oe.properties}}
 
-    {{^constituentOperator}}
-      <p>These are properties of the aggregate operator, not of any constituent operator.</p>
-    {{/constituentOperator}}
+<h3>Devices</h3>
 
-    {{#hasSubProperties}}
-      <table>
-        <tr>
-          <th style="white-space: nowrap;">Property</th>
-          <th style="white-space: nowrap;">Type</th> 
-          <th>Description</th>
-        </tr>
+{{#oe.properties}}
+{{#constituentOperator}}
 
-        {{#subProperties}}
-          {{>partials/propertyTables}}
-        {{/subProperties}} 
-      </table>
-    {{/hasSubProperties}}
+<h4>{{{object}}}</h4>
 
-    {{^hasSubProperties}}
-      <p>This operator does not have any configuration options.</p>
-    {{/hasSubProperties}}
+<p>{{{object}}} is a {{{type}}} operator encapsulated by the {{oe.name}} operator with the following properties:</p>
 
-  {{/oe.properties}}
+{{#hasProperties}}
+{{>partials/propertyTable}}
+{{/hasProperties}}
 
+{{^hasProperties}}
+<p>This operator does not have any configuration options.</p>
+{{/hasProperties}}
+
+{{/constituentOperator}}
+{{/oe.properties}}
 {{/oe.operator.hub}}
 
-{{^oe.operator.hub}}
-  <table>
-    <tr>
-      <th style = "white-space: nowrap;">Property</th>
-      <th style = "white-space: nowrap;">Type</th> 
-      <th>Description</th>
-    </tr>
-    {{#oe.properties}}
-      {{>partials/propertyTables}}
-    {{/oe.properties}}
-  </table>
-{{/oe.operator.hub}}
+{{#oe}}
+{{^operator.hub}}
+{{>partials/propertyTable}}
+{{/operator.hub}}
+{{/oe}}
