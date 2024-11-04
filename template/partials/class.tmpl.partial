@@ -1,13 +1,10 @@
 {{#oe.operator.configureDevice}}
-<div class="CAUTION alert alert-danger">
-  <h5>Caution</h5>
-  <p>
-    This is a device configuration operator. Device configuration operators are not recommended for interfacing with off-the-shelf ONIX hardware. Use <a class="xref" href="configure.html">aggregate configuration operators</a> to do that instead.
-  </p>
-  <p>
-    To understand the benefits of <a class="xref" href="configure.html">aggregate configuration operators</a>, refer to the <a class="xref" href="device-configure.html">device configuration operators</a> page.
-  </p>
-</div>
+  <div class="Important alert alert-info">
+    <h5>TIP</h5>
+    <p>
+      This is a device configuration operator. <a class="xref" href="configure.html">Aggregate configuration operators</a> are recommended in lieu of <a class="xref" href="device-configure.html">device configuration operators</a> for interfacing with Open Ephys Onix hardware.
+    </p>
+  </div>
 {{/oe.operator.configureDevice}}
 
 <div>
