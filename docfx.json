@@ -3,9 +3,7 @@
     {
       "src": [
         {
-          "files": [
-            "src/**.csproj"
-          ]
+          "files": ["src/**.csproj"]
         }
       ],
       "dest": "api",
@@ -19,35 +17,20 @@
         "index.md": "landing"
       }
     },
-    "content": [
-      "articles/**.{md,yml}",
-      "api/**.{md,yml}",
-      "toc.yml",
-      "index.md"
+    "content": [ 
+      {
+        "files": ["articles/**.{md,yml}", "api/**.{md,yml}", "toc.yml", "index.md"],
+        "exclude": ["api/overview.md"]
+      }
     ],
-    "resource": [
-          "logo.svg",
-          "favicon.png",
-          "images/**",
-          "workflows/**"
-    ],
+    "resource": ["logo.svg", "favicon.png", "images/**", "workflows/**"],
     "output": "_site",
     "overwrite": [
       {
-        "files": [
-        ],
-        "exclude": [
-          "obj/**",
-          "_site/**"
-        ]
+        "files": ["api/overview.md"]
       }
     ],
-    "template": [
-      "default",
-      "modern",
-      "template",
-      "docfx-tools/template"
-    ],
+    "template": ["default", "modern", "template", "docfx-tools/template"],
     "globalMetadata": {
       "_enableNewTab": true,
       "_enableSearch": true,

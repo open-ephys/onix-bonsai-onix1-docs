@@ -9,3 +9,13 @@
 {{#isEnum}}
   {{>partials/enum}}
 {{/isEnum}}
+
+{{#isNamespace}}
+  <div>
+    <h1 data-uid="{{{uid}}}" class="text-break">
+      {{{title}}}
+      <a class="header-action link-secondary" title="View source" href="https://github.com/open-ephys/bonsai-onix1/tree/main/OpenEphys.Onix1"><i class="bi bi-code-slash"></i></a>
+    </h1>
+  </div>
+  {{{conceptual}}}
+{{/isNamespace}}

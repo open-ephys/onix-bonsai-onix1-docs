@@ -73,13 +73,13 @@ function extractConstituentOperatorsData(model) {
     .map(child => 
       {
       const deviceModel = model.__global._shared?.[`~/api/${child.syntax.return.type.uid}.yml`];
-      const subProperties = sortPropertiesData(extractPropertiesData(deviceModel, model.__global._shared));
+      const properties = sortPropertiesData(extractPropertiesData(deviceModel, model.__global._shared));
       return {
         'object': child.name[0].value,
         'type': child.syntax.return.type.specName[0].value,
         'constituentOperator': true,
-        'hasSubProperties': subProperties === undefined || subProperties.length === 0 ? false : true,
-        'subProperties': subProperties,
+        'hasProperties': properties === undefined || properties.length === 0 ? false : true,
+        'properties': properties,
       };
     }
   );
@@ -120,11 +120,11 @@ exports.preTransform = function (model) {
     operator = extractOperatorData(model);
     if (operator.hub) {
       properties = extractConstituentOperatorsData(model);
-      properties.push({
-        'object': 'Misc',
+      properties.unshift({
+        'object': 'Configuration',
         'constituentOperator': false,
-        'hasSubProperties': true,
-        'subProperties': sortPropertiesData([
+        'hasProperties': true,
+        'properties': sortPropertiesData([
           ...extractPropertiesData(model, model.__global._shared),
           ...extractPropertiesFromInheritedMembersData(model, model.__global._shared),
         ]).filter(modelProperty => !properties.map(property => property.object).includes(modelProperty?.name))

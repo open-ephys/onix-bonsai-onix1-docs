@@ -51,16 +51,6 @@
           <dsp:FilterType>HighPass</dsp:FilterType>
         </Combinator>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="dsp:DetectSpikes">
-          <dsp:Delay>0</dsp:Delay>
-          <dsp:Length>33</dsp:Length>
-          <dsp:Threshold>
-            <dsp:double>-50</dsp:double>
-          </dsp:Threshold>
-          <dsp:WaveformRefinement>AlignPeaks</dsp:WaveformRefinement>
-        </Combinator>
-      </Expression>
     </Nodes>
     <Edges>
       <Edge From="0" To="1" Label="Source1" />
@@ -69,7 +59,6 @@
       <Edge From="3" To="4" Label="Source1" />
       <Edge From="4" To="5" Label="Source1" />
       <Edge From="5" To="6" Label="Source1" />
-      <Edge From="6" To="7" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

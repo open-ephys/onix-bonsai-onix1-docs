@@ -95,3 +95,13 @@ h6 {
   /* originally font-size: 1rem; */
   font-size: 1.2rem;
 }
+
+/* This is for formatting markdown files specifically */
+
+ol ol, ol ul {
+  margin-bottom: 1rem
+}
+
+ol li div {
+  margin-bottom: 0rem !important
+}

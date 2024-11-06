@@ -1,0 +1,53 @@
+<table>
+
+  <tr>
+    <th style = "white-space: nowrap;">Property</th>
+    <th style = "white-space: nowrap;">Type</th> 
+    <th>Description</th>
+  </tr>
+
+  {{#properties}}
+  <tr>
+    <td style = "white-space: nowrap;">
+      <code>{{{name}}}</code>
+      {{#acquisition}}
+      <div>
+        <a class="xref" href="~/articles/getting-started/property-categories.html#acquisition">
+          <button class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">
+            acquisition
+          </button>
+        </a>
+      </div>
+      {{/acquisition}}
+      {{#configuration}}
+      <div>
+        <a class="xref" href="~/articles/getting-started/property-categories.html#configuration">
+          <button class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill">
+            configuration 
+          </button>
+        </a>
+      </div>
+      {{/configuration}}
+    </td>
+    <td style = "white-space: nowrap;">
+      {{{type}}}
+    </td>
+    <td class="tableFormat">
+      {{#propertyDescription}}
+      {{{propertyDescription.text}}}
+      {{#hasEnum}}
+      <table>
+        {{#enum}}
+        <tr>
+          <td class="term"><code>{{{field&value}}}</code></td>
+          <td class="description">{{{enumDescription}}}</td>
+        </tr>
+        {{/enum}}
+      </table>
+      {{/hasEnum}}
+      {{/propertyDescription}}
+    </td>
+  </tr>    
+  {{/properties}}
+
+</table>

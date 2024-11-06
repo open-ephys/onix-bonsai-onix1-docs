@@ -23,7 +23,7 @@
           <onix1:AnalogIO>
             <onix1:DeviceName>BreakoutBoard/AnalogIO</onix1:DeviceName>
             <onix1:DeviceAddress>6</onix1:DeviceAddress>
-            <onix1:Enable>false</onix1:Enable>
+            <onix1:Enable>true</onix1:Enable>
             <onix1:InputRange0>TenVolts</onix1:InputRange0>
             <onix1:InputRange1>TenVolts</onix1:InputRange1>
             <onix1:InputRange2>TenVolts</onix1:InputRange2>
@@ -52,7 +52,7 @@
           <onix1:DigitalIO>
             <onix1:DeviceName>BreakoutBoard/DigitalIO</onix1:DeviceName>
             <onix1:DeviceAddress>7</onix1:DeviceAddress>
-            <onix1:Enable>false</onix1:Enable>
+            <onix1:Enable>true</onix1:Enable>
           </onix1:DigitalIO>
           <onix1:ClockOutput>
             <onix1:DeviceName>BreakoutBoard/OutputClock</onix1:DeviceName>
@@ -65,7 +65,7 @@
           <onix1:HarpInput>
             <onix1:DeviceName>BreakoutBoard/HarpSyncInput</onix1:DeviceName>
             <onix1:DeviceAddress>12</onix1:DeviceAddress>
-            <onix1:Enable>false</onix1:Enable>
+            <onix1:Enable>true</onix1:Enable>
             <onix1:Source>Breakout</onix1:Source>
           </onix1:HarpInput>
           <onix1:MemoryMonitor>
@@ -90,12 +90,12 @@
           <onix1:Bno055>
             <onix1:DeviceName>Headstage64/Bno055</onix1:DeviceName>
             <onix1:DeviceAddress>513</onix1:DeviceAddress>
-            <onix1:Enable>false</onix1:Enable>
+            <onix1:Enable>true</onix1:Enable>
           </onix1:Bno055>
           <onix1:TS4231>
             <onix1:DeviceName>Headstage64/TS4231V1</onix1:DeviceName>
             <onix1:DeviceAddress>514</onix1:DeviceAddress>
-            <onix1:Enable>false</onix1:Enable>
+            <onix1:Enable>true</onix1:Enable>
           </onix1:TS4231>
           <onix1:ElectricalStimulator>
             <onix1:DeviceName>Headstage64/Headstage64ElectricalStimulator</onix1:DeviceName>
@@ -105,7 +105,7 @@
             <onix1:DeviceName>Headstage64/Headstage64OpticalStimulator</onix1:DeviceName>
             <onix1:DeviceAddress>516</onix1:DeviceAddress>
           </onix1:OpticalStimulator>
-          <onix1:Port>PortB</onix1:Port>
+          <onix1:Port>PortA</onix1:Port>
           <onix1:PortVoltage xsi:nil="true" />
         </Combinator>
       </Expression>
