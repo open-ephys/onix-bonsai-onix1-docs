@@ -28,19 +28,21 @@ This tutorial will guide you through building the following workflow:
 > Use the table at the bottom of this tutorial[^1] as a reference for which ephys <xref:dataio> you need and scaling
 > corresponds to each headstage and links to relevant documentation. 
 
-## Set up Bonsai
+## Set up and get to know Bonsai
 
-Follow the [Getting Started](xref:getting-started) guide to set up Bonsai. In particular, 
-[download the necessary Bonsai packages](xref:install-configure-bonsai#install-packages-in-bonsai) or 
+Follow the [Getting Started](xref:getting-started) guide to set up and get familiarized with Bonsai. In particular:
+
+- [Download the necessary Bonsai packages](xref:install-configure-bonsai#install-packages-in-bonsai) or 
 [check for updates](xref:install-configure-bonsai#update-packages-in-bonsai). This tutorial assumes 
 you're using the latest software.
+
+- Read about [visualizing data](xref:visualize-data) since we recommend checking each step of the tutorial by visualizing the data produced but we don't cover it here.
 
 ## Configure the hardware
 
 ::: workflow
 ![/workflows/tutorials/spikes/configuration.bonsai workflow](../../workflows/tutorials/spikes/configuration.bonsai)
 :::
-
 
 This is accomplished by constructing a [top-level configuration chain](xref:initialize-onicontext). First, place the
 [configuration operator](xref:configure) that corresponds to the hardware you intend to use between
@@ -64,7 +66,7 @@ the list.
 
 <!-- placeholder for visual demonstrating the output member selection -->
 
-[Visualize the raw data](xref:visualize-data) to confirm the ephys data operator is streaming data. 
+Visualize the raw data to confirm the ephys data operator is streaming data. 
 
 <!-- placeholder for visual demonstrating streaming data -->
 
