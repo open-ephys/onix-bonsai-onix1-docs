@@ -10,8 +10,7 @@ This tutorial shows how to use ONIX hardware and the OpenEphys.Onix1 Bonsai pack
 processing functions in Bonsai such as channel selection and reordering, filtering and event detection such as a fixed
 threshold crossing.
 
-This type of processing is important for real-time feedback for monitoring data being acquired. However, Bonsai's integrated visualizers and event detectors are limited.
-We recommend using the tools available in the Open Ephys GUI for specialized ephys visualizations, in particular, for data from very dense arrays such as Neuropixels probes.
+This type of processing is important for real-time feedback while monitoring data being acquired. However, Bonsai's integrated visualizers and event detectors are limited, so we recommend using the tools available in the Open Ephys GUI for specialized ephys visualizations. The Open Ephys GUI is particularly suited for visualizing data from very dense arrays such as Neuropixels probes.
 <!-- You can follow the Visualizing data in the Open Ephys GUI tutorial to set up your system to acquire in Bonsai and visualize in the Open Ephys GUI.  -->
 
 More advanced event detection algorithms such as spike sorting, ripple detection, etc. need specific implementations in Bonsai. Event detection in Bonsai will be faster and it allows actuation using ONIX or other hardware for closed-loop applications. 
@@ -44,7 +43,7 @@ you're using the latest software.
 ![/workflows/tutorials/spikes/configuration.bonsai workflow](../../workflows/tutorials/spikes/configuration.bonsai)
 :::
 
-This is accomplished by constructing a [top-level configuration chain](xref:initialize-onicontext). First, place the
+This is accomplished by constructing a [top-level configuration chain](xref:initialize-onicontext): place the
 [configuration operator](xref:configure) that corresponds to the hardware you intend to use between
 <xref:OpenEphys.Onix1.CreateContext> and <xref:OpenEphys.Onix1.StartAcquisition>. In our example, this is
 <xref:OpenEphys.Onix1.ConfigureHeadstage64> and <xref:OpenEphys.Onix1.ConfigureBreakoutBoard>. Confirm the device
@@ -57,11 +56,10 @@ only device used in this tutorial, so you could disable other devices on the hea
 ![/workflows/tutorials/spikes/ephys-data.bonsai workflow](../../workflows/tutorials/spikes/ephys-data.bonsai)
 :::
 
-Put the relevant operator to stream electrophysiology data from your headstage and select the relevant output
+Place the relevant operator to stream electrophysiology data from your headstage and select the relevant output
 members. Because the device on headstage64 that streams electrophysiology data is the Rhd2164 Intan amplifier, we
 placed the <xref:OpenEphys.Onix1.Rhd2164Data> node onto the workflow. Select the relevant members from the data
-frames that the data operator produces. In this example, the relevant members are "AmplifierData" and "Clock". To
-those members, we right-click the `Rhd2164` node, hover over the output option in the context menu, and select it from
+frames that the data operator produces. In this example, the relevant members are "AmplifierData" and "Clock". To select those members, right-click the `Rhd2164` node, hover over the output option in the context menu, and select it from
 the list.
 
 <!-- placeholder for visual demonstrating the output member selection -->
@@ -124,11 +122,18 @@ comport with expectations.
 :::
 
 Connect a `FrequencyFilter` operator to the second `ConvertScale` operator and set its properties.
-- Set its "SampleRate" property to 30000. Ephys data in all devices is 30 kHz. 
-- Set the "Cutoff1" property to an adequate value for looking at spikes. In this examples, we use 300 Hz as the
-    lower cutoff frequency for a high-pass filter. 
+- Set its "SampleRate" property to 30000. Ephys data in all devices is 30 kHz.
+- Set the "FilterType" property to an adequate type. In this example, we use a high pass filter to look at spikes.
+- Set the "Cutoff1" and "Cutoff2" properties to an adequate value. In this examples, we use 300 Hz as the
+    lower cutoff frequency. 
 
 <!-- placeholder for visual demonstrating the scaled, filtered data -->
+
+> [!TIP] 
+> If you choose to save data, make sure you place the `MatrixWriter` operator before filtering and scaling to save raw
+> data instead of scaled or scaled, filtered data. The `FrequencyFilter` operator could remove signals from a bandwidth
+> of interest and the second `ConvertScale` value increase the size of your data without increasing meaningful
+> information.
 
 ## Detect events
 
@@ -136,7 +141,7 @@ Connect a `FrequencyFilter` operator to the second `ConvertScale` operator and s
 ![/workflows/tutorials/spikes/spikes.bonsai workflow](../../workflows/tutorials/spikes/spikes.bonsai)
 :::
 
-Based on the amplitude of the signal, set a fixed threshold for detecting spikes. <!-- discuss these details -->
+Based on the amplitude of the signal on the selected channel, set a fixed threshold for detecting spikes. <!-- discuss these details -->
 
 Visualize the spike data.
 
@@ -147,11 +152,6 @@ Visualize the spike data.
 > data processing graph in a new workflow and replace the ephys data node (in the case of the headstage64, replace
 > the `Rhd2164` node) with a `MatrixReader` that reads from the file containing spiking ephys data.
 
-<!-- > [!TIP] 
-> If you choose to save data, make sure you place the `MatrixWriter` operator before filtering and scaling to save raw
-> data instead of scaled or scaled, filtered data. The `FrequencyFilter` operator could remove signals from a bandwidth
-> of interest and the second `ConvertScale` value increase the size of your data without increasing meaningful
-> information.  -->
 
 [^1]:
 
