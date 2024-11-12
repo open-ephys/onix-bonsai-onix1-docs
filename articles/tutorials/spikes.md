@@ -7,13 +7,12 @@ title: Processing ephys data in Bonsai
 <!-- I think this tutorial should use a file to show the actual spike data and then show how to modify it for online data -->
 
 This tutorial shows how to use ONIX hardware and the OpenEphys.Onix1 Bonsai package to perform basic online signal
-processing functions in Bonsai such as channel selection and reordering, filtering and event detection such as a fixed
-threshold crossing.
+on electrophysiology data in Bonsai such as channel selection and reordering, frequency filtering and event detection (in this example, spike detection using a fixed threshold crossing).
 
-This type of processing is important for real-time feedback while monitoring data being acquired. However, Bonsai's integrated visualizers and event detectors are limited, so we recommend using the tools available in the Open Ephys GUI for specialized ephys visualizations. The Open Ephys GUI is particularly suited for visualizing data from very dense arrays such as Neuropixels probes.
+This type of processing is important for real-time feedback while monitoring data during acquisition. However, Bonsai's integrated visualizers and event detectors are limited, so we recommend using the tools available in the Open Ephys GUI for specialized ephys visualizations. The Open Ephys GUI is particularly suited for visualizing data from very dense arrays such as Neuropixels probes.
 <!-- You can follow the Visualizing data in the Open Ephys GUI tutorial to set up your system to acquire in Bonsai and visualize in the Open Ephys GUI.  -->
 
-More advanced event detection algorithms such as spike sorting, ripple detection, etc. need specific implementations in Bonsai. Event detection in Bonsai will be faster and it allows actuation using ONIX or other hardware for closed-loop applications. 
+ Event detection in Bonsai will be faster and it allows actuation using ONIX or other hardware for closed-loop applications. However, more advanced event detection algorithms such as spike sorting, ripple detection, etc. need specific implementations in Bonsai.
 
 This tutorial will guide you through building the following workflow: 
 
@@ -24,10 +23,10 @@ This tutorial will guide you through building the following workflow:
 > [!NOTE]
 > Although this tutorial uses headstage64 as an example, the process is similar for other ephys headstages. This
 > tutorial assumes you are familiar with the [hardware guide](xref:hardware) of the ONIX headstage you intend to use.
-> Use the table at the bottom of this tutorial[^1] as a reference for which ephys <xref:dataio> you need and scaling
-> corresponds to each headstage and links to relevant documentation. 
+> Use the table at the bottom of this tutorial[^1] as a reference for which ephys <xref:dataio> and scaling
+> you need to use for each headstage, and links to relevant documentation. 
 
-## Set up and get to know Bonsai
+## Set up and get started in Bonsai
 
 Follow the [Getting Started](xref:getting-started) guide to set up and get familiarized with Bonsai. In particular:
 
@@ -45,10 +44,10 @@ you're using the latest software.
 
 Construct a [top-level configuration chain](xref:initialize-onicontext): place the
 [configuration operators](xref:configure) that correspond to the hardware you intend to use between
-<xref:OpenEphys.Onix1.CreateContext> and <xref:OpenEphys.Onix1.StartAcquisition>. In this example, this is
+<xref:OpenEphys.Onix1.CreateContext> and <xref:OpenEphys.Onix1.StartAcquisition>. In this example, these are
 <xref:OpenEphys.Onix1.ConfigureHeadstage64> and <xref:OpenEphys.Onix1.ConfigureBreakoutBoard>. Confirm that the device
 that streams electrophysiology data is enabled. The Rhd2164 device (an Intan amplifier) on the headstage64 is the
-only device used in this tutorial, so you could disable other devices on the headstage and on the breakout board.
+only device used in this tutorial, so you could disable other devices on the headstage and on the breakout board to improve performance if you wanted to.
 
 ## Stream ephys data into Bonsai
 
@@ -77,7 +76,7 @@ Visualize the raw data to confirm the ephys data operator is streaming data.
 :::
 
 Connect a <xref:Bonsai.Dsp.SelectChannels> operator to the electrophysiology data stream and edit its "Channels" property.
-Remember indexing starts at 0. Use commas to separate multiple channels and brackets for ranges.
+Remember indexing in Bonsai starts at 0. Use commas to separate multiple channels and brackets for ranges.
 Reorder channels by writing the channel numbers in the order in which you want to visualize the channels.
 
 ## Convert data to physical units
@@ -124,16 +123,14 @@ worked as expected, i.e. that the signal is centered around zero and that the va
 Connect a `FrequencyFilter` operator to the second `ConvertScale` operator and set its properties.
 - Set its "SampleRate" property to 30000. Ephys data in all devices is 30 kHz.
 - Set the "FilterType" property to an adequate type. In this example, we use a high pass filter to look at spikes.
-- Set the "Cutoff1" and "Cutoff2" properties to an adequate value. In this examples, we use 300 Hz as the
+- Set the "Cutoff1" and "Cutoff2" properties to an adequate value. In this example, we use 300 Hz as the
     lower cutoff frequency. 
 
 <!-- placeholder for visual demonstrating the scaled, filtered data -->
 
 > [!TIP] 
-> If you choose to save data, make sure you place the `MatrixWriter` operator before filtering and scaling to save raw
-> data instead of scaled or scaled, filtered data. The `FrequencyFilter` operator could remove signals from a bandwidth
-> of interest and the second `ConvertScale` value increase the size of your data without increasing meaningful
-> information.
+> If you choose to save data, we recommend you place the `MatrixWriter` operator before filtering and scaling to save raw
+> data instead of scaled or filtered data. Filtering with the `FrequencyFilter` operator before recording could remove signals from a bandwidth of interest and converting to microvolts with the second `ConvertScale` operator could increase the size of your data without increasing meaningful information.
 
 ## Detect events
 

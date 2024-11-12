@@ -3,15 +3,15 @@ uid: visualize-data
 title: Visualize Data
 ---
 
-Bonsai includes default ["type visualizers"](https://bonsai-rx.org/docs/articles/editor.html?#type-visualizers) that open as individual windows when double-clicking a data node to display data produced by an operator while the workflow is running.
+Bonsai has ["type visualizers"](https://bonsai-rx.org/docs/articles/editor.html?#type-visualizers) that open as individual windows when double-clicking a data node to display data produced by an operator while the workflow is running.
 
-Not all nodes have type visualizers, because the operator data output type has to be compatible with Bonsai's default visualizers. Data frames from OpenEphys.Onix1, for example, aren't compatible with Bonsai's default type visualizers, but its data members are.
+Not all nodes have type visualizers, because the operator data output type has to be compatible with Bonsai's default type visualizers. Data frames from the OpenEphys.Onix1 library, for example, aren't compatible with Bonsai's default type visualizers, but its data members are. After performing member selection on operators from the OpenEphys.Onix1 library, you can use the default type visualizers.
 
-Other visualizers are available as standalone operators and can be found in the `Bonsai.Design.Visualizers` package, which can be installed in the Bonsai package manager. These visualizer operators must be placed in the workflow, linked to a data operator. The visualizer can be opened by double-clicking the visualizer node instead of the preceding data node.
+Other visualizers for use with other libraries are available as standalone operators and can be found in the `Bonsai.Design.Visualizers` package, which can be installed in the Bonsai package manager. These visualizer operators must be placed in the workflow and linked to a data operator. The visualizer window can be opened by double-clicking the visualizer node instead of the preceding data node.
 
 ## Selecting operator data members for visualization
 
-For nodes that require it such as ONIX [data I/O operators](xref:dataio), select the desired member: 
+If the node whose data you want to visualize requires member selection, such as ONIX [data I/O operators](xref:dataio): 
   1. Right-click the node that corresponds to the data I/O operator you'd like to visualize.
   1. Hover over the "Output" option that appears in the context menu.
   1. Click the member you would like to visualize from the list of members.
@@ -42,21 +42,20 @@ Open the visualizer and check:
      like to visualize.
   1. Visualize the data.     
 
-        > [!NOTE]
-        > Data will only be visualized if the operator is producing data. If you can't see any data, check that:
-        > - The device from which you are trying to read is enabled.
-        > - Events are occurring. Some devices are stream-based and some are device-based. Event-based devices only produce data upon certain
-        >   events. For example, the <xref:OpenEphys.Onix1.DigitalInput> operator only produces data when the digital
-        >   port status changes state.
+  > [!NOTE]
+  > Data will only be visualized if the operator is producing data. If you can't see any data, check that:
+  > - The device from which you are trying to read is enabled.
+  > - Events are occurring. Some devices are stream-based and some are device-based. Event-based devices only produce data upon certain
+  >   events. For example, the <xref:OpenEphys.Onix1.DigitalInput> operator only produces data when the digital
+  >   port status changes state.
 
-        > [!TIP] 
-        > Visualizers can be changed while the workflow is running, so Selecting and Opening visualizers steps can be done in any order. This allows you to try different visualizers (one at a time), which is particularly helpful if you don't know which visualizer you want to use.
+
+  > [!TIP] 
+  > Visualizers can be changed while the workflow is running, so Selecting and Opening visualizers steps can be done in any order. This allows you to try different visualizers (one at a time), which is particularly helpful if you don't know which visualizer you want to use.
 
 ## Configuring visualizers
-Some visualizers, in particular, those that involve plots, allow additional
-     configuration.
-
-  1. Right-click the visualizer window to gain access to configuration options.
+Some visualizers, in particular those that involve plots, allow additional configuration.
+Right-click the visualizer window to gain access to configuration options.
   
   For example, the MatVisualizer allows configuration of:
   - X and Y scale: click to toggle between "auto" and fixed values.
