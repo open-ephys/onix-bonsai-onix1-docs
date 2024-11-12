@@ -57,7 +57,13 @@ Some visualizers, in particular, those that involve plots, allow additional
 
   1. Right-click the visualizer window to gain access to configuration options.
   
-  For example, the MatVisualizer allows changing the scale of the plot and the number of samples displayed in the plot. 
+  For example, the MatVisualizer allows configuration of:
+  - X and Y scale: click to toggle between "auto" and fixed values.
+  - Channel view: click the grid square to toggle between superimposed or separate  
+  - History Length: click the arrow and configure the number of samples displayed in the plot. 
+  - Display Previous: click the arrow and configure the amount of buffers displayed in the plot. 
+  - Channel Offset: click the arrow and configure the Y offset.
+  - Channels per Page: click the arrow and configure the amount of channels displayed per visualizer page. The page number is displayed at the top of the visualizer. Move between pages by using the PageUp and PageDn keys on the keyboard. 
 
 <video controls>
   <source src="../../images/visualize-data.mp4" type="video/mp4">
