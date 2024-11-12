@@ -1,7 +1,6 @@
 ---
-uid: spikes
-title: Processing ephys data in Bonsai
-
+uid: basic-ephys-processing
+title: Basic Ephys Data Processing in Bonsai
 ---
 
 <!-- I think this tutorial should use a file to show the actual spike data and then show how to modify it for online data -->
@@ -17,7 +16,7 @@ This type of processing is important for real-time feedback while monitoring dat
 This tutorial will guide you through building the following workflow: 
 
 ::: workflow
-![/workflows/tutorials/spikes.bonsai workflow](../../workflows/tutorials/spikes/spikes.bonsai)
+![/workflows/tutorials/basic-ephys-processing/spikes.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/spikes.bonsai)
 :::
 
 > [!NOTE]
@@ -39,7 +38,7 @@ you're using the latest software.
 ## Configure the hardware
 
 ::: workflow
-![/workflows/tutorials/spikes/configuration.bonsai workflow](../../workflows/tutorials/spikes/configuration.bonsai)
+![/workflows/tutorials/basic-ephys-processing/configuration.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/configuration.bonsai)
 :::
 
 Construct a [top-level configuration chain](xref:initialize-onicontext): place the
@@ -52,7 +51,7 @@ only device used in this tutorial, so you could disable other devices on the hea
 ## Stream ephys data into Bonsai
 
 ::: workflow
-![/workflows/tutorials/spikes/ephys-data.bonsai workflow](../../workflows/tutorials/spikes/ephys-data.bonsai)
+![/workflows/tutorials/basic-ephys-processing/ephys-data.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/ephys-data.bonsai)
 :::
 
 Place the relevant operator to stream electrophysiology data from your headstage and select the relevant output
@@ -72,7 +71,7 @@ Visualize the raw data to confirm the ephys data operator is streaming data.
 ## Select and reorder channels
 
 ::: workflow
-![/workflows/tutorials/spikes/select-convert-ephys-data.bonsai workflow](../../workflows/tutorials/spikes/select-convert-ephys-data.bonsai)
+![/workflows/tutorials/basic-ephys-processing/select-convert-ephys-data.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/select-convert-ephys-data.bonsai)
 :::
 
 Connect a <xref:Bonsai.Dsp.SelectChannels> operator to the electrophysiology data stream and edit its "Channels" property.
@@ -82,7 +81,7 @@ Reorder channels by writing the channel numbers in the order in which you want t
 ## Convert data to physical units
 
 ::: workflow
-![/workflows/tutorials/spikes/select-convert-ephys-data.bonsai workflow](../../workflows/tutorials/spikes/select-convert-ephys-data.bonsai)
+![/workflows/tutorials/basic-ephys-processing/select-convert-ephys-data.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/select-convert-ephys-data.bonsai)
 :::
 
 1. Center the dynamic range of the ADC signal around zero
@@ -117,7 +116,7 @@ worked as expected, i.e. that the signal is centered around zero and that the va
 ## Apply a frequency filter
 
 ::: workflow
-![/workflows/tutorials/spikes/filter-ephys-data.bonsai workflow](../../workflows/tutorials/spikes/filter-ephys-data.bonsai)
+![/workflows/tutorials/basic-ephys-processing/filter-ephys-data.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/filter-ephys-data.bonsai)
 :::
 
 Connect a `FrequencyFilter` operator to the second `ConvertScale` operator and set its properties.
@@ -135,7 +134,7 @@ Connect a `FrequencyFilter` operator to the second `ConvertScale` operator and s
 ## Detect events
 
 ::: workflow
-![/workflows/tutorials/spikes/spikes.bonsai workflow](../../workflows/tutorials/spikes/spikes.bonsai)
+![/workflows/tutorials/basic-ephys-processing/spikes.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/spikes.bonsai)
 :::
 
 Based on the amplitude of the signal on the selected channel, set a fixed threshold for detecting spikes. <!-- discuss these details -->
