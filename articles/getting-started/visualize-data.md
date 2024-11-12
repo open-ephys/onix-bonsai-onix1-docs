@@ -3,8 +3,12 @@ uid: visualize-data
 title: Visualize Data
 ---
 
-The first step to visualize raw data from an ONIX [data I/O operator](xref:dataio) is to select the corresponding member. To
-most easily accomplish this: 
+Bonsai includes default visualizers that can be used to display data. They are displayed by double-clicking a node while the workflow is running.
+Not all nodes have visualizers, since the data type output by the node has to be compatible with Bonsai's default visualizers. Data frames from OpenEphys.Onix1, for example, aren't compatible with Bonsai's default visualizers, but its members are.  
+
+## Member selection
+
+For nodes that require it such as ONIX [data I/O operators](xref:dataio), select the desired member: 
   1. Right-click the node that corresponds to the data I/O operator you'd like to visualize.
   1. Hover over the "Output" option that appears in the context menu after the previous step.
   1. Click the member you would like to visualize from the list of members that appears after the previous step
@@ -16,10 +20,7 @@ member from the data frame produced by the data I/O operator.
   <source src="../../images/select-member.mp4" type="video/mp4">
 </video> 
 
-> [!NOTE]
-> Not all operators require selecting a member to visualize the data. The important thing is that the data type output
-> by an operator is compatible with Bonsai's default visualizers. Data frames from OpenEphys.Onix1, for example, aren't
-> compatible with Bonsai's default visualizers, but its members are.  
+## Visualizer selection
 
 The second step is to select the visualizer you would like to use for the data you would like visualize. To
 accomplish this:
@@ -30,6 +31,8 @@ accomplish this:
 <video controls>
   <source src="../../images/set-visualizer.mp4" type="video/mp4">
 </video> 
+
+## Visualizer configuration
 
 The last step is to open and configure the visualizer. To accomplishe this:
   1. Start the workflow
