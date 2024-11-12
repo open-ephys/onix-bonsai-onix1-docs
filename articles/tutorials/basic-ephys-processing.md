@@ -136,7 +136,7 @@ Visualize the filtered data.
 ## Detect events
 
 ::: workflow
-![/workflows/tutorials/basic-ephys-processing/spikes.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/spikes.bonsai)
+![/workflows/tutorials/basic-ephys-processing/spike-detection.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/spike-detection.bonsai)
 :::
 
 Based on the amplitude of the signal on the selected channel, set a fixed threshold for detecting spikes. <!-- discuss these details -->
@@ -149,7 +149,6 @@ Visualize the spike data.
 > You can test the spike detection using a pre-recorded data known to have spikes: recreate the
 > workflow from this example without the hardware configuration chain in a new workflow and replace the ephys data node (in the case of the headstage64, replace
 > the `Rhd2164` node) with a `MatrixReader` that reads from the file containing spiking ephys data in unsigned 16-bit format.
-
 
 [^1]:
 
