@@ -5,8 +5,7 @@ title: Basic Ephys Data Processing in Bonsai
 
 <!-- I think this tutorial should use a file to show the actual spike data and then show how to modify it for online data -->
 
-This tutorial shows how to use ONIX hardware and the OpenEphys.Onix1 Bonsai package to perform basic online signal
-on electrophysiology data in Bonsai such as channel selection and reordering, frequency filtering and event detection (in this example, spike detection using a fixed threshold crossing).
+This tutorial shows how to use ONIX hardware and the OpenEphys.Onix1 Bonsai package to perform basic online signal processing on electrophysiology data in Bonsai such as channel selection and reordering, frequency filtering and event detection (in this example, spike detection using a fixed threshold crossing).
 
 This type of processing is important for real-time feedback while monitoring data during acquisition. However, Bonsai's integrated visualizers and event detectors are limited, so we recommend using the tools available in the Open Ephys GUI for specialized ephys visualizations. The Open Ephys GUI is particularly suited for visualizing data from very dense arrays such as Neuropixels probes.
 <!-- You can follow the Visualizing data in the Open Ephys GUI tutorial to set up your system to acquire in Bonsai and visualize in the Open Ephys GUI.  -->
@@ -32,7 +31,6 @@ Follow the [Getting Started](xref:getting-started) guide to set up and get famil
 - [Download the necessary Bonsai packages](xref:install-configure-bonsai#install-packages-in-bonsai) or 
 [check for updates](xref:install-configure-bonsai#update-packages-in-bonsai). This tutorial assumes 
 you're using the latest software.
-
 - Read about [visualizing data](xref:visualize-data) since we recommend checking each step of the tutorial by visualizing the data produced but we don't cover it here.
 
 ## Configure the hardware
@@ -41,10 +39,12 @@ you're using the latest software.
 ![/workflows/tutorials/basic-ephys-processing/configuration.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/configuration.bonsai)
 :::
 
-Construct a [top-level configuration chain](xref:initialize-onicontext): place the
+1. Construct a [top-level configuration chain](xref:initialize-onicontext): place the
 [configuration operators](xref:configure) that correspond to the hardware you intend to use between
 <xref:OpenEphys.Onix1.CreateContext> and <xref:OpenEphys.Onix1.StartAcquisition>. In this example, these are
-<xref:OpenEphys.Onix1.ConfigureHeadstage64> and <xref:OpenEphys.Onix1.ConfigureBreakoutBoard>. Confirm that the device
+<xref:OpenEphys.Onix1.ConfigureHeadstage64> and <xref:OpenEphys.Onix1.ConfigureBreakoutBoard>.
+
+1. Confirm that the device
 that streams electrophysiology data is enabled. The Rhd2164 device (an Intan amplifier) on the headstage64 is the
 only device used in this tutorial, so you could disable other devices on the headstage and on the breakout board to improve performance if you wanted to.
 
@@ -54,15 +54,15 @@ only device used in this tutorial, so you could disable other devices on the hea
 ![/workflows/tutorials/basic-ephys-processing/ephys-data.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/ephys-data.bonsai)
 :::
 
-Place the relevant operator to stream electrophysiology data from your headstage and select the relevant output
-members. Because the device on headstage64 that streams electrophysiology data is the Rhd2164 Intan amplifier, we
-placed the <xref:OpenEphys.Onix1.Rhd2164Data> node onto the workflow. Select the relevant members from the data
-frames that the data operator produces. In this example, the relevant members are "AmplifierData" and "Clock". To select those members, right-click the `Rhd2164` node, hover over the output option in the context menu, and select it from
+1. Place the relevant operator to stream electrophysiology data from your headstage and select the relevant output members. Because the device on headstage64 that streams electrophysiology data is the Rhd2164 Intan amplifier, we
+placed the <xref:OpenEphys.Onix1.Rhd2164Data> node onto the workflow.
+
+1. Select the relevant members from the data frames that the data operator produces. In this example, the relevant members are "AmplifierData" and "Clock". To select those members, right-click the `Rhd2164` node, hover over the output option in the context menu, and select it from
 the list.
 
-<!-- placeholder for visual demonstrating the output member selection -->
+1. Visualize the raw data to confirm that the ephys data operator is streaming data. 
 
-Visualize the raw data to confirm the ephys data operator is streaming data. 
+<!-- placeholder for visual demonstrating the output member selection -->
 
 <!-- placeholder for visual demonstrating streaming data -->
 
@@ -75,32 +75,32 @@ Visualize the raw data to confirm the ephys data operator is streaming data.
 :::
 
 Connect a <xref:Bonsai.Dsp.SelectChannels> operator to the electrophysiology data stream and edit its "Channels" property.
-Remember indexing in Bonsai starts at 0. Use commas to separate multiple channels and brackets for ranges.
-Reorder channels by writing the channel numbers in the order in which you want to visualize the channels.
 
-## Convert data to physical units
+- Remember indexing in Bonsai starts at 0.
+- Use commas to list multiple channels and brackets for ranges.
+- Reorder channels by listing the channel numbers in the order in which you want to visualize the channels.
+
+## Convert ephys data to microvolts
 
 ::: workflow
 ![/workflows/tutorials/basic-ephys-processing/select-convert-ephys-data.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/select-convert-ephys-data.bonsai)
 :::
 
-1. Center the dynamic range of the ADC signal around zero
+### Center the signal around zero
+Connect a <xref:Bonsai.Dsp.ConvertScale> operator to the `SelectChannels` operator and set its properties:
+- Edit its "Shift" property to subtract 2^bit depth - 1^ from the signal. Refer to the table at the bottom of
+this tutorial to find the Shift necessary for each device.[^1] In this example, we "Shift" -32768 because the 
+Rhd2164 device outputs unsigned 16-bit data.
+- Set the "Depth" property to F32 because this bit depth is required to correctly represent scaled data from all
+devices.
 
-    Connect a <xref:Bonsai.Dsp.ConvertScale> operator to the `SelectChannels` operator and set its properties:
-    - Edit its "Shift" property to subtract 2^bit depth - 1^ from the signal. Refer to the table at the bottom of
-    this tutorial to find the Shift necessary for each device.[^1] In this example, we "Shift" -32768 because the 
-    Rhd2164 device outputs unsigned 16-bit data.
-    - Set the "Depth" property to F32 because this bit depth is required to correctly represent scaled data from all
-    devices.
-
-1. Scale the ADC signal to microvolts.
-
-    Connect a second `ConvertScale` operator to the first `ConvertScale` operator and set its properties:
-    - Edit its "Scale" property to multiply the signal by a scalar in order to get microvolt values. This scalar is
-    determined by the gain of the amplifier and resolution the ADC contained in the amplifier device. Refer to the
-    table at the bottom of this tutorial to find the "Scale" necessary for each device.[^1] In this example, we
-    "Scale" by 0.195 because the Rhd2164 device on headstage64 has a step size of 0.195 μV/bit
-    - Keep the "Depth" property at F32.
+### Scale the signal to microvolts
+Connect a second `ConvertScale` operator to the first `ConvertScale` operator and set its properties:
+- Edit its "Scale" property to multiply the signal by a scalar in order to get microvolt values. This scalar is
+determined by the gain of the amplifier and resolution the ADC contained in the amplifier device. Refer to the
+table at the bottom of this tutorial to find the "Scale" necessary for each device.[^1] In this example, we
+"Scale" by 0.195 because the Rhd2164 device on headstage64 has a step size of 0.195&nbsp;μV/bit
+- Keep the "Depth" property at F32.
 
 Visualize the transformed data to confirm the output of the shifting and scaling operations
 worked as expected, i.e. that the signal is centered around zero and that the values make sense in microvolts.
@@ -124,6 +124,8 @@ Connect a `FrequencyFilter` operator to the second `ConvertScale` operator and s
 - Set the "FilterType" property to an adequate type. In this example, we use a high pass filter to look at spikes.
 - Set the "Cutoff1" and "Cutoff2" properties to an adequate value. In this example, we use 300 Hz as the
     lower cutoff frequency. 
+
+Visualize the filtered data.
 
 <!-- placeholder for visual demonstrating the scaled, filtered data -->
 
