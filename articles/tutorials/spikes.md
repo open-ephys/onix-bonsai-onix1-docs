@@ -1,14 +1,22 @@
 ---
 uid: spikes
-title: Working with ephys data in Bonsai
+title: Signal processing of ephys data in Bonsai
 
 ---
 
 <!-- I think this tutorial should use a file to show the actual spike data and then show how to modify it for online data -->
 
 This tutorial shows how to use ONIX hardware and the OpenEphys.Onix1 Bonsai package to perform basic online signal
-processing functions such as channel selection, filtering, visualization and a simple spike detection using a fixed
-threshold. It will guide you through building the following workflow. 
+processing functions in Bonsai such as channel selection and reordering, filtering and event detection such as a fixed
+threshold crossing.
+
+This type of processing is important for real-time feedback for monitoring data being acquired. However, Bonsai's integrated visualizers and event detectors are limited.
+We recommend using the tools available in the Open Ephys GUI for specialized ephys visualizations, in particular, for data from very dense arrays such as Neuropixels probes.
+<!-- You can follow the Visualizing data in the Open Ephys GUI tutorial to set up your system to acquire in Bonsai and visualize in the Open Ephys GUI.  -->
+
+More advanced event detection algorithms such as spike sorting, ripple detection, etc. need specific implementations in Bonsai. Event detection in Bonsai will be faster and it allows actuation using ONIX or other hardware for closed-loop applications. 
+
+This tutorial will guide you through building the following workflow: 
 
 ::: workflow
 ![/workflows/tutorials/spikes.bonsai workflow](../../workflows/tutorials/spikes/spikes.bonsai)
