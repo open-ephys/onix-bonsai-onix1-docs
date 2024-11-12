@@ -3,10 +3,11 @@ uid: visualize-data
 title: Visualize Data
 ---
 
-Bonsai includes default visualizers that can be used to display data. Visualizers can be opened by double-clicking a node while the workflow is running.
-Not all operators have visualizers, because the operator data output type has to be compatible with Bonsai's default visualizers. Data frames from OpenEphys.Onix1, for example, aren't compatible with Bonsai's default visualizers, but its members are.
+Bonsai includes default ["type visualizers"](https://bonsai-rx.org/docs/articles/editor.html?#type-visualizers) that open as individual windows when double-clicking a data node to display data produced by an operator while the workflow is running.
 
-Some visualizers are available as Bonsai operators and can be found in the `Bonsai.Design.Visualizers` package, which can be installed in the Bonsai package manager. These operators must be placed in the workflow and be linked to a data operator. The visualizer can be opened by double-clicking this visualizer node instead of the preceding data node.
+Not all nodes have type visualizers, because the operator data output type has to be compatible with Bonsai's default visualizers. Data frames from OpenEphys.Onix1, for example, aren't compatible with Bonsai's default type visualizers, but its data members are.
+
+Other visualizers are available as standalone operators and can be found in the `Bonsai.Design.Visualizers` package, which can be installed in the Bonsai package manager. These visualizer operators must be placed in the workflow, linked to a data operator. The visualizer can be opened by double-clicking the visualizer node instead of the preceding data node.
 
 ## Selecting operator data members for visualization
 
@@ -48,8 +49,8 @@ Open the visualizer and check:
         >   events. For example, the <xref:OpenEphys.Onix1.DigitalInput> operator only produces data when the digital
         >   port status changes state.
 
-> [!TIP] 
-> Visualizers can be changed while the workflow is running, so Selecting and Opening visualizers steps can be done in any order. This allows you to try different visualizers (one at a time), which is particularly helpful if you don't know which visualizer you want to use.
+        > [!TIP] 
+        > Visualizers can be changed while the workflow is running, so Selecting and Opening visualizers steps can be done in any order. This allows you to try different visualizers (one at a time), which is particularly helpful if you don't know which visualizer you want to use.
 
 ## Configuring visualizers
 Some visualizers, in particular, those that involve plots, allow additional
