@@ -43,10 +43,10 @@ you're using the latest software.
 ![/workflows/tutorials/spikes/configuration.bonsai workflow](../../workflows/tutorials/spikes/configuration.bonsai)
 :::
 
-This is accomplished by constructing a [top-level configuration chain](xref:initialize-onicontext): place the
-[configuration operator](xref:configure) that corresponds to the hardware you intend to use between
-<xref:OpenEphys.Onix1.CreateContext> and <xref:OpenEphys.Onix1.StartAcquisition>. In our example, this is
-<xref:OpenEphys.Onix1.ConfigureHeadstage64> and <xref:OpenEphys.Onix1.ConfigureBreakoutBoard>. Confirm the device
+Construct a [top-level configuration chain](xref:initialize-onicontext): place the
+[configuration operators](xref:configure) that correspond to the hardware you intend to use between
+<xref:OpenEphys.Onix1.CreateContext> and <xref:OpenEphys.Onix1.StartAcquisition>. In this example, this is
+<xref:OpenEphys.Onix1.ConfigureHeadstage64> and <xref:OpenEphys.Onix1.ConfigureBreakoutBoard>. Confirm that the device
 that streams electrophysiology data is enabled. The Rhd2164 device (an Intan amplifier) on the headstage64 is the
 only device used in this tutorial, so you could disable other devices on the headstage and on the breakout board.
 
@@ -91,7 +91,7 @@ Reorder channels by writing the channel numbers in the order in which you want t
     Connect a <xref:Bonsai.Dsp.ConvertScale> operator to the `SelectChannels` operator and set its properties:
     - Edit its "Shift" property to subtract 2^bit depth - 1^ from the signal. Refer to the table at the bottom of
     this tutorial to find the Shift necessary for each device.[^1] In this example, we "Shift" -32768 because the 
-    Rhd2164 device outputs 16-bit data.
+    Rhd2164 device outputs unsigned 16-bit data.
     - Set the "Depth" property to F32 because this bit depth is required to correctly represent scaled data from all
     devices.
 
@@ -105,7 +105,7 @@ Reorder channels by writing the channel numbers in the order in which you want t
     - Keep the "Depth" property at F32.
 
 Visualize the transformed data to confirm the output of the shifting and scaling operations
-comport with expectations.
+worked as expected, i.e. that the signal is centered around zero and that the values make sense in microvolts.
 
 > [!NOTE]
 > Although both the Shift and Scale calculation can be done in one `ConvertScale` operator, the calculations are
@@ -148,9 +148,9 @@ Visualize the spike data.
 <!-- placeholder for visual demonstrating the spike data -->
 
 > [!TIP] 
-> You can test this spike detection workflow using a pre-recorded data known to have spikes. Simply recreate the
-> data processing graph in a new workflow and replace the ephys data node (in the case of the headstage64, replace
-> the `Rhd2164` node) with a `MatrixReader` that reads from the file containing spiking ephys data.
+> You can test the spike detection using a pre-recorded data known to have spikes: recreate the
+> workflow from this example without the hardware configuration chain in a new workflow and replace the ephys data node (in the case of the headstage64, replace
+> the `Rhd2164` node) with a `MatrixReader` that reads from the file containing spiking ephys data in unsigned 16-bit format.
 
 
 [^1]:
