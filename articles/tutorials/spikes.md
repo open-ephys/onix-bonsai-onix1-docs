@@ -1,6 +1,6 @@
 ---
 uid: spikes
-title: Signal processing of ephys data in Bonsai
+title: Processing ephys data in Bonsai
 
 ---
 
@@ -28,117 +28,123 @@ This tutorial will guide you through building the following workflow:
 > Use the table at the bottom of this tutorial[^1] as a reference for which ephys <xref:dataio> you need and scaling
 > corresponds to each headstage and links to relevant documentation. 
 
-1. [Get started](xref:getting-started) in Bonsai. In particular, 
-   [download the necessary Bonsai packages](xref:install-configure-bonsai#install-packages-in-bonsai) or 
-   [check for updates](xref:install-configure-bonsai#update-packages-in-bonsai). This tutorial assumes 
-   you're using the latest software.
+## Set up Bonsai
 
-1. Configure the hardware.
+Follow the [Getting Started](xref:getting-started) guide to set up Bonsai. In particular, 
+[download the necessary Bonsai packages](xref:install-configure-bonsai#install-packages-in-bonsai) or 
+[check for updates](xref:install-configure-bonsai#update-packages-in-bonsai). This tutorial assumes 
+you're using the latest software.
 
-    ::: workflow
-    ![/workflows/tutorials/spikes/configuration.bonsai workflow](../../workflows/tutorials/spikes/configuration.bonsai)
-    :::
+## Configure the hardware
 
-    
-    This is accomplished by constructing a [top-level configuration chain](xref:initialize-onicontext). First, place the
-    [configuration operator](xref:configure) that corresponds to the hardware you intend to use between
-    <xref:OpenEphys.Onix1.CreateContext> and <xref:OpenEphys.Onix1.StartAcquisition>. In our example, this is
-    <xref:OpenEphys.Onix1.ConfigureHeadstage64> and <xref:OpenEphys.Onix1.ConfigureBreakoutBoard>. Confirm the device
-    that streams electrophysiology data is enabled. The Rhd2164 device (an Intan amplifier) on the headstage64 is the
-    only device used in this tutorial, so you could disable other devices on the headstage and on the breakout board.
+::: workflow
+![/workflows/tutorials/spikes/configuration.bonsai workflow](../../workflows/tutorials/spikes/configuration.bonsai)
+:::
 
-1. Stream ephys data into Bonsai.
 
-    ::: workflow
-    ![/workflows/tutorials/spikes/ephys-data.bonsai workflow](../../workflows/tutorials/spikes/ephys-data.bonsai)
-    :::
+This is accomplished by constructing a [top-level configuration chain](xref:initialize-onicontext). First, place the
+[configuration operator](xref:configure) that corresponds to the hardware you intend to use between
+<xref:OpenEphys.Onix1.CreateContext> and <xref:OpenEphys.Onix1.StartAcquisition>. In our example, this is
+<xref:OpenEphys.Onix1.ConfigureHeadstage64> and <xref:OpenEphys.Onix1.ConfigureBreakoutBoard>. Confirm the device
+that streams electrophysiology data is enabled. The Rhd2164 device (an Intan amplifier) on the headstage64 is the
+only device used in this tutorial, so you could disable other devices on the headstage and on the breakout board.
 
-    Put the relevant operator to stream electrophysiology data from your headstage and select the relevant output
-    members. Because the device on headstage64 that streams electrophysiology data is the Rhd2164 Intan amplifier, we
-    placed the <xref:OpenEphys.Onix1.Rhd2164Data> node onto the workflow. Select the relevant members from the data
-    frames that the data operator produces. In this example, the relevant members are "AmplifierData" and "Clock". To
-    those members, we right-click the `Rhd2164` node, hover over the output option in the context menu, and select it from
-    the list.
+## Stream ephys data into Bonsai
 
-    <!-- placeholder for visual demonstrating the output member selection -->
+::: workflow
+![/workflows/tutorials/spikes/ephys-data.bonsai workflow](../../workflows/tutorials/spikes/ephys-data.bonsai)
+:::
 
-    [Visualize the raw data](xref:visualize-data) to confirm the ephys data operator is streaming data. 
+Put the relevant operator to stream electrophysiology data from your headstage and select the relevant output
+members. Because the device on headstage64 that streams electrophysiology data is the Rhd2164 Intan amplifier, we
+placed the <xref:OpenEphys.Onix1.Rhd2164Data> node onto the workflow. Select the relevant members from the data
+frames that the data operator produces. In this example, the relevant members are "AmplifierData" and "Clock". To
+those members, we right-click the `Rhd2164` node, hover over the output option in the context menu, and select it from
+the list.
 
-    <!-- placeholder for visual demonstrating streaming data -->
+<!-- placeholder for visual demonstrating the output member selection -->
 
-    <!-- Now stop the workflow -->
+[Visualize the raw data](xref:visualize-data) to confirm the ephys data operator is streaming data. 
 
-1. Select channels, and shift/scale ephys data from those channels.
+<!-- placeholder for visual demonstrating streaming data -->
 
-    ::: workflow
-    ![/workflows/tutorials/spikes/select-convert-ephys-data.bonsai workflow](../../workflows/tutorials/spikes/select-convert-ephys-data.bonsai)
-    :::
+<!-- Now stop the workflow -->
 
-    1. Select and reorder channels of interest.
-    
-        Connect a <xref:Bonsai.Dsp.SelectChannels> operator to the electrophysiology data stream and edit its "Channels" property.
-        Remember indexing starts at 0. Use commas to separate multiple channels and brackets for ranges.
-        Reorder channels by writing the channel numbers in the order in which you want to visualize the channels.
-    
-    1. Center the dynamic range of the ADC signal around zero
-    
-        Connect a <xref:Bonsai.Dsp.ConvertScale> operator to the `SelectChannels` operator and set its properties:
-        - Edit its "Shift" property to subtract 2^bit depth - 1^ from the signal. Refer to the table at the bottom of
-        this tutorial to find the Shift necessary for each device.[^1] In this example, we "Shift" -32768 because the 
-        Rhd2164 device outputs 16-bit data.
-        - Set the "Depth" property to F32 because this bit depth is required to correctly represent scaled data from all
-        devices.
+## Select and reorder channels
 
-    1. Scale the ADC signal to microvolts.
-    
-        Connect a second `ConvertScale` operator to the first `ConvertScale` operator and set its properties:
-        - Edit its "Scale" property to multiply the signal by a scalar in order to get microvolt values. This scalar is
-        determined by the gain of the amplifier and resolution the ADC contained in the amplifier device. Refer to the
-        table at the bottom of this tutorial to find the "Scale" necessary for each device.[^1] In this example, we
-        "Scale" by 0.195 because the Rhd2164 device on headstage64 has a step size of 0.195 μV/bit
-        - Keep the "Depth" property at F32.
+::: workflow
+![/workflows/tutorials/spikes/select-convert-ephys-data.bonsai workflow](../../workflows/tutorials/spikes/select-convert-ephys-data.bonsai)
+:::
 
-    Visualize the transformed data to confirm the output of the shifting and scaling operations
-    comport with expectations.
+Connect a <xref:Bonsai.Dsp.SelectChannels> operator to the electrophysiology data stream and edit its "Channels" property.
+Remember indexing starts at 0. Use commas to separate multiple channels and brackets for ranges.
+Reorder channels by writing the channel numbers in the order in which you want to visualize the channels.
 
-    > [!NOTE]
-    > Although both the Shift and Scale calculation can be done in one `ConvertScale` operator, the calculations are
-    > more straightforward using two operators connected in series because the `ConvertScale` operator applies the
-    > "Shift" offset after applying the "Scale" scalar so if we used a single operator, we would have to scale the Shift
-    > parameter.
-    
-    <!-- placeholder for visual demonstrating the scaled data -->
+## Convert data to physical units
 
-1. Filter ephys data.
+::: workflow
+![/workflows/tutorials/spikes/select-convert-ephys-data.bonsai workflow](../../workflows/tutorials/spikes/select-convert-ephys-data.bonsai)
+:::
 
-    ::: workflow
-    ![/workflows/tutorials/spikes/filter-ephys-data.bonsai workflow](../../workflows/tutorials/spikes/filter-ephys-data.bonsai)
-    :::
+1. Center the dynamic range of the ADC signal around zero
 
-    Connect a `FrequencyFilter` operator to the second `ConvertScale` operator and set its properties.
-    - Set its "SampleRate" property to 30000. Ephys data in all devices is 30 kHz. 
-    - Set the "Cutoff1" property to an adequate value for looking at spikes. In this examples, we use 300 Hz as the
-      lower cutoff frequency for a high-pass filter. 
-    
-    <!-- placeholder for visual demonstrating the scaled, filtered data -->
+    Connect a <xref:Bonsai.Dsp.ConvertScale> operator to the `SelectChannels` operator and set its properties:
+    - Edit its "Shift" property to subtract 2^bit depth - 1^ from the signal. Refer to the table at the bottom of
+    this tutorial to find the Shift necessary for each device.[^1] In this example, we "Shift" -32768 because the 
+    Rhd2164 device outputs 16-bit data.
+    - Set the "Depth" property to F32 because this bit depth is required to correctly represent scaled data from all
+    devices.
 
-1. Detect spikes.
+1. Scale the ADC signal to microvolts.
 
-    ::: workflow
-    ![/workflows/tutorials/spikes/spikes.bonsai workflow](../../workflows/tutorials/spikes/spikes.bonsai)
-    :::
+    Connect a second `ConvertScale` operator to the first `ConvertScale` operator and set its properties:
+    - Edit its "Scale" property to multiply the signal by a scalar in order to get microvolt values. This scalar is
+    determined by the gain of the amplifier and resolution the ADC contained in the amplifier device. Refer to the
+    table at the bottom of this tutorial to find the "Scale" necessary for each device.[^1] In this example, we
+    "Scale" by 0.195 because the Rhd2164 device on headstage64 has a step size of 0.195 μV/bit
+    - Keep the "Depth" property at F32.
 
-    Based on the amplitude of the signal, set a fixed threshold for detecting spikes. <!-- discuss these details -->
+Visualize the transformed data to confirm the output of the shifting and scaling operations
+comport with expectations.
 
-    Visualize the spike data.
+> [!NOTE]
+> Although both the Shift and Scale calculation can be done in one `ConvertScale` operator, the calculations are
+> more straightforward using two operators connected in series because the `ConvertScale` operator applies the
+> "Shift" offset after applying the "Scale" scalar so if we used a single operator, we would have to scale the Shift
+> parameter.
 
-    <!-- placeholder for visual demonstrating the spike data -->
+<!-- placeholder for visual demonstrating the scaled data -->
 
-    > [!TIP] 
-    > You can test this spike detection workflow using a pre-recorded data known to have spikes. Simply recreate the
-    > data processing graph in a new workflow and replace the ephys data node (in the case of the headstage64, replace
-    > the `Rhd2164` node) with a `MatrixReader` that reads from the file containing spiking ephys data.
-    
+## Apply a frequency filter
+
+::: workflow
+![/workflows/tutorials/spikes/filter-ephys-data.bonsai workflow](../../workflows/tutorials/spikes/filter-ephys-data.bonsai)
+:::
+
+Connect a `FrequencyFilter` operator to the second `ConvertScale` operator and set its properties.
+- Set its "SampleRate" property to 30000. Ephys data in all devices is 30 kHz. 
+- Set the "Cutoff1" property to an adequate value for looking at spikes. In this examples, we use 300 Hz as the
+    lower cutoff frequency for a high-pass filter. 
+
+<!-- placeholder for visual demonstrating the scaled, filtered data -->
+
+## Detect events
+
+::: workflow
+![/workflows/tutorials/spikes/spikes.bonsai workflow](../../workflows/tutorials/spikes/spikes.bonsai)
+:::
+
+Based on the amplitude of the signal, set a fixed threshold for detecting spikes. <!-- discuss these details -->
+
+Visualize the spike data.
+
+<!-- placeholder for visual demonstrating the spike data -->
+
+> [!TIP] 
+> You can test this spike detection workflow using a pre-recorded data known to have spikes. Simply recreate the
+> data processing graph in a new workflow and replace the ephys data node (in the case of the headstage64, replace
+> the `Rhd2164` node) with a `MatrixReader` that reads from the file containing spiking ephys data.
+
 <!-- > [!TIP] 
 > If you choose to save data, make sure you place the `MatrixWriter` operator before filtering and scaling to save raw
 > data instead of scaled or scaled, filtered data. The `FrequencyFilter` operator could remove signals from a bandwidth
