@@ -1,2 +1,4 @@
 - href: index.md
-  items: 
+  items: [
+    href: basic-ephys-processing.md
+  ]
