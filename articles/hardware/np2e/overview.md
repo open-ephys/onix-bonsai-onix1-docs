@@ -5,7 +5,7 @@ title: NeuropixelsV2e Headstage
 
 These are the devices available on the NeuropixelsV2e Headstage:
 
-- Supports up to two [IMEC Neuropixels 2.0 probes](xref:np2e_npv2e):
+- Supports up to two [IMEC Neuropixels 2.0 probes](xref:np2e_np2):
     - Either 1x or 4x silicon shanks with a 70 x 24 µm cross-section.
     - 1280 electrodes low-impedance TiN electrodes per shank (5120 total for quad-shank probes).
     - 384 parallel, full-band (AP, LFP), low-noise recording channels.

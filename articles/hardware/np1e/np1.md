@@ -1,13 +1,13 @@
 ---
-uid: np1e_npv1e
+uid: np1e_np1
 title: NeuropixelsV1e
 hardware: NeuropixelsV1e Headstage
 ---
 
-The following excerpt from the NeuropixelsV1e Headstage [example workflow](xref:np1e_npv1e-headstage) demonstrates NeuropixelsV1e functionality by streaming and saving probe data.
+The following excerpt from the NeuropixelsV1e Headstage [example workflow](xref:np1e) demonstrates NeuropixelsV1e functionality by streaming and saving probe data.
 
 ::: workflow
-![/workflows/hardware/breakout/np1.bonsai workflow](../../../workflows/hardware/np1e/np1.bonsai)
+![/workflows/hardware/np1e/np1.bonsai workflow](../../../workflows/hardware/np1e/np1.bonsai)
 :::
 
 The <xref:OpenEphys.Onix1.NeuropixelsV1eData> operator generates a sequence of <xref:OpenEphys.Onix1.NeuropixelsV1DataFrame>s using the following settings:
