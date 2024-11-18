@@ -18,7 +18,7 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:MatrixWriter">
           <dsp:Path>np1-clock_.raw</dsp:Path>
-          <dsp:Suffix>Timestamp</dsp:Suffix>
+          <dsp:Suffix>FileCount</dsp:Suffix>
           <dsp:Overwrite>false</dsp:Overwrite>
           <dsp:Layout>ColumnMajor</dsp:Layout>
         </Combinator>
@@ -29,7 +29,7 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:MatrixWriter">
           <dsp:Path>np1-spike_.raw</dsp:Path>
-          <dsp:Suffix>Timestamp</dsp:Suffix>
+          <dsp:Suffix>FileCount</dsp:Suffix>
           <dsp:Overwrite>false</dsp:Overwrite>
           <dsp:Layout>ColumnMajor</dsp:Layout>
         </Combinator>
@@ -40,7 +40,7 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:MatrixWriter">
           <dsp:Path>np1-lfp_.raw</dsp:Path>
-          <dsp:Suffix>Timestamp</dsp:Suffix>
+          <dsp:Suffix>FileCount</dsp:Suffix>
           <dsp:Overwrite>false</dsp:Overwrite>
           <dsp:Layout>ColumnMajor</dsp:Layout>
         </Combinator>

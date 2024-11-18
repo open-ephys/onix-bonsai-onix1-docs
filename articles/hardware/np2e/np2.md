@@ -1,5 +1,5 @@
 ---
-uid: np2e_npv2e
+uid: np2e_np2
 title: NeuropixelsV2e
 hardware: NeuropixelsV2e Headstage
 ---
@@ -10,7 +10,7 @@ hardware: NeuropixelsV2e Headstage
 The following excerpt from the NeuropixelsV2e Headstage [example workflow](xref:np2e) demonstrates Neuropixels 2.0 probe functionality by streaming data and saves Neuropixels 2.0 probe data. The second chain  is disabled by default, assuming that only one probe is connected to the headstage. If two probes are connected, the second `NeuropixelsV2eData` chain can be enabled to stream data from both probes simultaneously. To enable, select all nodes in the disabled chain and press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>, or click `Enable` right-clicking the selected nodes.
 
 ::: workflow
-![/workflows/hardware/breakout/np2.bonsai workflow](../../../workflows/hardware/np2e/np2.bonsai)
+![/workflows/hardware/np2e/np2.bonsai workflow](../../../workflows/hardware/np2e/np2.bonsai)
 :::
 
 The <xref:OpenEphys.Onix1.NeuropixelsV2eData> operator generates a sequence of <xref:OpenEphys.Onix1.NeuropixelsV2eDataFrame>s. In the NeuropixelsV2e Headstage example workflow,

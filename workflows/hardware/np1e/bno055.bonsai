@@ -9,15 +9,16 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="onix1:PolledBno055Data">
           <onix1:DeviceName>NeuropixelsV1eHeadstage/PolledBno055</onix1:DeviceName>
+          <onix1:PolledRegisters>All</onix1:PolledRegisters>
         </Combinator>
       </Expression>
       <Expression xsi:type="io:CsvWriter">
         <io:FileName>bno055_.csv</io:FileName>
         <io:Append>false</io:Append>
         <io:Overwrite>false</io:Overwrite>
-        <io:Suffix>Timestamp</io:Suffix>
+        <io:Suffix>FileCount</io:Suffix>
         <io:IncludeHeader>false</io:IncludeHeader>
-        <io:Selector>it</io:Selector>
+        <io:Selector>Clock,EulerAngle,Quaternion,Acceleration,Gravity,Temperature</io:Selector>
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>Quaternion</Selector>

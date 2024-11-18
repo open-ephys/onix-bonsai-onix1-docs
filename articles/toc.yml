@@ -42,10 +42,11 @@
     - name: Port Status
       href: hardware/np1e/port-status.md
     - name: Neuropixels 1.0 Data
-      href: hardware/np1e/npv1e.md
+      href: hardware/np1e/np1.md
     - name: Orientation Data & Commutation
       href: hardware/np1e/bno055.md
     - href: hardware/np1e/gui.md
+    - href: hardware/np1e/load-data.md
   - href: hardware/np2e/overview.md
     items: 
     - name: Configuration
@@ -53,7 +54,7 @@
     - name: Port Status
       href: hardware/np2e/port-status.md
     - name: Neuropixels 2.0 Data
-      href: hardware/np2e/npv2e.md
+      href: hardware/np2e/np2.md
     - name: Orientation Data & Commutation
       href: hardware/np2e/bno055.md
     - href: hardware/np2e/gui.md 
