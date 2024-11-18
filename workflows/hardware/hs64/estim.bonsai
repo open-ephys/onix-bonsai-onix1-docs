@@ -15,7 +15,7 @@
       </Expression>
       <Expression xsi:type="HasFlag">
         <Operand xsi:type="WorkflowProperty" TypeArguments="onix1:BreakoutButtonState">
-          <Value>Moon</Value>
+          <Value>Triangle</Value>
         </Operand>
       </Expression>
       <Expression xsi:type="Combinator">
