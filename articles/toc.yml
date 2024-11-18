@@ -58,6 +58,7 @@
     - name: Orientation Data & Commutation
       href: hardware/np2e/bno055.md
     - href: hardware/np2e/gui.md 
+    - href: hardware/np2e/load-data.md
   - href: hardware/hs64/overview.md
     items: 
     - name: Example Workflow
