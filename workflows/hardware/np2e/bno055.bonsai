@@ -9,6 +9,7 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="onix1:PolledBno055Data">
           <onix1:DeviceName>NeuropixelsV2eHeadstage/PolledBno055</onix1:DeviceName>
+          <onix1:PolledRegisters>All</onix1:PolledRegisters>
         </Combinator>
       </Expression>
       <Expression xsi:type="io:CsvWriter">
@@ -22,14 +23,12 @@
       <Expression xsi:type="MemberSelector">
         <Selector>Quaternion</Selector>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="OpenEphys.Commutator:AutoCommutator.bonsai">
-        <RotationAxis>
-          <X>0</X>
-          <Y>-1</Y>
-          <Z>0</Z>
-        </RotationAxis>
-        <LedEnable>true</LedEnable>
-        <PortName>COM4</PortName>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="OpenEphys.Commutator:AutoCommutator.bonsai">
+          <PortName>COM4</PortName>
+          <Enable>true</Enable>
+          <EnableLed>true</EnableLed>
+        </Builder>
       </Expression>
     </Nodes>
     <Edges>
