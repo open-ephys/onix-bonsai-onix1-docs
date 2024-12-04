@@ -5,7 +5,7 @@ title: NeuropixelsV1e Headstage
 
 These are the devices available on the NeuropixelsV1e Headstage:
 
-- One [NeuropixelsV1e](xref:np1e_np1):
+- Supports one [NeuropixelsV1e](xref:np1e_np1):
     - A single 1cm long shank probe with a 70 x 24 µm shank cross-section.
     - 960-electrode low-impedance TiN electrodes total.
     - 384 parallel, dual-band (AP, LFP), low-noise recording channels.

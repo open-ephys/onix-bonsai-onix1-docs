@@ -19,7 +19,7 @@
         <io:FileName>port-status_.csv</io:FileName>
         <io:Append>false</io:Append>
         <io:Overwrite>false</io:Overwrite>
-        <io:Suffix>Timestamp</io:Suffix>
+        <io:Suffix>FileCount</io:Suffix>
         <io:IncludeHeader>false</io:IncludeHeader>
         <io:Selector>Timestamp,Value.Clock,Value.StatusCode,Value.SerdesLocked,Value.SerdesPass</io:Selector>
       </Expression>

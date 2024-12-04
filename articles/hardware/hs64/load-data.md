@@ -1,11 +1,11 @@
 ---
-uid: breakout_load-data
+uid: hs64_load-data
 title: Load Data
 ---
 
-The following python script can be used to load and plot the data produced by the Breakout Board [example workflow](xref:breakout_workflow).
+The following python script can be used to load and plot the data produced by the Headstage64 [example workflow](xref:hs64_workflow).
 
-[!code-python[](../../../workflows/hardware/breakout/load-breakoutboard.py)]
+[!code-python[](../../../workflows/hardware/hs64/load-hs64.py)]
 
 > [!NOTE]
 > This script will attempt to load entire files into arrays. For long recordings, data will need to

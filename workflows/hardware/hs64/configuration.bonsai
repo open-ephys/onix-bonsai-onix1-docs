@@ -25,7 +25,7 @@
           <onix1:AnalogIO>
             <onix1:DeviceName>BreakoutBoard/AnalogIO</onix1:DeviceName>
             <onix1:DeviceAddress>6</onix1:DeviceAddress>
-            <onix1:Enable>true</onix1:Enable>
+            <onix1:Enable>false</onix1:Enable>
             <onix1:InputRange0>TenVolts</onix1:InputRange0>
             <onix1:InputRange1>TenVolts</onix1:InputRange1>
             <onix1:InputRange2>TenVolts</onix1:InputRange2>
@@ -67,7 +67,7 @@
           <onix1:HarpInput>
             <onix1:DeviceName>BreakoutBoard/HarpSyncInput</onix1:DeviceName>
             <onix1:DeviceAddress>12</onix1:DeviceAddress>
-            <onix1:Enable>true</onix1:Enable>
+            <onix1:Enable>false</onix1:Enable>
             <onix1:Source>Breakout</onix1:Source>
           </onix1:HarpInput>
           <onix1:MemoryMonitor>
@@ -124,7 +124,7 @@
         <io:FileName>start-time_.csv</io:FileName>
         <io:Append>false</io:Append>
         <io:Overwrite>false</io:Overwrite>
-        <io:Suffix>Timestamp</io:Suffix>
+        <io:Suffix>FileCount</io:Suffix>
         <io:IncludeHeader>true</io:IncludeHeader>
         <io:Selector>Timestamp,Value.AcquisitionClockHz,Value.BlockReadSize,Value.BlockWriteSize</io:Selector>
       </Expression>
