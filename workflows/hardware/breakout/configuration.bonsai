@@ -91,7 +91,7 @@
         <io:FileName>start-time_.csv</io:FileName>
         <io:Append>false</io:Append>
         <io:Overwrite>false</io:Overwrite>
-        <io:Suffix>Timestamp</io:Suffix>
+        <io:Suffix>FileCount</io:Suffix>
         <io:IncludeHeader>false</io:IncludeHeader>
         <io:Selector>Timestamp,Value.AcquisitionClockHz,Value.BlockReadSize,Value.BlockWriteSize</io:Selector>
       </Expression>

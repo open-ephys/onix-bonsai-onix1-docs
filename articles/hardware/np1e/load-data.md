@@ -1,6 +1,6 @@
 ---
 uid: np1e_load-data
-title: Load NeuropixelsV1e Headstage Data
+title: Load Data
 ---
 
 The following python script can be used to load and plot the data produced by the NeuropixelsV1e Headstage [example workflow](xref:np1e).

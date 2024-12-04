@@ -15,7 +15,7 @@
         <io:ListSeparator />
         <io:Append>false</io:Append>
         <io:Overwrite>false</io:Overwrite>
-        <io:Suffix>Timestamp</io:Suffix>
+        <io:Suffix>FileCount</io:Suffix>
         <io:IncludeHeader>false</io:IncludeHeader>
         <io:Selector>Clock,DigitalInputs,Buttons</io:Selector>
       </Expression>

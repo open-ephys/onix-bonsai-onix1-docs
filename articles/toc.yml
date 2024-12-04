@@ -39,25 +39,27 @@
     items: 
     - name: Configuration
       href: hardware/np1e/configuration.md
+    - href: hardware/np1e/gui.md
     - name: Port Status
       href: hardware/np1e/port-status.md
     - name: Neuropixels 1.0 Data
       href: hardware/np1e/np1.md
     - name: Orientation Data & Commutation
       href: hardware/np1e/bno055.md
-    - href: hardware/np1e/gui.md
+    - href: hardware/np1e/memory-monitor.md
     - href: hardware/np1e/load-data.md
   - href: hardware/np2e/overview.md
     items: 
     - name: Configuration
       href: hardware/np2e/configuration.md
+    - href: hardware/np2e/gui.md 
     - name: Port Status
       href: hardware/np2e/port-status.md
     - name: Neuropixels 2.0 Data
       href: hardware/np2e/np2.md
     - name: Orientation Data & Commutation
       href: hardware/np2e/bno055.md
-    - href: hardware/np2e/gui.md 
+    - href: hardware/np2e/memory-monitor.md
     - href: hardware/np2e/load-data.md
   - href: hardware/hs64/overview.md
     items: 
@@ -73,9 +75,10 @@
       href: hardware/hs64/bno055.md
     - name: Position Data
       href: hardware/hs64/ts4231.md
-    # - name: Electrical Stimulation
-    #   href: hardware/hs64/estim.md
-    # - name: Optical Stimulation
-    #   href: hardware/hs64/ostim.md
+    - name: Electrical Stimulation
+      href: hardware/hs64/estim.md
+    - name: Optical Stimulation
+      href: hardware/hs64/ostim.md
     - name: Memory Monitor
       href: hardware/hs64/memory-monitor.md
+    - href: hardware/hs64/load-data.md

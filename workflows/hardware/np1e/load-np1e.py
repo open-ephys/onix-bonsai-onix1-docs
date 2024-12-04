@@ -80,8 +80,8 @@ ax[1].set_xlabel("time (sec)")
 ax[1].set_ylabel("LFP (µV)")
 
 #%% Bno055
-dt = {'names': ('euler', 'quat', 'is_quat_id', 'accel', 'grav', 'temp', 'calibration', 'clock'),
-      'formats': ('(1,3)f8', '(1,4)f8', '?', '(1,3)f8', '(1,3)f8', 'f8', '?', 'u8')}
+dt = {'names': ('clock', 'euler', 'quat', 'is_quat_id', 'accel', 'grav', 'temp'),
+      'formats': ('u8', '(1,3)f8', '(1,4)f8', '?', '(1,3)f8', '(1,3)f8', 'f8', '?')}
 bno055 = np.genfromtxt(os.path.join(data_directory, f'bno055_{suffix}.csv'), delimiter=',', dtype=dt)
 
 bno055_time = bno055['clock'] / meta['acq_clk_hz']
@@ -125,3 +125,5 @@ plt.title('Headstage Temp.')
 plt.tight_layout()
 
 plt.show()
+
+fig.suptitle('BNO055 Data')
