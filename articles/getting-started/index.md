@@ -3,10 +3,11 @@ uid: getting-started
 title: Getting Started
 ---
 
-Welcome to the user guide! The next few pages are dedicated to users who are unfamiliar with ONIX
-and Bonsai, and will teach them what ONIX is, how to download and install Bonsai, open a new file,
-place operators (and understand what an operator is), reorder a workflow, run a workflow, and
-finally visualize data.
+Welcome to the user guide! The next few pages are for users to learn how to use ONIX hardware using the OpenEphys.Onix1
+Bonsai package. Browse the articles in the table of contents to learn more.
 
-For those who are already familiar with Bonsai and ONIX and are looking for a particular device or headstage
-to learn about and how to utilize, visit the <xref:hardware>.
+This software documentation is intended to be used hand-in-hand with the 
+[Hardware documentation](https://open-ephys.github.io/onix-docs/index.html) to learn about and start using their ONIX hardware. 
+
+For those who are looking for user guides and example workflows for using a particular device or headstage in Bonsai, visit
+the <xref:hardware>.

@@ -19,7 +19,7 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:MatrixWriter">
           <dsp:Path>np2beta-a-clock_.raw</dsp:Path>
-          <dsp:Suffix>Timestamp</dsp:Suffix>
+          <dsp:Suffix>FileCount</dsp:Suffix>
           <dsp:Overwrite>false</dsp:Overwrite>
           <dsp:Layout>ColumnMajor</dsp:Layout>
         </Combinator>
@@ -30,7 +30,7 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:MatrixWriter">
           <dsp:Path>np2beta-a-amp_.raw</dsp:Path>
-          <dsp:Suffix>Timestamp</dsp:Suffix>
+          <dsp:Suffix>FileCount</dsp:Suffix>
           <dsp:Overwrite>false</dsp:Overwrite>
           <dsp:Layout>ColumnMajor</dsp:Layout>
         </Combinator>
@@ -53,7 +53,7 @@
         <Builder xsi:type="Combinator">
           <Combinator xsi:type="dsp:MatrixWriter">
             <dsp:Path>np2beta-b-clock_.raw</dsp:Path>
-            <dsp:Suffix>Timestamp</dsp:Suffix>
+            <dsp:Suffix>FileCount</dsp:Suffix>
             <dsp:Overwrite>false</dsp:Overwrite>
             <dsp:Layout>ColumnMajor</dsp:Layout>
           </Combinator>
@@ -68,7 +68,7 @@
         <Builder xsi:type="Combinator">
           <Combinator xsi:type="dsp:MatrixWriter">
             <dsp:Path>np2beta-b-amp_.raw</dsp:Path>
-            <dsp:Suffix>Timestamp</dsp:Suffix>
+            <dsp:Suffix>FileCount</dsp:Suffix>
             <dsp:Overwrite>false</dsp:Overwrite>
             <dsp:Layout>ColumnMajor</dsp:Layout>
           </Combinator>

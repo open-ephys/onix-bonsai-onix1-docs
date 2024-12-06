@@ -1,6 +1,6 @@
 ---
 uid: breakout_load-data
-title: Load Breakout Board Data
+title: Load Data
 ---
 
 The following python script can be used to load and plot the data produced by the Breakout Board [example workflow](xref:breakout_workflow).

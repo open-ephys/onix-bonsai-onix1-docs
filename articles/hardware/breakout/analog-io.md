@@ -91,8 +91,8 @@ operators each select a member from the `AnalogInputDataFrame`, `Clock` and `Ana
 contain the <xref:OpenEphys.Onix1.ContextTask.AcquisitionClockHz>-based sample times and sample
 values, respectively. The
 [MatrixWriter](https://bonsai-rx.org/docs/api/Bonsai.Dsp.MatrixWriter.html) operators saves the
-selected members to files with the following format: `analog-clock_<timestamp>.raw` and
-`analog-data_<timestamp>.raw`, respectively. 
+selected members to files with the following format: `analog-clock_<filecount>.raw` and
+`analog-data_<filecount>.raw`, respectively. 
 
 > [!Tip]
 > The easiest way to add a

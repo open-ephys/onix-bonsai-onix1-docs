@@ -1,0 +1,48 @@
+<p>
+  The following excerpt from the Breakout Board <a class="xref" href="~/articles/hardware/{{{workflowDirectory}}}.html">example workflow</a> demonstrates
+  memory monitor functionality.
+</p>
+
+<div class="workflow"> 
+  <p><img src="~/workflows/{{{oe.path}}}.bonsai" alt="~/workflows/{{{oe.path}}}.bonsai workflow"></p>
+</div>
+
+<p>
+  The <a class="xref" href="../../../api/OpenEphys.Onix1.MemoryMonitorData.html">MemoryMonitorData</a> operator
+  generates a sequence of <a class="xref"
+    href="../../../api/OpenEphys.Onix1.MemoryMonitorDataFrame.html">MemoryMonitorDataFrame</a>s.
+  <code>MemoryMonitorData</code> emits <code>MemoryMonitorDataFrame</code>s at a regular interval defined during <a
+    class="xref" href="configuration.html">Breakout Board Configuration</a> using the <a class="xref"
+    href="../../../api/OpenEphys.Onix1.ConfigureBreakoutBoard.html">ConfigureBreakoutBoard</a>'s
+  <code>MemoryMonitor SamplesPerSecond</code> property (in our case 10 Hz). In the Breakout Board example workflow, the
+  <code>MemoryMonitorData</code>'s <code>DeviceName</code> property is set to &quot;BreakoutBoard/MemoryMonitor&quot;.
+  This links the <code>MemoryMonitorData</code> operator to the corresponding configuration operator. The
+  <code>MemberSelector</code> operator selects the <code>PercentUsed</code> member from the
+  <code>MemoryMonitorDataFrame</code> so the user can visualize <code>PercentUsed</code> data from the
+  <code>MemoryMonitorDataFrame</code>.
+</p>
+
+<div class="NOTE">
+  <h5>Note</h5>
+  <p>
+    The <code>MemoryMonitorDataFrame</code> operator generates a data stream that is most useful in the context of
+    closed-loop performance. It tells the user if data is being consumed rapidly enough by the host PC to keep up with
+    data production by the hardware. The hardware FIFO is a buffer that is required to deal with the fact that computers
+    with normal operating systems cannot perform operations with strict regularity. When there are hiccups in
+    acquisition, the hardware FIFO picks up the slack, but should then be cleared immediately. To get the lowest
+    latencies, the <code>BlockReadSize</code> should be as small as possible <em>while the memory use percentage remains
+    around 0%</em>.
+  </p>
+</div>
+
+<div class="WARNING">
+  <h5>Warning</h5>
+  <p>
+    If the hardware FIFO's <code>PercentUsed</code> is non-zero for long time periods, or is increasing, the
+    <code>StartAcquisition</code>'s <code>BlockReadSize</code> setting is too small (see the <a class="xref"
+      href="configuration.html">breakout board configuration</a>). A small
+    <code>BlockReadSize</code> will mean that the host computer does not have to wait long for enough data to
+    become available to propagate it forward, but will reduce overall bandwidth by increasing the
+    frequency at which the host computer checks if data is available and performs hardware reads.
+  </p>
+</div>

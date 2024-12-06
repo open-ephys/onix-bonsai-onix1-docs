@@ -92,7 +92,7 @@
         <io:FileName>start-time_.csv</io:FileName>
         <io:Append>false</io:Append>
         <io:Overwrite>false</io:Overwrite>
-        <io:Suffix>Timestamp</io:Suffix>
+        <io:Suffix>FileCount</io:Suffix>
         <io:IncludeHeader>false</io:IncludeHeader>
         <io:Selector>Timestamp,Value</io:Selector>
       </Expression>
@@ -109,7 +109,7 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:MatrixWriter">
           <dsp:Path>analog-clock_.raw</dsp:Path>
-          <dsp:Suffix>Timestamp</dsp:Suffix>
+          <dsp:Suffix>FileCount</dsp:Suffix>
           <dsp:Overwrite>false</dsp:Overwrite>
           <dsp:Layout>ColumnMajor</dsp:Layout>
         </Combinator>
@@ -120,7 +120,7 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:MatrixWriter">
           <dsp:Path>analog-data_.raw</dsp:Path>
-          <dsp:Suffix>Timestamp</dsp:Suffix>
+          <dsp:Suffix>FileCount</dsp:Suffix>
           <dsp:Overwrite>false</dsp:Overwrite>
           <dsp:Layout>ColumnMajor</dsp:Layout>
         </Combinator>
@@ -197,7 +197,7 @@
         <io:FileName>digital-data_.csv</io:FileName>
         <io:Append>false</io:Append>
         <io:Overwrite>false</io:Overwrite>
-        <io:Suffix>Timestamp</io:Suffix>
+        <io:Suffix>FileCount</io:Suffix>
         <io:IncludeHeader>false</io:IncludeHeader>
         <io:Selector>Clock,DigitalInputs,Buttons</io:Selector>
       </Expression>
@@ -243,7 +243,7 @@
         <io:FileName>harp-sync_.csv</io:FileName>
         <io:Append>false</io:Append>
         <io:Overwrite>false</io:Overwrite>
-        <io:Suffix>Timestamp</io:Suffix>
+        <io:Suffix>FileCount</io:Suffix>
         <io:IncludeHeader>false</io:IncludeHeader>
         <io:Selector>Clock,HarpTime</io:Selector>
       </Expression>
@@ -256,21 +256,13 @@
         <io:FileName>output-clock_.csv</io:FileName>
         <io:Append>false</io:Append>
         <io:Overwrite>false</io:Overwrite>
-        <io:Suffix>Timestamp</io:Suffix>
+        <io:Suffix>FileCount</io:Suffix>
         <io:IncludeHeader>false</io:IncludeHeader>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="onix1:MemoryMonitorData">
           <onix1:DeviceName>BreakoutBoard/MemoryMonitor</onix1:DeviceName>
         </Combinator>
-      </Expression>
-      <Expression xsi:type="io:CsvWriter">
-        <io:FileName>memory-use_.csv</io:FileName>
-        <io:Append>false</io:Append>
-        <io:Overwrite>false</io:Overwrite>
-        <io:Suffix>Timestamp</io:Suffix>
-        <io:IncludeHeader>false</io:IncludeHeader>
-        <io:Selector>Clock,BytesUsed,PercentUsed</io:Selector>
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>PercentUsed</Selector>
@@ -306,8 +298,7 @@
       <Edge From="23" To="24" Label="Source1" />
       <Edge From="25" To="26" Label="Source1" />
       <Edge From="27" To="28" Label="Source1" />
-      <Edge From="28" To="29" Label="Source1" />
-      <Edge From="30" To="31" Label="Source1" />
+      <Edge From="29" To="30" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

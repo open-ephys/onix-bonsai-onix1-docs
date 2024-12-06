@@ -15,7 +15,7 @@
         <io:FileName>output-clock_.csv</io:FileName>
         <io:Append>false</io:Append>
         <io:Overwrite>false</io:Overwrite>
-        <io:Suffix>Timestamp</io:Suffix>
+        <io:Suffix>FileCount</io:Suffix>
         <io:IncludeHeader>false</io:IncludeHeader>
       </Expression>
     </Nodes>

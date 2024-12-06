@@ -8,8 +8,8 @@ The example workflow below can by copy/pasted into the Bonsai editor using the c
 - Captures orientation data from the Bno055 IMU and saves it to disk.
 - Monitors the Headstage64 port status.
 - Automatically commutates the tether if there is a proper commutator connection. 
-- Applies electrical stimulation triggered by pressing the breakout board's ☾ key.
-- Applies optical stimulation triggered by pressing the breakout board's △ key.
+- Applies electrical stimulation triggered by pressing the breakout board's △ key.
+- Applies optical stimulation triggered by pressing the breakout board's ◯ key.
 - Monitors memory usage data.
 
 ::: workflow

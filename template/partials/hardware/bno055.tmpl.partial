@@ -1,5 +1,5 @@
 <p>
-  The following excerpt from the {{{hardware}}} <a class="xref" href="~/articles/hardware/{{{oe.hardwareDirectory}}}/overview.html">example workflow</a> demonstrates Bno055 functionality, saves Bno055 data, and commutates the {{{hardware}}} if there is a proper commutator connection.
+  The following excerpt from the {{{hardware}}} <a class="xref" href="~/articles/hardware/{{{workflowDirectory}}}.html">example workflow</a> demonstrates Bno055 functionality, saves Bno055 data, and commutates the {{{hardware}}} if there is a proper commutator connection.
 </p> 
 
 <div class="workflow"> 
@@ -11,14 +11,14 @@
 </p>
 
 <p>
-  The <a class="xref" href="https://bonsai-rx.org/docs/api/Bonsai.IO.CsvWriter.html">CsvWriter</a> operator writes the entire <code>Bno055DataFrame</code> to a file with the following format: <code>bno055_&lt;timestamp&gt;.csv</code>. Because <code>CsvWriter</code> is a <em>sink</em> operator, its output sequence is equivalent to its input sequence (i.e., <code>{{{bnoOperator}}}</code>'s output). This means that the <code>Quaternion</code> property (originally from <code>{{{bnoOperator}}}</code>) can be selected from the <code>CsvWriter</code> operator by right-clicking the operator and selecting the proper Output property. 
+  The <a class="xref" href="https://bonsai-rx.org/docs/api/Bonsai.IO.CsvWriter.html">CsvWriter</a> operator writes the entire <code>Bno055DataFrame</code> to a file with the following format: <code>bno055_&lt;filecount&gt;.csv</code>. Because <code>CsvWriter</code> is a <em>sink</em> operator, its output sequence is equivalent to its input sequence (i.e., <code>{{{bnoOperator}}}</code>'s output). This means that the <code>Quaternion</code> property (originally from <code>{{{bnoOperator}}}</code>) can be selected from the <code>CsvWriter</code> operator by right-clicking the operator and selecting the proper Output property. 
 </p>
 
 <p>
   <code>Quaternion</code> values are passed to the "AutoCommutator" <code>IncludeWorkflow</code> operator, which will automatically commutate the headstage if there is a proper commutator connected. "AutoCommutator" comes from the <code>OpenEphys.Commutator</code> Bonsai package. Its properties allow you to enable/disable the LED on the commutator using the <code>LedEnable</code> property, set the COM port using the <code>PortName</code> property, and set the orientation of the Bno055 orientation sensor using the headstage <code>RotationAxis</code> property. The <code>RotationAxis</code> is already correctly set for the {{{hardware}}}. However, the correct COM port value varies from system to system. You must find and set the correct COM port to which your commutator is connected in your system.
 </p>
 
-<div class="NOTE alert alert-info">
+<div class="NOTE">
   <h5>NOTE</h5>
   <p>The <code>AutoCommutator</code> operator is included in the workflow by default because it is so commonly used with {{{hardware}}}. However, it is disabled for people without a commutator to be able to run the workflow. To enable it, select the node and press <kbd>Ctrl + Shift + D</kbd> or select "Enable" in the context menu that appears after right-clicking the node.</p>
 </div>
