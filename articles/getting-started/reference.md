@@ -36,8 +36,8 @@ analog input.
 
 [^3]: The Breakout Board analog output can be configured to accept units of volt or DAC step size (305.17578125 μV/bit).
 The appropriate "Scale" value is only relevant if you are ouputting in units of volts depends on the chosen analog
-output datatype. This datatype is configured by editing the <xref:OpenEphys.Onix1.AnalogOutput> operator's
-`AnalogOutput` operator's `DataType` property. This data is signed already, so no shift is necessary.
+output datatype. This datatype is configured by editing <xref:OpenEphys.Onix1.AnalogOutput>'s `DataType` property. This
+data is already signed, so no shift is necessary.
 
 > [!TIP]
 > - If you are trying to insert the "Offset" value from this table into the "Offset" field in the Open Ephys GUI, insert
