@@ -99,3 +99,11 @@ ol ol, ol ul {
 ol li div {
   margin-bottom: 0rem !important
 }
+
+[data-bs-theme=dark] #logo {
+  content:url("../logo-dark-mode.svg");
+}
+
+[data-bs-theme=light] #logo {
+  content:url("../logo-light-mode.svg");
+}
