@@ -1,5 +1,5 @@
 <p>
-  The following excerpt from the {{{hardware}}} <a class="xref" href="~/articles/hardware/{{{workflowDirectory}}}.html">example workflow</a> demonstrates Bno055 functionality, saves Bno055 data, and commutates the {{{hardware}}} if there is a proper commutator connection.
+  The following excerpt from the {{{hardware}}} <a class="xref" href="~/articles/hardware/{{{oe.hardwareDirectory}}}/{{{workflowLocation}}}.html">example workflow</a> demonstrates Bno055 functionality, saves Bno055 data, and commutates the {{{hardware}}} if there is a proper commutator connection.
 </p> 
 
 <div class="workflow"> 

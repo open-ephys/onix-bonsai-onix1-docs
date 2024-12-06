@@ -91,7 +91,7 @@
             <onix1:SensorGain>High</onix1:SensorGain>
             <onix1:InterleaveLed>false</onix1:InterleaveLed>
             <onix1:LedBrightness>30</onix1:LedBrightness>
-            <onix1:LiquidLensVoltage>50</onix1:LiquidLensVoltage>
+            <onix1:LiquidLensVoltage>24.4</onix1:LiquidLensVoltage>
           </onix1:Camera>
           <onix1:Bno055>
             <onix1:DeviceName>UclaMiniscopeV4/PolledBno055</onix1:DeviceName>
@@ -101,12 +101,12 @@
             <onix1:AxisSign>MirrorZ MirrorY MirrorX</onix1:AxisSign>
           </onix1:Bno055>
           <onix1:Port>PortA</onix1:Port>
-          <onix1:PortVoltage>5.2</onix1:PortVoltage>
+          <onix1:PortVoltage xsi:nil="true" />
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="onix1:StartAcquisition">
-          <onix1:ReadSize>2048</onix1:ReadSize>
+          <onix1:ReadSize>8192</onix1:ReadSize>
           <onix1:WriteSize>2048</onix1:WriteSize>
         </Combinator>
       </Expression>
@@ -148,7 +148,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="cv:VideoWriter">
-          <cv:FileName>video_.avi</cv:FileName>
+          <cv:FileName>ucla-miniscope-v4-video_.avi</cv:FileName>
           <cv:Suffix>FileCount</cv:Suffix>
           <cv:Buffered>true</cv:Buffered>
           <cv:Overwrite>false</cv:Overwrite>
@@ -166,7 +166,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:MatrixWriter">
-          <dsp:Path>video-clock_.raw</dsp:Path>
+          <dsp:Path>ucla-miniscope-v4-clock_.raw</dsp:Path>
           <dsp:Suffix>FileCount</dsp:Suffix>
           <dsp:Overwrite>false</dsp:Overwrite>
           <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -184,7 +184,7 @@
         <io:Overwrite>false</io:Overwrite>
         <io:Suffix>FileCount</io:Suffix>
         <io:IncludeHeader>false</io:IncludeHeader>
-        <io:Selector>it</io:Selector>
+        <io:Selector>Clock,EulerAngle,Quaternion,Acceleration,Gravity,Temperature</io:Selector>
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>Quaternion</Selector>
@@ -201,7 +201,9 @@
         </Builder>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="onix1:MemoryMonitorData" />
+        <Combinator xsi:type="onix1:MemoryMonitorData">
+          <onix1:DeviceName>BreakoutBoard/MemoryMonitor</onix1:DeviceName>
+        </Combinator>
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>PercentUsed</Selector>

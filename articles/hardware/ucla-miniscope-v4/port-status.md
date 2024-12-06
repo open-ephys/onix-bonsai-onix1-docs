@@ -5,4 +5,5 @@ hardware: UCLA Miniscope v4
 portStatus: true
 configureHardwareOperator: ConfigureUclaMiniscopeV4
 hardwareOperator: UclaMiniscopeV4
+workflowLocation: overview
 ---

@@ -6,10 +6,10 @@ title: UCLA Miniscope v4
 These are the devices available on the UCLA Miniscope v4:
 
 - [UCLA Miniscope v4 Camera System](xref:ucla-miniscope-v4_camera) camera sensor:
-    - 0.48 Megapixel CMOS 10-bit image sensor (608 x 608 pixels)
-    - Configurable frame rate in discrete increments: 10, 15, 20, 25 or 30 fps
-    - Three discrete levels of adjustable exposure
-    - ETL for dynamic and continuous ~500 µm adjustment of imaging depth
+    - 0.48 Megapixel CMOS 8-bit or 10-bit image sensor (608 x 608 pixels) data
+    - Python480 sensor for dynamic adjustment of frame rate in discrete increments: 10, 15, 20, 25 or 30 fps
+    - Python480 sensor for dynamic adjustment of exposure in three discrete levels
+    - ETL for dynamic and continuous ~500 µm adjustment of imaging depth with off-the-shelf lens configuration
     - LED driver for dynamic and continuous adjustment of excitation light intensity
 - [Bno055](xref:ucla-miniscope-v4_bno055): 9-axis IMU for real-time, 3D orientation tracking updated at the same frame
   rate as the camera
