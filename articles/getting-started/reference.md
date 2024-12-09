@@ -40,9 +40,26 @@ The appropriate "Scale" value is only relevant if you are ouputting in units of 
 output datatype. This datatype is configured by editing <xref:OpenEphys.Onix1.AnalogOutput>'s `DataType` property. This
 data is already signed, so no shift is necessary.
 
+The above table includes devices that expose unconverted DAC/ADC values to users. Devices excluded by the above
+table include:
+- ([Polled](xref:OpenEphys.Onix1.PolledBno055Data)) [Bno055](xref:OpenEphys.Onix1.Bno055Data) is an orientation sensor.
+  - Euler angles: degrees
+  - Quaternion: unitless 
+  - Linear acceleration: m/s^2
+  - Gravity: m/s^2
+  - Temperature: Celsius
+- [Ts4231](xref:OpenEphys.Onix1.TS4231V1PositionData) is a position sensor.
+  - Position: arbitrary units (defined by the relative positions of the lighthouses and the `P`/`Q` property values set by the
+    user in Bonsai)
+- [Python480](xref:OpenEphys.Onix1.UclaMiniscopeV4CameraData) is a camera sensor. Although it technically exposes
+  unconverted DAC/ADC values to users, converting those values to photon count is not typically performed so it is
+  omitted from the table.
+
 > [!TIP]
-> - If you are trying to insert the "Offset" value from this table into the "Offset" field in the Open Ephys GUI, insert
->   a positive value. The Open Ephys GUI automatically negates the "Offset" value inserted by the user. 
+> - If you are trying to insert the "Offset" value from this table into the "Offset" field of the 
+>   [Ephys Socket](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/Ephys-Socket.html) of the
+>   [Open Ephys GUI](https://open-ephys.github.io/gui-docs/index.html), insert a positive value. The Ephys Socket
+>   automatically negates the "Offset" value inserted by the user. 
 > - If you are trying to insert the "Offset" and "Scale" values from this table into the "Shift" property and "Scale"
 >   property fields of a single <xref:Bonsai.Dsp.ConvertScale> operator in Bonsai, insert the "Offset" value multiplied
 >   by the "Scale" value. The `ConvertScale` operator applies the shift transformation after the scale transformation. 
