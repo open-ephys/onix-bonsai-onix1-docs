@@ -52,8 +52,8 @@ table include:
   - Position: arbitrary units (defined by the relative positions of the lighthouses and the `P`/`Q` property values set by the
     user in Bonsai)
 - [Python480](xref:OpenEphys.Onix1.UclaMiniscopeV4CameraData) is a camera sensor. Although it technically exposes
-  unconverted DAC/ADC values to users, converting those values to photon count is not typically performed so it is
-  omitted from the table.
+  unconverted DAC/ADC values to users, converting those values to photon count is not common so it is omitted from the
+  table.
 
 > [!TIP]
 > - If you are trying to insert the "Offset" value from this table into the "Offset" field of the 
