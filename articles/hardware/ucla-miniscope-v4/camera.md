@@ -19,9 +19,9 @@ The <xref:OpenEphys.Onix1.UclaMiniscopeV4CameraData> operator generates a sequen
   corresponding configuration operator. 
 
 The relevant members are selected from the `UclaMiniscopeV4CameraFrame` by right-clicking the
-`UclaMiniscopeV4CameraData` operator and choosing the following **Output** members: `Camera`, and `Clock`. The
+`UclaMiniscopeV4CameraData` operator and choosing the following Output members: `Camera`, and `Clock`. The
 [VideoWriter](xref:Bonsai.Vision.VideoWriter) saves the `Camera` to a files with the following format:
-`ucla-miniscope-v4-video_.avi` with FMP4 FourCC. The [MatrixWriter](xref:Bonsai.Dsp.MatrixWriter) saves the `Clock` to a
+`ucla-miniscope-v4-video_.avi` with "GREY" FourCC. The [MatrixWriter](xref:Bonsai.Dsp.MatrixWriter) saves the `Clock` to a
 files with the following format: `ucla-miniscope-v4-clock_.raw`.
 
 Try adjusting the `FrameRate`, `SensorGain`, `LEDBrightness`, and `LiquidLensVoltage` properties while the workflow is

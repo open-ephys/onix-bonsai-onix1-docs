@@ -26,6 +26,6 @@ frame. `LfpData` has less samples than `Clock` and `SpikeData` because `LfpData`
 is sampled at 30 kHz while LFP data is sampled at 2.5 kHz.
 
 The relevant members are selected from the `NeuropixelsV1DataFrame` by right-clicking the `NeuropixelsV1eData` operator
-and choosing the following **Output** members: `Clock`, `SpikeData`, and `LfpData`. The
+and choosing the following Output members: `Clock`, `SpikeData`, and `LfpData`. The
 [MatrixWriter](xref:Bonsai.Dsp.MatrixWriter) operators save the selected members to files with the following format:
 `np1-clock_<filecount>.raw`, `np1-spike_<filecount>.raw`, and `np1-lfp_<filecount>.raw`, respectively.

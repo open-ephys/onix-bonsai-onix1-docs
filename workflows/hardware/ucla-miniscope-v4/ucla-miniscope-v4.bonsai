@@ -152,7 +152,7 @@
           <cv:Suffix>FileCount</cv:Suffix>
           <cv:Buffered>true</cv:Buffered>
           <cv:Overwrite>false</cv:Overwrite>
-          <cv:FourCC>FMP4</cv:FourCC>
+          <cv:FourCC>GREY</cv:FourCC>
           <cv:FrameRate>30</cv:FrameRate>
           <cv:FrameSize>
             <cv:Width>0</cv:Width>
