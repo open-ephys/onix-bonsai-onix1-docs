@@ -51,9 +51,9 @@ table include:
 - [Ts4231](xref:OpenEphys.Onix1.TS4231V1PositionData) is a position sensor.
   - Position: arbitrary units (defined by the relative positions of the lighthouses and the `P`/`Q` property values set by the
     user in Bonsai)
-- [Python480](xref:OpenEphys.Onix1.UclaMiniscopeV4CameraData) is a camera sensor. Although it technically exposes
-  unconverted DAC/ADC values to users, converting those values to photon count is not common so it is omitted from the
-  table.
+- [Python480](xref:OpenEphys.Onix1.UclaMiniscopeV4CameraData) is a camera sensor. It technically exposes unconverted
+  DAC/ADC values to users, but converting those values to photon count is not as common so those conversion values are
+  omitted from the table.
 
 > [!TIP]
 > - If you are trying to insert the "Offset" value from this table into the "Offset" field of the 
