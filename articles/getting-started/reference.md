@@ -26,19 +26,34 @@ required to multiply to your data to convert it from units of DAC/ADC step size 
 | [Breakout Board analog output](https://open-ephys.github.io/onix-docs/Hardware%20Guide/Breakout%20Board/index.html)         | 16       | 0      | 20e6/2^16 = <br> 305.17578125 <br> (in "S16" mode)[^3]  | <xref:OpenEphys.Onix1.AnalogOutput>                                                  | -                                                  | [Breakout Board](https://open-ephys.github.io/onix-docs/Hardware%20Guide/Breakout%20Board/index.html)                                                                                                                                                 | <xref:OpenEphys.Onix1.ConfigureBreakoutBoard>, <xref:OpenEphys.Onix1.AnalogOutput> |
 
 [^1]: The Neuropixels 1.0 probes and Imec Nric 1.0 384 amplifier have selectable gain. The appropriate "Scale" value
-depends on the chosen gain according to the following formula: 1.2e6/1024/gain. The gain is set by the user in the
+depends on the chosen gain according to the following formula: 1.2e6/1024/gain. The gain is configured in the
 [NeuropixelsV1e Headstage Configuration GUI](xref:np1e_gui), for example.
 
 [^2]: The Breakout Board analog input range can be configured to accept ±10 volts, ±5 volts, or ±2.5 volts input range.
 The appropriate "Scale" value depends on the chosen analog input voltage range according to the following formula:
-[analogInputVoltageRange](xref:OpenEphys.Onix1.AnalogIOVoltageRange)/65536. This voltage range is configured by editing
-the <xref:OpenEphys.Onix1.ConfigureBreakoutBoard> operator's `AnalogIO` input range properties and must be configured per
-analog input.
+voltageRange/2^16. This voltage range is configured by editing <xref:OpenEphys.Onix1.ConfigureBreakoutBoard>'s
+`AnalogIO` InputRange properties and must be configured per analog input. The voltage ranges associated with
+the constants in the <xref:OpenEphys.Onix1.AnalogIOVoltageRange> enum are:
+  - `TwoPointFiveVolts`: 5e6
+  - `FiveVolts`: 10e6
+  - `TenVolts`: 20e6
 
 [^3]: The Breakout Board analog output can be configured to accept units of volt or DAC step size (305.17578125 μV/bit).
-The appropriate "Scale" value is only relevant if you are ouputting in units of volts depends on the chosen analog
+The appropriate "Scale" value is only relevant if you are outputting in units of volts depends on the chosen analog
 output datatype. This datatype is configured by editing <xref:OpenEphys.Onix1.AnalogOutput>'s `DataType` property. This
-data is already signed, so no shift is necessary.
+operator accepts signed data, so no shift is necessary.
+
+> [!TIP]
+> - If you are trying to insert the "Offset" value from this table into the "Offset" field of the 
+>   [Ephys Socket](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/Ephys-Socket.html) of the
+>   [Open Ephys GUI](https://open-ephys.github.io/gui-docs/index.html), insert a positive value. The Ephys Socket
+>   multiplies the value in the "Offset" field by -1 so you must insert a positive value in the "Offset" field. 
+> - If you are trying to insert the "Offset" and "Scale" values from this table into the "Shift" property and "Scale"
+>   property fields of a single <xref:Bonsai.Dsp.ConvertScale> operator in Bonsai, insert the "Offset" value multiplied
+>   by the "Scale" value into the "Shift" property field. The `ConvertScale` operator applies the shift transformation
+>   after the scale transformation so you must pre-scale the value in the "Shift" property field. You can also use two
+>   `ConvertScales` to apply the "Shift" transformation before the "Scale" transformation so that you don't have to
+>   pre-scale.
 
 The above table includes devices that expose unconverted DAC/ADC values to users. Devices excluded by the above
 table include:
@@ -52,14 +67,5 @@ table include:
   - Position: arbitrary units (defined by the relative positions of the lighthouses and the `P`/`Q` property values set by the
     user in Bonsai)
 - [Python480](xref:OpenEphys.Onix1.UclaMiniscopeV4CameraData) is a camera sensor. It technically exposes unconverted
-  DAC/ADC values to users, but converting those values to photon count is not as common so those conversion values are
-  omitted from the table.
+  DAC/ADC values to users, but converting those values to photon count is less common so it is omitted from the table.
 
-> [!TIP]
-> - If you are trying to insert the "Offset" value from this table into the "Offset" field of the 
->   [Ephys Socket](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/Ephys-Socket.html) of the
->   [Open Ephys GUI](https://open-ephys.github.io/gui-docs/index.html), insert a positive value. The Ephys Socket
->   automatically negates the "Offset" value inserted by the user. 
-> - If you are trying to insert the "Offset" and "Scale" values from this table into the "Shift" property and "Scale"
->   property fields of a single <xref:Bonsai.Dsp.ConvertScale> operator in Bonsai, insert the "Offset" value multiplied
->   by the "Scale" value. The `ConvertScale` operator applies the shift transformation after the scale transformation. 
