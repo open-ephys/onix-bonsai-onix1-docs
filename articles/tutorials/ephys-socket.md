@@ -1,6 +1,6 @@
 ---
 uid: ephys-socket
-title: Visualizing data acquired in Bonsai in the Open Ephys GUI
+title: Visualizing Data in the Open Ephys GUI
 ---
 
 This tutorial shows how to establish a TCP socket to visualize data acquired with ONIX hardware in the Open Ephys GUI, using the OpenEphys.Sockets.Bonsai and OpenEphys.Onix1 Bonsai packages, and the Ephys Socket Open Ephys GUI plugin.

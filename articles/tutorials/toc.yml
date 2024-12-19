@@ -1,4 +1,4 @@
 - href: index.md
-  items: [
-    href: basic-ephys-processing.md
-  ]
+  items: 
+    - href: basic-ephys-processing.md
+    - href: ephys-socket.md
