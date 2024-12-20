@@ -5,14 +5,14 @@ title: Visualizing Data in the Open Ephys GUI
 
 This tutorial shows how to establish a TCP socket to visualize data acquired with ONIX hardware in the Open Ephys GUI, using the OpenEphys.Sockets.Bonsai and OpenEphys.Onix1 Bonsai packages, and the Ephys Socket Open Ephys GUI plugin.
 
-In this example, we transmit two data streams from a NeuropixelsV1e probe: 384 channels of the LFP band and the AP band. This approach lets users take advantage of the specialized visualizers available in the Open Ephys GUI, such as the Probe Viewer which was specifically designed for very dense arrays like Neuropixels probes.
+In this example, we transmit two data streams from a NeuropixelsV1e probe: the LFP band and the AP band data (384 channels). This approach lets users take advantage of the specialized visualizers available in the Open Ephys GUI, such as the Probe Viewer which was specifically designed for very dense arrays like Neuropixels probes.
 
-Even though the Open Ephys GUI has recording functionality, when acquiring data using the Bonsai ONIX package, data should be written to file in Bonsai, following the [Hardware Guides](xref:hardware). In particular, for the NeuropixelsV1e presented in this example, follow the [NeuropixelsV1e Headstage Hardware Guide](xref:np1e).
+Even though the Open Ephys GUI has recording functionality, when acquiring data using the Bonsai ONIX package, data should be written to file in Bonsai following the [Hardware Guides](xref:hardware). In particular, for the NeuropixelsV1e data presented in this example, follow the [NeuropixelsV1e Headstage Hardware Guide](xref:np1e).
 
 This tutorial guides you through building the following workflow: 
 
 ::: workflow
-![/workflows/tutorials/basic-ephys-processing/spikes.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/spikes.bonsai)
+![/workflows/tutorials/ephys-socket/ephys-socket.bonsai workflow](../../workflows/tutorials/ephys-socket/ephys-socket.bonsai)
 :::
 
 <!-- This method is generalizable to any continuous data stream in the correct matrix format -->
@@ -42,9 +42,8 @@ you're using the latest software.
 
 ## Configure the hardware
 
-<!-- change ref -->
 ::: workflow
-![/workflows/tutorials/basic-ephys-processing/configuration.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/configuration.bonsai)
+![/workflows/tutorials/ephys-socket/configuration.bonsai workflow](../../workflows/tutorials/ephys-socket/configuration.bonsai)
 :::
 
 Construct a [top-level hardware configuration chain](xref:initialize-onicontext): 
@@ -61,7 +60,7 @@ breakout board to improve performance if you wanted to.
 
 <!-- change ref -->
 ::: workflow
-![/workflows/tutorials/basic-ephys-processing/ephys-data.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/ephys-data.bonsai)
+![/workflows/tutorials/ephys-socket/ephys-data.bonsai workflow](../../workflows/tutorials/ephys-socket/ephys-data.bonsai)
 :::
 
 <!-- change txt -->
@@ -76,9 +75,8 @@ the list.
 
 ## Configure data streams to transmit
 
-<!-- change ref -->
 ::: workflow
-![/workflows/tutorials/basic-ephys-processing/select-convert-ephys-data.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/select-convert-ephys-data.bonsai)
+![/workflows/tutorials/ephys-socket/configure-socket.bonsai workflow](../../workflows/tutorials/ephys-socket/configure-socket.bonsai)
 :::
 
 <!-- change txt -->
