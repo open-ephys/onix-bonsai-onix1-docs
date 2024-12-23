@@ -206,9 +206,9 @@ across different channels that occur at different rates will use more slots.
 
 | Image | Status Label | Remarks |
 | ---- | ---- | ---- |
-| ![Valid stimulus sequence](../../../src/onix-bonsai-onix1/OpenEphys.Onix1.Design/Resources/StatusReadyImage.png) | `Valid Stimulus Sequence` | There are no issues with the current configuration, and the number of slots fits within the hardware boundaries. Settings can be saved. |
-| ![Invalid - too many pulses](../../../src/onix-bonsai-onix1/OpenEphys.Onix1.Design/Resources/StatusBlockedImage.png) | `Invalid Sequence - Too many pulses defined` | The resulting waveform is too complex (for example, using the same settings as above but setting 350 pulses will give this error.). Reduce the complexity of the waveform before saving the configuration. |
-| ![Invalid Sequence](../../../src/onix-bonsai-onix1/OpenEphys.Onix1.Design/Resources/StatusCriticalImage.png) | `Invalid Sequence - Contact XX, Reason: Y` | Some combination of stimulus parameter settings is invalid and must be fixed before changes can be saved. The first contact with an invalid parameter set will be listed here, along with the actual reason. [Below](#reasons-for-invalid-sequence-status) is a list of possible reasons, but this is not an exhaustive list. |
+| ![Valid stimulus sequence](../../../images/StatusReadyImage.png) | `Valid Stimulus Sequence` | There are no issues with the current configuration, and the number of slots fits within the hardware boundaries. Settings can be saved. |
+| ![Invalid - too many pulses](../../../images/StatusBlockedImage.png) | `Invalid Sequence - Too many pulses defined` | The resulting waveform is too complex (for example, using the same settings as above but setting 350 pulses will give this error.). Reduce the complexity of the waveform before saving the configuration. |
+| ![Invalid Sequence](../../../images/StatusCriticalImage.png) | `Invalid Sequence - Contact XX, Reason: Y` | Some combination of stimulus parameter settings is invalid and must be fixed before changes can be saved. The first contact with an invalid parameter set will be listed here, along with the actual reason. [Below](#reasons-for-invalid-sequence-status) is a list of possible reasons, but this is not an exhaustive list. |
 
 > [!TIP]
 > In the case that there is an error defined on a particular channel, but it is unclear why the error
@@ -218,7 +218,7 @@ exists since it appears that nothing is configured on that channel, try selectin
 ### Reasons for invalid sequence status
 
 | Reason | Explanation |
-| -- | -- |
+| --- | --- |
 | `Stimuli = 0, Cathodic Width > 0` | The cathodic pulse width is greater than zero, but the number of pulses defined on the contact is zero. |
 | `Stimuli = 0, Anodic Width > 0` | The anodic pulse width is greater than zero, but the number of pulses defined on the contact is zero. |
 | `Stimuli = 0, ISI > 0` | The inter-stimulus interval is greater than zero, but the number of pulses defined on the contact is zero. |
