@@ -7,7 +7,7 @@ operator: ConfigureHeadstageRhs2116
 dataRate: 2.1
 timeUntilFullBuffer: 1 ms
 blockReadSize: 4096
-workflowLocation: workflow
+workflowLocation: overview
 ---
 
 ## Configuring the Breakout Board and Headstage Rhs2116
@@ -24,3 +24,7 @@ the on-board Bno055 IMU, and position data from the Ts4231. This is accomplished
 workflow by leaving all of the `ConfigureHeadstageRhs2116` properties set to their default values.
 
 [!INCLUDE [timestamp-info](../../../includes/configuration-timestamp.md)]
+
+> [!TIP]
+> For additional details on how to configure the headstage, as well as how to
+> set stimulus waveforms, check out the <xref:rhs2116_gui> page.

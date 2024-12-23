@@ -16,7 +16,7 @@ These are the devices available on the Headstage Rhs2116:
       - Lower cutoff during recovery immediately after stimulus configurable from 0.1 Hz to 1 kHz
     - Optional adjustable digital high-pass filter with cutoff configurable from 0.146 Hz to 3.309 kHz
 - [Electrical Stimulation](xref:rhs2116_stimulate): Single current source with ±15V compliance voltage and automatic electrode discharge
-    - The stimulation waveform is highly configurable via the <xref:OpenEphys.Onix1.Headstage64ElectricalStimulatorTrigger>'s properties.
+    - The stimulation waveform is highly configurable via the <xref:OpenEphys.Onix1.Rhs2116StimulusTrigger>'s properties.
 
 > [!TIP]
 > Visit the 

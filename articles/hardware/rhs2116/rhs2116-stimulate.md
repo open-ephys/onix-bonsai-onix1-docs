@@ -21,9 +21,8 @@ that correspond to bit positions of the breakout board's digital port. `Buttons`
 inspectable with the <kbd>F12</kbd> hotkey. `Condition` contains a `HasFlags` operator. Because `HasFlags`'s `Value` is
 set to "Triangle", its output is "True" when the selected `BreakoutButtonState` bit field contains the "Triangle" flag.
 Therefore, the conditional statement evaluates as true whenever the "Triangle" button is pressed in which case the
-upstream `BreakoutButtonState` element emitted by `Condition` to `Double`. `Double` emits a value of type <xref:System.Double>
-to <xref:OpenEphys.Onix1.Rhs2116StimulusTrigger>
-anytime it receives an item in its upstream sequence. 
+upstream `BreakoutButtonState` element emitted by `Condition` to `Double`, which emits a value of type <xref:System.Double>
+to <xref:OpenEphys.Onix1.Rhs2116StimulusTrigger> anytime it receives an item in its upstream sequence. 
 
 When `Rhs2116StimulusTrigger` receives a double from the upstream sequence, a stimulus waveform is triggered. The
 waveform can be modified by `Rhs2116StimulusTrigger`'s properties.

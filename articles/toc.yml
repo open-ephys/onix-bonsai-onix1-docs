@@ -86,6 +86,8 @@
     items: 
     - name: Configuration
       href: hardware/rhs2116/configuration.md
+    - name: Rhs2116 GUI
+      href: hardware/rhs2116/gui.md
     - name: Port Status
       href: hardware/rhs2116/port-status.md
     - name: Rhs2116 Electrophysiology Data
