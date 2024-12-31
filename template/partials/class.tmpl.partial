@@ -37,14 +37,14 @@
 
 {{^constituentOperator}}
 <a class="xref" href="~/articles/getting-started/property-categories.html#aggregate">
-  <button class="badge bg-success-subtle border border-success-subtle text-success-emphasis rounded-pill">aggregate</button>
+  <button class="badge oe-badge-border oe-badge-green">aggregate</button>
 </a>
 <p>These are properties of the {{{oe.name}}} aggregate operator:</p>
 {{/constituentOperator}}
 
 {{#constituentOperator}}
 <a class="xref" href="~/articles/getting-started/property-categories.html#device">
-  <button class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded-pill">device</button>
+  <button class="badge oe-badge-border oe-badge-red">device</button>
 </a>
 <p>{{{object}}} is a {{{type}}} device operator contained by the {{{oe.name}}} operator with the following properties:</p>
 {{/constituentOperator}}
