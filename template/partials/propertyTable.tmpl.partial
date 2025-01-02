@@ -14,7 +14,7 @@
       <div>
         <a class="xref" href="~/articles/getting-started/property-categories.html#acquisition">
           <button class="badge oe-badge-border oe-badge-blue">
-            acquisition
+            Acquisition
           </button>
         </a>
       </div>
@@ -22,8 +22,8 @@
       {{#configuration}}
       <div>
         <a class="xref" href="~/articles/getting-started/property-categories.html#configuration">
-          <button class="badge oe-badge-border oe-badge-yellow">
-            configuration 
+          <button class="badge oe-badge-border oe-badge-orange">
+            Configuration 
           </button>
         </a>
       </div>
