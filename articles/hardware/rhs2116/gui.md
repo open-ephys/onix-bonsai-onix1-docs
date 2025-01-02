@@ -12,16 +12,18 @@ downloaded. For more information on how to install that library, check out the
 The GUI for `Rhs2116Headstage` allows for an easy way to change settings, as well as the ability to
 set waveform parameters and visualize the effect. From the GUI, you can:
 
-- Modify stimulus parameters for all 32 channels simultaneously
-    - Visualize waveforms across all channels
-    - Select specific channels using a ProbeInterface representation of the hardware
-    - Remove or add stimulus waveform parameters to one or more channels at a time
+- Modify stimulus parameters for all 32 channels
+  - Visualize waveforms across all channels
+  - Select specific channels using a ProbeInterface representation of the hardware
+  - Remove or add stimulus waveform parameters to one or more channels at a time
+  - Save and load channel configuration
 - Change filter settings for recording data
-    - See the <xref:rhs2116_configuration> page for more information on filter settings
+  - See <xref:OpenEphys.Onix1.ConfigureHeadstageRhs2116> or the 
+  [Rhs2116 datasheet](https://intantech.com/files/Intan_RHS2116_datasheet.pdf) for more
+  information on filter settings
 
 This configuration GUI can be accessed by double-clicking on the `ConfigureHeadstageRhs2116`
-operator. The remainder of this page will describe the functionality of the window that opens,
-allowing for easy configuring of the hardware.
+operator. 
 
 <p align="center">
   <img src="../../../images/rhs2116-gui-tut/bonsai-where-to-click.png">
@@ -29,16 +31,17 @@ allowing for easy configuring of the hardware.
 
 ### Stimulus parameters
 
-All of the parameters are applied in real-world units that the user will be familiar with (i.e.,
-milliseconds and microamps). On the backend, the GUI will take these units and convert them into raw
-samples which is how they will be written to the hardware. Since the conversion between real units
-and samples is not always exact, there might be some discrepancies between the value that the user
-initially inputs and the value that is automatically updated. Values will be automatically updated
-whenever the focus moves away from the current text box (i.e., the user presses <kbd>Tab</kbd> or
-clicks somewhere outside of the text box).  
+The GUI accepts values for stimulation waveform parameters in metric units (e.g., milliseconds and
+microamps). In the backend, the GUI converts metric units into units that can be written to the
+hardware. Because the conversion between metric values and converted values is not always exact, the
+GUI might automatically update the metric value initially input by the user to a metric value that
+more accurately represents the converted value that will be written to hardware. This update is
+visually displayed in the same text box where the user initially input their values and happens when
+the focus moves away from the active text box (e.g., the user presses <kbd>Tab</kbd> or clicks
+somewhere outside of the text box).
 
-Below is a table listing the various parameters that can be applied to each channel, as well as the
-resolution and any other relevant limits for each parameter.
+Below is a table describing the various stimulus parameters that can be applied to each channel
+including the resolution and limits for each parameter.
 
 | Parameter Name | Minimum Value | Maximum Value | Resolution | Remarks |
 | ----- | ---- | ---- | ---- | ---- |
@@ -46,25 +49,23 @@ resolution and any other relevant limits for each parameter.
 | `Anodic First` | Unchecked | Checked | n/a | If checked, the anodic (positive) segment will be delivered first for every pulse |
 | `Delay` | 0 ms | n/a | 0.03312 ms | Time between a trigger being received and the first pulse is delivered |
 | `Inter-Pulse` | 0 ms | n/a | 0.03312 ms | Time between positive-to-negative (or negative-to-positive) stimulation for a single pulse |
-| `Amplitude` | 0 µA | 2550 µA | Dependent on the step size | Type in the requested amplitude, and underneath is the actual value that will be applied on hardware based on the current step size |
-| `Step Size` | 0.01 µA | 25 µA | [Step Size](xref:OpenEphys.Onix1.Rhs2116StepSize) | Automatically calculated to optimize difference between requested and actual amplitude |
-| `Pulse Width` | 0.03312 ms | n/a | 0.03312 ms | Width of each positive or negative portion of the stimulus |
+| `Amplitude` | 0 µA | 2550 µA | Dependent on the step size | Enter the requested amplitude, and the actual value that will be applied on hardware based on the current step size is displayed underneath in the `Step Size` text box |
+| `Step Size` | 0.01 µA | 25 µA | [Step Size](xref:OpenEphys.Onix1.Rhs2116StepSize) | Automatically calculated to optimize difference between requested and actually possible amplitude |
+| `Pulse Width` | 0.03312 ms | n/a | 0.03312 ms | Time between each pulse's rising edge and falling edge (or vice-versa) |
 | `Inter-Stimulus` | 0.03312 ms | n/a | 0.03312 ms | Time between successive pulses. Can be 0 if there is only one pulse |
 | `Number of Pulses` | 1 | n/a | 1 | Number of pulses that are sent per trigger received |
 
 ### ProbeInterface
 
-The `Rhs2116Headstage` GUI uses
-[ProbeInterface](https://probeinterface.readthedocs.io/en/main/index.html) as the format to draw the
-probes and electrodes visually. For more information on ProbeInterface and the resulting JSON file,
-check out their [format
-specifications](https://probeinterface.readthedocs.io/en/main/format_spec.html) page. 
+The `Rhs2116Headstage` GUI uses the
+[ProbeInterface](https://probeinterface.readthedocs.io/en/main/index.html) format to draw the probes
+and electrodes visually. For more information on the ProbeInterface JSON format, check out their
+[format specifications](https://probeinterface.readthedocs.io/en/main/format_spec.html) page. 
 
-When opening the GUI, there is a default probe configuration that is loaded and drawn, which can be
-saved to a [JSON file](#save-probeinterface-file). Conversely, an existing JSON file can be
-[loaded](#load-probeinterface-file) to update the current channel configuration. If for any reason
-the default configuration is needed, it can be [loaded again](#load-default-configuration) at any
-time.
+When opening the GUI, there is a default probe configuration that is loaded and drawn which can be
+saved to a [JSON file](#save-probeinterface-file). Conversely, an existing ProbeInterface JSON file
+can be [loaded](#load-probeinterface-file) to update the current channel configuration. If the
+default configuration is needed, it can be [loaded again](#load-default-configuration) at any time.
 
 ## Using the Channel Selection Window
 
@@ -86,11 +87,11 @@ are the controls used to navigate within this panel to view and choose electrode
     - Mouse wheel zooms in/out towards the cursor
     - Left-click and drag will select electrodes within the drawn rectangle
     - Left-click on an electrode will toggle selection for that electrode
-    - Left-click in empty space will clear the selected electrodes
+    - Left-click on empty space will clear the electrode selection
     - Middle-click and drag will pan the electrodes
 
 When channels are selected, they will be highlighted by a green circle around the contact number,
-and the appropriate waveform will continue to be plotted in the main window; any channels that are
+and the corresponding waveforms will be plotted in the main window; any channels that are
 not selected will not be plotted.
 
 ### Zoom and pan limits
@@ -104,10 +105,9 @@ is always in view. This is handled each time the probe is zoomed or panned.
 
 ## Define Stimuli
 
-The following sections will define how to apply parameters, read existing parameters, and clear
-parameters from channels. A description of what the parameters refer to will be given, as well as
-tables to define some of the error codes that can appear in the status strip to better troubleshoot
-issues.
+The following sections define how to apply parameters, read existing parameters, and clear parameters from channels.
+They also provide example stimulus parameters and descriptions of error codes that can appear in the status strip to
+facilitate troubleshooting.
 
 ### Applying parameters
 
@@ -121,13 +121,12 @@ are selected.
   <img src="../../../images/rhs2116-gui-tut/channel-selection-7-8-23-24.png">
 </p>
 
-Next, type in / check the [stimulus parameters](#stimulus-parameters) that are to be
-applied to the currently selected channel(s). The section above will give some insight into what
-each parameter is controlling, as well as the possible resolutions and maximum/minimum values that
-can be applied. Note that each time the cursor leaves a text box it will automatically update the
-values inside the text box to reflect the actual value that will be written, based on the
-resolutions listed above. In the example below, we can see that the table listed below as well shows
-the typed values compared to the actual values list.
+Enter the [stimulus parameters](#stimulus-parameters) that you want to apply to the currently
+selected channel(s). Note that the value initially input by the user might update when the focus
+moves away from the current text box (e.g., the user presses <kbd>Tab</kbd> or clicks somewhere
+outside of the text box) to reflect the actual value that will be written based on the resolutions
+listed above. In the example below, we can see that the table listed below as well shows the typed
+values compared to the actual values list.
 
 | Parameter | Requested Value | Listed Value |
 | --- | --- | --- |
@@ -178,8 +177,8 @@ parameter fields will be populated with zeroes as shown in the image below:
   <img src="../../../images/rhs2116-gui-tut/define-stimuli-read-defaults.png">
 </p>
 
-Any channel that has been configured can also be selected before pressing <kbd>Read</kbd> to pull
-out the current parameters. For example, if one of the channels that was configured in the [Applying
+Now select a channel that has been configured and press <kbd>Read</kbd> to read that channel's
+current parameters. For example, if one of the channels that was configured in the [Applying
 parameters](#applying-parameters) section above is selected, the image below shows the result of the
 operation:
 
@@ -239,8 +238,8 @@ configuration, such as filter settings and all stimulus waveform parameters.
 > [!NOTE] 
 > The hardware is not actually configured until the workflow starts.
 
-If the window is closed any other way (such as by pressing `Cancel`, or pressing the <kbd>X</kbd> to
-close the window), then any changes made *will not* be saved. If the current settings are considered
+If the window is closed any other way (such as by pressing `Cancel` or pressing the <kbd>X</kbd> to
+close the window), any changes made *will not* be saved. If the current settings are considered
 invalid (see [the table above](#reasons-for-invalid-sequence-status) for specific reasons why some
 settings are invalid), they also *will not* be saved even if <kbd>Ok</kbd> is pressed. A message box
 will pop up warning that the settings will not be saved, giving the opportunity to continue editing

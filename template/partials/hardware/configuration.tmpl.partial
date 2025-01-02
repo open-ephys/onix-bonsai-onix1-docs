@@ -1,11 +1,25 @@
 <p>
   The following excerpt from the {{{hardware}}} <a class="xref"
   href="~/articles/hardware/{{{oe.hardwareDirectory}}}/{{{workflowLocation}}}.html">
-  example workflow</a> demonstrates how to create an ONIX acquisition context using <a class="xref"
-  href="~/api/OpenEphys.Onix1.CreateContext.html">CreateContext</a>, configures a {{{hardware}}}
-  using <a class="xref" href="~/api/OpenEphys.Onix1.{{{operator}}}.html">{{{operator}}}</a>, and
-  then starts acquisition using <a class="xref"
-  href="~/api/OpenEphys.Onix1.StartAcquisition.html">StartAcquisition</a>.
+  example workflow</a> demonstrates how to configure your {{{hardware}}} and Breakout Board 
+  in Bonsai. This process comprises of the following steps: 
+  <ul>
+    <li> 
+      Create an ONIX acquisition context using <Sa class="xref"
+      href="~/api/OpenEphys.Onix1.CreateContext.html">CreateContext</a>
+    </li>
+    <li> 
+      Configure the {{{hardware}}} and the Breakout Board using <a class="xref"
+      href="~/api/OpenEphys.Onix1.{{{operator}}}.html">{{{operator}}}</a> and 
+      <a class="xref" href="~/api/OpenEphys.Onix1.ConfigureBreakoutBoard.html">
+      ConfigureBreakoutBoard</a>
+    </li>
+    <li> 
+      Start acquisition using <a class="xref"
+      href="~/api/OpenEphys.Onix1.StartAcquisition.html">StartAcquisition</a>.
+    </li>
+</ul>
+  
 </p>
 
 <div class="workflow"> 
@@ -15,8 +29,8 @@
 <div class="NOTE alert alert-info">
     <h5>NOTE</h5>
     <p>
-        To learn more about the top-level configuration motif in every workflow involving
-        ONIX hardware, visit the <a class="xref"
+        To learn more about the top-level configuration motif in every workflow involving ONIX
+        hardware, visit the <a class="xref"
         href="~/articles/getting-started/initialize-oni-context.html">Configuration Chain
         Tutorial</a>.
     </p>
@@ -25,13 +39,13 @@
 <h2>Creating an Acquisition Context</h2>
 
 <p>
-  The <a class="xref" href="~/api/OpenEphys.Onix1.CreateContext.html">CreateContext</a> operator
-  creates a <a class="xref" href="~/api/OpenEphys.Onix1.ContextTask.html">ContextTask</a> that
-  defines the device driver and index where the hardware exists. The
-  <code>Driver</code> property is set to "riffa", which is the name of the PCIe device used by ONIX.
-  In this case, the <code>Index</code> property is set to 0 because there is only a single ONIX system. 
-  If a second system is used on the same computer, a second <code>CreateContext</code> operator
-  would be required in its own configuration chain, with its <code>Index</code> property set to 1.
+  The <code>CreateContext</code> operator creates a <a class="xref"
+  href="~/api/OpenEphys.Onix1.ContextTask.html">ContextTask</a> that defines the device driver and
+  index where the hardware exists. The Driver property is set to "riffa" which is the name of the
+  PCIe device used by ONIX. In this case, the Index property is set to 0 because there is only a
+  single ONIX system. If a second system is used on the same computer, a second
+  <code>CreateContext</code> operator would be required in its own configuration chain, with its
+  Index property set to 1.
 </p>
 
 {{{conceptual}}}
@@ -39,28 +53,31 @@
 <h2>Starting Acquisition</h2>
 
 <p>
-  After starting a workflow, the <a class="xref" href="~/api/OpenEphys.Onix1.StartAcquisition.html">StartAcquisition</a>
+  After starting a workflow, the <a class="xref"
+  href="~/api/OpenEphys.Onix1.StartAcquisition.html">StartAcquisition</a>
   operator begins data acquisition with the hardware that has been configured. In the {{{hardware}}}
   example workflow, data is collected from the {{{hardware}}} only, so the rate of data being
-  produced by the hardware will be ~{{{dataRate}}} MB/s. The <code>StartAcquisition</code>'s <code>ReadSize</code> property is set to
-  {{{blockReadSize}}} bytes, meaning data collection will wait until
-  {{{blockReadSize}}} bytes of data have been produced by the hardware. At {{{dataRate}}} MB/s the
-  hardware will produce {{{blockReadSize}}} bytes every ~{{{timeUntilFullBuffer}}}. This is a hard
-  bound on the latency of the system. If lower latencies were required, the hardware would need to
-  produce data more quickly or the <code>ReadSize</code> would need to be reduced. 
+  produced by the hardware will be ~{{{dataRate}}} MB/s. The ReadSize property is set to
+  {{{blockReadSize}}} bytes, meaning data collection will wait until {{{blockReadSize}}} bytes of
+  data have been produced by the hardware. At {{{dataRate}}} MB/s the hardware will produce
+  {{{blockReadSize}}} bytes every ~{{{timeUntilFullBuffer}}}. This is a hard bound on the latency of
+  the system. If lower latencies were required, the hardware would need to produce data more quickly
+  or the ReadSize property value would need to be reduced. 
 </p>
 
-<p>The <code>StartAcquisition</code>'s <code>WriteSize</code> property is set to 2048 bytes. This
-  determines the amount of memory that is preallocated for temporarily holding data before it is
-  sent to hardware. It is less critical to performance unless the rate that data be written to the
-  hardware is comparable to the rate that the hardware produces data, which is not a common scenario.
+<p>
+  The WriteSize property is set to 2048 bytes. This determines the amount of memory that is
+  preallocated for temporarily holding data before it is sent to hardware. It is less critical to
+  performance unless the rate that data be written to the hardware is comparable to the rate that
+  the hardware produces data, which is not a common scenario.
 </p>
 
 <div class="NOTE alert alert-info">
   <h5>NOTE</h5>
-  <p>For an overview of the devices on the {{{hardware}}} that can be configured through the <a
-  class="xref" href="~/api/OpenEphys.Onix1.{{{operator}}}.html">{{{operator}}}</a> operator, visit
-  the <a class="xref"
-  href="~/articles/hardware/{{{oe.hardwareDirectory}}}/overview.html">{{{hardware}}}
-  Overview</a>.</p>
+  <p>
+    For an overview of the devices on the {{{hardware}}} that can be configured through the <a
+    class="xref" href="~/api/OpenEphys.Onix1.{{{operator}}}.html">{{{operator}}}</a> operator, visit
+    the <a class="xref"
+    href="~/articles/hardware/{{{oe.hardwareDirectory}}}/overview.html">{{{hardware}}} Overview</a>.
+  </p>
 </div>
