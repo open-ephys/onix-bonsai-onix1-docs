@@ -31,7 +31,7 @@
   Quaternion values are passed to <code>AutoCommutator</code> which automatically commutates the
   headstage's tether if there is a proper commutator connection. This operator comes from the
   OpenEphys.Commutator Bonsai package. Make sure it's <a class="xref"
-  href="~/getting-started/install-configure-bonsai.html">installed and updated</a>. You can
+  href="~/articles/getting-started/install-configure-bonsai.html">installed and updated</a>. You can
   enable/disable the commutator using the Enable property, enable/disable the LED on the commutator
   using the LedEnable property, and set the COM port using the PortName property. The correct COM
   port value varies from system to system. You must find and set the correct COM port to which your

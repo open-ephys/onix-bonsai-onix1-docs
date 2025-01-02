@@ -56,7 +56,7 @@
   After starting a workflow, the <a class="xref"
   href="~/api/OpenEphys.Onix1.StartAcquisition.html">StartAcquisition</a>
   operator begins data acquisition with the hardware that has been configured. In the {{{hardware}}}
-  example workflow, data is collected from the {{{hardware}}} only, so the rate of data being
+  example workflow, most collected data is from the {{{hardware}}}. The rate of data being
   produced by the hardware will be ~{{{dataRate}}} MB/s. The ReadSize property is set to
   {{{blockReadSize}}} bytes, meaning data collection will wait until {{{blockReadSize}}} bytes of
   data have been produced by the hardware. At {{{dataRate}}} MB/s the hardware will produce
