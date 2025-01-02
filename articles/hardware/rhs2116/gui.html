@@ -1,0 +1,501 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Rhs2116 GUI </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Rhs2116 GUI ">
+      
+      
+      <link rel="icon" href="../../../favicon.png">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/open-ephys/bonsai-onix1-docs/blob/main/articles/hardware/rhs2116/gui.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo-light-mode.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="rhs2116_gui">
+          <h1>Rhs2116 GUI</h1>
+
+
+
+
+
+  
+<p>The <code>Rhs2116</code> headstage has a graphical user interface when the <code>OpenEphys.Onix1.Design</code> package is
+downloaded. For more information on how to install that library, check out the
+<a class="xref" href="../../getting-started/install-configure-bonsai.html">Installation</a> page.</p>
+<h2 id="overview">Overview</h2>
+<p>The GUI for <code>Rhs2116Headstage</code> allows for an easy way to change settings, as well as the ability to
+set waveform parameters and visualize the effect. From the GUI, you can:</p>
+<ul>
+<li>Modify stimulus parameters for all 32 channels
+<ul>
+<li>Visualize waveforms across all channels</li>
+<li>Select specific channels using a ProbeInterface representation of the hardware</li>
+<li>Remove or add stimulus waveform parameters to one or more channels at a time</li>
+<li>Save and load channel configuration</li>
+</ul>
+</li>
+<li>Change filter settings for recording data
+<ul>
+<li>See <a class="xref" href="../../../api/OpenEphys.Onix1.ConfigureHeadstageRhs2116.html">ConfigureHeadstageRhs2116</a> or the
+<a href="https://intantech.com/files/Intan_RHS2116_datasheet.pdf">Rhs2116 datasheet</a> for more
+information on filter settings</li>
+</ul>
+</li>
+</ul>
+<p>This configuration GUI can be accessed by double-clicking on the <code>ConfigureHeadstageRhs2116</code>
+operator.</p>
+<p align="center">
+  <img src="../../../images/rhs2116-gui-tut/bonsai-where-to-click.png">
+</p>
+<h3 id="stimulus-parameters">Stimulus parameters</h3>
+<p>The GUI accepts values for stimulation waveform parameters in metric units (e.g., milliseconds and
+microamps). In the backend, the GUI converts metric units into units that can be written to the
+hardware. Because the conversion between metric values and converted values is not always exact, the
+GUI might automatically update the metric value initially input by the user to a metric value that
+more accurately represents the converted value that will be written to hardware. This update is
+visually displayed in the same text box where the user initially input their values and happens when
+the focus moves away from the active text box (e.g., the user presses <kbd>Tab</kbd> or clicks
+somewhere outside of the text box).</p>
+<p>Below is a table describing the various stimulus parameters that can be applied to each channel
+including the resolution and limits for each parameter.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter Name</th>
+<th>Minimum Value</th>
+<th>Maximum Value</th>
+<th>Resolution</th>
+<th>Remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Biphasic Symmetric</code></td>
+<td>Unchecked</td>
+<td>Checked</td>
+<td>n/a</td>
+<td>If checked, the positive and negative segments of each pulse will be symmetric</td>
+</tr>
+<tr>
+<td><code>Anodic First</code></td>
+<td>Unchecked</td>
+<td>Checked</td>
+<td>n/a</td>
+<td>If checked, the anodic (positive) segment will be delivered first for every pulse</td>
+</tr>
+<tr>
+<td><code>Delay</code></td>
+<td>0 ms</td>
+<td>n/a</td>
+<td>0.03312 ms</td>
+<td>Time between a trigger being received and the first pulse is delivered</td>
+</tr>
+<tr>
+<td><code>Inter-Pulse</code></td>
+<td>0 ms</td>
+<td>n/a</td>
+<td>0.03312 ms</td>
+<td>Time between positive-to-negative (or negative-to-positive) stimulation for a single pulse</td>
+</tr>
+<tr>
+<td><code>Amplitude</code></td>
+<td>0 µA</td>
+<td>2550 µA</td>
+<td>Dependent on the step size</td>
+<td>Enter the requested amplitude, and the actual value that will be applied on hardware based on the current step size is displayed underneath in the <code>Step Size</code> text box</td>
+</tr>
+<tr>
+<td><code>Step Size</code></td>
+<td>0.01 µA</td>
+<td>25 µA</td>
+<td><a class="xref" href="../../../api/OpenEphys.Onix1.Rhs2116StepSize.html">Step Size</a></td>
+<td>Automatically calculated to optimize difference between requested and actually possible amplitude</td>
+</tr>
+<tr>
+<td><code>Pulse Width</code></td>
+<td>0.03312 ms</td>
+<td>n/a</td>
+<td>0.03312 ms</td>
+<td>Time between each pulse's rising edge and falling edge (or vice-versa)</td>
+</tr>
+<tr>
+<td><code>Inter-Stimulus</code></td>
+<td>0.03312 ms</td>
+<td>n/a</td>
+<td>0.03312 ms</td>
+<td>Time between successive pulses. Can be 0 if there is only one pulse</td>
+</tr>
+<tr>
+<td><code>Number of Pulses</code></td>
+<td>1</td>
+<td>n/a</td>
+<td>1</td>
+<td>Number of pulses that are sent per trigger received</td>
+</tr>
+</tbody>
+</table>
+<h3 id="probeinterface">ProbeInterface</h3>
+<p>The <code>Rhs2116Headstage</code> GUI uses the
+<a href="https://probeinterface.readthedocs.io/en/main/index.html">ProbeInterface</a> format to draw the probes
+and electrodes visually. For more information on the ProbeInterface JSON format, check out their
+<a href="https://probeinterface.readthedocs.io/en/main/format_spec.html">format specifications</a> page.</p>
+<p>When opening the GUI, there is a default probe configuration that is loaded and drawn which can be
+saved to a <a href="#save-probeinterface-file">JSON file</a>. Conversely, an existing ProbeInterface JSON file
+can be <a href="#load-probeinterface-file">loaded</a> to update the current channel configuration. If the
+default configuration is needed, it can be <a href="#load-default-configuration">loaded again</a> at any time.</p>
+<h2 id="using-the-channel-selection-window">Using the Channel Selection Window</h2>
+<p>Upon first opening the GUI, the main window will be blank if no stimulus parameters have been
+defined. The window should look something like this:</p>
+<p align="center">
+  <img src="../../../images/rhs2116-gui-tut/gui-no-waveforms.png">
+</p>
+<h3 id="selecting-channels">Selecting channels</h3>
+<p>Once a GUI has been <a href="#overview">opened</a>, the panel in the top right will be populated with a default
+<code>Rhs2116</code> probe group, which is a graphical representation of the channels based on their location
+on the PCB. The probe group is oriented where the tether is located above the channels shown. Below
+are the controls used to navigate within this panel to view and choose electrodes.</p>
+<ul>
+<li>Mouse Controls
+<ul>
+<li>Mouse wheel zooms in/out towards the cursor</li>
+<li>Left-click and drag will select electrodes within the drawn rectangle</li>
+<li>Left-click on an electrode will toggle selection for that electrode</li>
+<li>Left-click on empty space will clear the electrode selection</li>
+<li>Middle-click and drag will pan the electrodes</li>
+</ul>
+</li>
+</ul>
+<p>When channels are selected, they will be highlighted by a green circle around the contact number,
+and the corresponding waveforms will be plotted in the main window; any channels that are
+not selected will not be plotted.</p>
+<h3 id="zoom-and-pan-limits">Zoom and pan limits</h3>
+<p>When zooming in and out, there are limits in both directions. The probe can only be zoomed out to
+the point that the entire probe is visible within the panel and no more. Similarly, while zooming in
+the probe will not zoom in past a certain point.</p>
+<p>In addition to the absolute zoom limits, the panel will automatically shift the probe to ensure it
+is always in view. This is handled each time the probe is zoomed or panned.</p>
+<h2 id="define-stimuli">Define Stimuli</h2>
+<p>The following sections define how to apply parameters, read existing parameters, and clear parameters from channels.
+They also provide example stimulus parameters and descriptions of error codes that can appear in the status strip to
+facilitate troubleshooting.</p>
+<h3 id="applying-parameters">Applying parameters</h3>
+<p>The first step is to <a href="#selecting-channels">select the channel(s)</a> where the parameters will be applied.
+Note that the same set of parameters can be simultaneously applied to any or all channels without
+restriction. If any channel already has stimulation parameters, note that selecting channels will
+only plot the selected channels in the main window. In the example below, channels 7, 8, 23, and 24
+are selected.</p>
+<p align="center">
+  <img src="../../../images/rhs2116-gui-tut/channel-selection-7-8-23-24.png">
+</p>
+<p>Enter the <a href="#stimulus-parameters">stimulus parameters</a> that you want to apply to the currently
+selected channel(s). Note that the value initially input by the user might update when the focus
+moves away from the current text box (e.g., the user presses <kbd>Tab</kbd> or clicks somewhere
+outside of the text box) to reflect the actual value that will be written based on the resolutions
+listed above. In the example below, we can see that the table listed below as well shows the typed
+values compared to the actual values list.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Requested Value</th>
+<th>Listed Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Delay [ms]</code></td>
+<td>5</td>
+<td>5.00</td>
+</tr>
+<tr>
+<td><code>Inter-Pulse [ms]</code></td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr>
+<td><code>Anodic Amplitude [µA]</code></td>
+<td>0.1</td>
+<td>0.1</td>
+</tr>
+<tr>
+<td><code>Anodic Pulse Width [ms]</code></td>
+<td>23</td>
+<td>22.99</td>
+</tr>
+<tr>
+<td><code>Inter-Stimulus [ms]</code></td>
+<td>100</td>
+<td>99.99</td>
+</tr>
+</tbody>
+</table>
+<p align="center">
+  <img src="../../../images/rhs2116-gui-tut/define-stimuli-a.png">
+</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>If a channel already has stimulus parameters applied to it, it is easy to change individual
+parameters by only writing in the applicable text box. Any boxes without input will not be
+applied.</p>
+</div>
+<p>The selected settings can be applied to the selected channels by pressing <kbd>Apply</kbd>, and the
+waveforms will be plotted in the main window as shown below.</p>
+<p align="center">
+  <img src="../../../images/rhs2116-gui-tut/waveforms-7-8-23-24-a.png">
+</p>
+<p>To see the values that will be written to the hardware, click on the <code>Table</code> tab in the top left,
+next to the <code>Stimulus Waveform</code> tab. This will open up a table that displays all 32 channels, and
+the value in steps and samples that could be written to the hardware. Any changes made to the
+channels parameters will be reflected in this window. An example of what the empty table looks like
+when no parameters have been set is below.</p>
+<p align="center">
+  <img src="../../../images/rhs2116-gui-tut/table.png">
+</p>
+<h3 id="reading-current-parameters">Reading current parameters</h3>
+<p>To easily copy settings from one channel to another, or to see what the current settings are on a
+channel prior to updating then settings, click on a single channel in the channel selection window,
+or click-and-drag until a single channel is selected, and then press on the <kbd>Read</kbd> button
+in the bottom right. If more than one channel is selected, or no channels are selected, a window
+will pop up prompting the user to select a single channel.</p>
+<p>To test this, select a channel that has not been configured yet and press <kbd>Read</kbd>. The
+parameter fields will be populated with zeroes as shown in the image below:</p>
+<p align="center">
+  <img src="../../../images/rhs2116-gui-tut/define-stimuli-read-defaults.png">
+</p>
+<p>Now select a channel that has been configured and press <kbd>Read</kbd> to read that channel's
+current parameters. For example, if one of the channels that was configured in the <a href="#applying-parameters">Applying
+parameters</a> section above is selected, the image below shows the result of the
+operation:</p>
+<p align="center">
+  <img src="../../../images/rhs2116-gui-tut/define-stimuli-read-applied-parameters.png">
+</p>
+<h3 id="clearing-current-parameters">Clearing current parameters</h3>
+<p>To quickly remove the current stimulus parameter configuration from any given channel(s), select as
+many channels as are needed and then press the <kbd>Clear</kbd> button. This will reset the
+channel(s) to their default configuration, which removes all parameters. The waveforms will be
+updated to show that there are no pulses being delivered on the channel(s).</p>
+<h2 id="status-strip">Status strip</h2>
+<p>The bottom left corner of the window shows the current status of the configuration settings. Below
+is a table showing the possible statuses, as well as additional information on what each message
+means and how invalid settings can be modified to allow the settings to be saved. In addition to the
+status message, there is an additional message in the status strip that keeps a tally of how complex
+the waveforms are. This is displayed as a total percentage of the number of slots used (or will be
+used) by the hardware. Increasing the number of pulses will use more slots, and introducing pulses
+across different channels that occur at different rates will use more slots.</p>
+<table>
+<thead>
+<tr>
+<th>Image</th>
+<th>Status Label</th>
+<th>Remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="../../../images/StatusReadyImage.png" alt="Valid stimulus sequence"></td>
+<td><code>Valid Stimulus Sequence</code></td>
+<td>There are no issues with the current configuration, and the number of slots fits within the hardware boundaries. Settings can be saved.</td>
+</tr>
+<tr>
+<td><img src="../../../images/StatusBlockedImage.png" alt="Invalid - too many pulses"></td>
+<td><code>Invalid Sequence - Too many pulses defined</code></td>
+<td>The resulting waveform is too complex (for example, using the same settings as above but setting 350 pulses will give this error.). Reduce the complexity of the waveform before saving the configuration.</td>
+</tr>
+<tr>
+<td><img src="../../../images/StatusCriticalImage.png" alt="Invalid Sequence"></td>
+<td><code>Invalid Sequence - Contact XX, Reason: Y</code></td>
+<td>Some combination of stimulus parameter settings is invalid and must be fixed before changes can be saved. The first contact with an invalid parameter set will be listed here, along with the actual reason. <a href="#reasons-for-invalid-sequence-status">Below</a> is a list of possible reasons, but this is not an exhaustive list.</td>
+</tr>
+</tbody>
+</table>
+<div class="TIP">
+<h5>Tip</h5>
+<p>In the case that there is an error defined on a particular channel, but it is unclear why the error
+exists since it appears that nothing is configured on that channel, try selecting the channel and
+<a href="#clearing-current-parameters">clear the configuration settings</a></p>
+</div>
+<h3 id="reasons-for-invalid-sequence-status">Reasons for invalid sequence status</h3>
+<table>
+<thead>
+<tr>
+<th>Reason</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Stimuli = 0, Cathodic Width &gt; 0</code></td>
+<td>The cathodic pulse width is greater than zero, but the number of pulses defined on the contact is zero.</td>
+</tr>
+<tr>
+<td><code>Stimuli = 0, Anodic Width &gt; 0</code></td>
+<td>The anodic pulse width is greater than zero, but the number of pulses defined on the contact is zero.</td>
+</tr>
+<tr>
+<td><code>Stimuli = 0, ISI &gt; 0</code></td>
+<td>The inter-stimulus interval is greater than zero, but the number of pulses defined on the contact is zero.</td>
+</tr>
+<tr>
+<td><code>Stimuli = 0, Anodic Steps &gt; 0</code></td>
+<td>The number of anodic amplitude steps is greater than zero, but the number of pulses defined on the contact is zero.</td>
+</tr>
+<tr>
+<td><code>Stimuli = 0, Cathodic Steps &gt; 0</code></td>
+<td>The number of cathodic amplitude steps is greater than zero, but the number of pulses defined on the contact is zero.</td>
+</tr>
+<tr>
+<td><code>Stimuli = 0, Delay &gt; 0</code></td>
+<td>The delay is greater than zero, but the number of pulses defined on the contact is zero.</td>
+</tr>
+<tr>
+<td><code>Stimuli = 0, Dwell (Inter-Pulse) &gt; 0</code></td>
+<td>The inter-pulse interval is greater than zero, but the number of pulses defined on the contact is zero.</td>
+</tr>
+<tr>
+<td><code>Anodic Width = 0, Anodic Steps &gt; 0</code></td>
+<td>The anodic amplitude is greater than zero, but the anodic pulse-width is set to zero on this contact.</td>
+</tr>
+<tr>
+<td><code>Cathodic Width = 0, Cathodic Steps &gt; 0</code></td>
+<td>The cathodic amplitude is greater than zero, but the cathodic pulse-width is set to zero on this contact.</td>
+</tr>
+<tr>
+<td><code>ISI = 0, Stimuli &gt; 1</code></td>
+<td>The inter-stimulus interval is equal to zero, but the number of stimuli is greater than one.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="keeping-or-discarding-settings">Keeping or discarding settings</h2>
+<p>While the GUI is open, any changes to the configuration settings can be freely modified and will not
+affect the configuration unless <kbd>Ok</kbd> is pressed. This includes all aspects of the
+configuration, such as filter settings and all stimulus waveform parameters.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The hardware is not actually configured until the workflow starts.</p>
+</div>
+<p>If the window is closed any other way (such as by pressing <code>Cancel</code> or pressing the <kbd>X</kbd> to
+close the window), any changes made <em>will not</em> be saved. If the current settings are considered
+invalid (see <a href="#reasons-for-invalid-sequence-status">the table above</a> for specific reasons why some
+settings are invalid), they also <em>will not</em> be saved even if <kbd>Ok</kbd> is pressed. A message box
+will pop up warning that the settings will not be saved, giving the opportunity to continue editing
+and correct any settings that need modification.</p>
+<h2 id="save-probeinterface-file">Save ProbeInterface file</h2>
+<p>To save a <a href="#probeinterface">ProbeInterface</a> JSON file fully describing the probe, including which
+electrodes are currently enabled, go to the File drop-down menu, and select <code>Channel Configuration → Save Channel Configuration</code>. This will open a file dialog window to save the new JSON file. Choose a
+folder location and a name for the file, then hit <code>Save</code>. This will export the current channel
+configuration. This is a useful way to save any manually enabled electrodes as a backup, or to
+easily switch between different configurations between recordings.</p>
+<h2 id="load-probeinterface-file">Load ProbeInterface file</h2>
+<p>To load a <a href="#probeinterface">ProbeInterface</a> JSON file, navigate to the File drop-down menu and
+select <code>Channel Configuration → Load Channel Configuration</code>. This will open a file dialog window;
+browse to the existing JSON file, select it and press <code>Open</code> to load the channel configuration. The
+new probe shape will be loaded and drawn, with the enabled electrodes highlighted as usual.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>When loading a new configuration, the total number of electrodes must match the existing
+configuration, and the number of enabled electrodes must match.</p>
+</div>
+<h2 id="load-default-configuration">Load default configuration</h2>
+<p>To load the default channel configuration at any time, navigate to the File drop-down menu and
+choose <code>Channel Configuration → Load Default Channel Configuration</code>. This will load the default
+configuration, with the default orientation as described above.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/open-ephys/bonsai-onix1-docs/blob/main/articles/hardware/rhs2116/gui.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          &copy; 2024 Open Ephys and Contributors. Made with <a href="https://dotnet.github.io/docfx">docfx</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Rhs2116 Stimulating </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Rhs2116 Stimulating ">
+      
+      
+      <link rel="icon" href="../../../favicon.png">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/open-ephys/bonsai-onix1-docs/blob/main/articles/hardware/rhs2116/rhs2116-stimulate.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo-light-mode.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="rhs2116_stimulate">
+          <h1>Rhs2116 Stimulating</h1>
+
+
+
+
+
+  
+<p>The following excerpt from the HeadstageRhs2116 <a class="xref" href="overview.html">example workflow</a> demonstrates the Rhs2116
+stimulation functionality by streaming and saving data from the Rhs2116 device.</p>
+<div class="workflow"><p><img src="../../../workflows/hardware/rhs2116/rhs2116-stimulate.bonsai" alt="/workflows/hardware/rhs2116/rhs2116-stimulate.bonsai workflow"></p>
+</div>
+<p>The <a class="xref" href="../../../api/OpenEphys.Onix1.DigitalInput.html">DigitalInput</a> operator generates a sequence of
+<a class="xref" href="../../../api/OpenEphys.Onix1.DigitalInputDataFrame.html">DigitalInputDataFrame</a>s. Although the digital inputs are sampled at 4 Mhz,
+these data frames are only emitted when the port status changes (i.e., when a pin, button, or switch
+is toggled). In the Breakout Board example workflow, the <code>DigitalInput</code>'s DeviceName property is
+set to &quot;BreakoutBoard/DigitalInput&quot;. This links the <code>DigitalInput</code> operator to the Breakout Board's
+digital inputs.</p>
+<p><a class="xref" href="../../../api/OpenEphys.Onix1.BreakoutButtonState.html">BreakoutButtonState</a> is selected from the <code>DigitalInputDataFrame</code>. It is an
+enumerator with values that correspond to bit positions of the breakout board's digital port.
+<code>Buttons</code> connects to <code>Condition</code> which is inspectable with the <kbd>F12</kbd> hotkey. <code>Condition</code>
+contains a <code>HasFlags</code> operator. Because <code>HasFlags</code>'s Value property is set to &quot;Triangle&quot;, it outputs
+&quot;True&quot; when the △ button is pressed. <code>Condition</code> passes <code>BreakoutButtonState</code> to <code>Double</code>
+when the its internal conditional statement is evaluated is true. <code>Double</code> emits a value of type
+<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a> to <a class="xref" href="../../../api/OpenEphys.Onix1.Rhs2116StimulusTrigger.html">Rhs2116StimulusTrigger</a> anytime it receives an item in
+its upstream sequence.</p>
+<p>When <code>Rhs2116StimulusTrigger</code> receives a double from the upstream sequence, a stimulus waveform is
+triggered. Its DeviceName property is set to &quot;HeadstageRhs2116/StimulusTrigger&quot; to link this
+operator to the Rhs2116s on the Headstage Rhs2116. <a class="xref" href="gui.html">Open the Headstage RHS2116
+GUI</a> to edit the stimulus waveform.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>For more details about configuring the Rhs2116 and its stimulation capabilities, read the
+<a href="https://intantech.com/files/Intan_RHS2116_datasheet.pdf">datasheet</a>.</p>
+</div>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/open-ephys/bonsai-onix1-docs/blob/main/articles/hardware/rhs2116/rhs2116-stimulate.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          &copy; 2024 Open Ephys and Contributors. Made with <a href="https://dotnet.github.io/docfx">docfx</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
