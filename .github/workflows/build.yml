@@ -61,7 +61,7 @@ jobs:
       - name: Check HTML Links After Building
         uses: lycheeverse/lychee-action@v1.10.0
         with:
-          args: --verbose --no-progress --base _site --exclude ^https://github\.com.*merge.* --exclude ^https://github\.com.*apiSpec.* '_site/**/*.html'
+          args: --verbose --no-progress --base _site --exclude ^https://github\.com.*merge.* --exclude ^https://github\.com.*apiSpec.* '_site/**/*.html' --accept 429
           fail: true
 
   deploy:
