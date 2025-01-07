@@ -64,13 +64,20 @@ jobs:
         with:
           name: _site
           path: _site
-      
+
+      - name: Restore lychee cache
+        uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          key: cache-lychee-${{ github.sha }}
+          restore-keys: cache-lychee-
+
       # This checks for missing / broken links in the *.html files after building the website.
       # We need to run this step here to check that all auto-generated API pages have valid links too.
       - name: Check HTML Links After Building
-        uses: lycheeverse/lychee-action@v1.10.0
+        uses: lycheeverse/lychee-action@v2
         with:
-          args: --verbose --no-progress --base _site --exclude ^https://github\.com.*merge.* --exclude ^https://github\.com.*apiSpec.* '_site/**/*.html'
+          args: --verbose --no-progress --base _site --exclude ^https://github\.com.*merge.* --exclude ^https://github\.com.*apiSpec.* '_site/**/*.html --max-retries 0 --max-concurrency 32 --cache --max-cache-age 1d'
           fail: true
 
   deploy:
