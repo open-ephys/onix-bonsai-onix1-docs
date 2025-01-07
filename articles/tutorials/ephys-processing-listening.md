@@ -9,15 +9,12 @@ detection as well as how to listen to ephys data using ONIX hardware and the Ope
 package. 
 
 > [!NOTE]
-> This tutorial serves primarily as a basic introduction to Bonsai. Many of these processes can be
+> This tutorial serves primarily as a basic introduction to Bonsai. 
+<!--Many of these processes can be
 > performed in the Open Ephys GUI as well which provides advanced visualizations and turnkey
 > processing capabilities. To learn how to pipe data to the Open Ephys GUI from Bonsai to leverage
-> these features of the Open Ephys GUI, refer to the [Open Ephys Socket Tutorial](xref:open-ephys-socket).
-
-<!-- Event detection in Bonsai will be faster and it allows actuation using ONIX or other hardware for closed-loop
-applications. However, more advanced event detection algorithms such as spike sorting, ripple detection, etc. need
-specific implementations in Bonsai. -->
-<!-- I'm not sure we need to discuss what this tutorial doesn't do -->
+> these features of the Open Ephys GUI, refer to the [Open Ephys Socket
+> Tutorial](xref:open-ephys-socket). -->
 
 ::: workflow
 ![/workflows/tutorials/ephys-process-listen/ephys-process-listen.bonsai workflow](../../workflows/tutorials/ephys-process-listen/ephys-process-listen.bonsai)
