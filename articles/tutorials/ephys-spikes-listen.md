@@ -1,23 +1,25 @@
 ---
-uid: ephys-process-listen
-title: Process and Listen to Ephys Data
+uid: ephys-spikes-listen
+title: Detect Spikes and Listen to Ephys Data
 ---
 
 This tutorial shows you how to perform basic online signal processing of electrophysiology data in
 Bonsai such as channel selection/reordering, frequency filtering, and fixed-threshold spike
 detection as well as how to listen to ephys data using ONIX hardware and the OpenEphys.Onix1 Bonsai
 package. 
-
+<!--
 > [!NOTE]
-> This tutorial serves primarily as a basic introduction to Bonsai. 
-<!--Many of these processes can be
-> performed in the Open Ephys GUI as well which provides advanced visualizations and turnkey
-> processing capabilities. To learn how to pipe data to the Open Ephys GUI from Bonsai to leverage
-> these features of the Open Ephys GUI, refer to the [Open Ephys Socket
-> Tutorial](xref:open-ephys-socket). -->
+> In addition to helping you detect spikes and listen to ephys, this tutorial serves as a 
+> primer for processing electrophysiology data in Bonsai. 
+> Many of these processes can be performed in the Open Ephys GUI as well which
+> provides advanced visualizations and turnkey processing capabilities. To learn how to pipe data to
+> the Open Ephys GUI from Bonsai to leverage these features of the Open Ephys GUI, refer to the
+> [Open Ephys Socket Tutorial](xref:open-ephys-socket). -->
+
+<!-- include the above comment in the note when socket tutorial is to be deployed -->
 
 ::: workflow
-![/workflows/tutorials/ephys-process-listen/ephys-process-listen.bonsai workflow](../../workflows/tutorials/ephys-process-listen/ephys-process-listen.bonsai)
+![/workflows/tutorials/ephys-spikes-listen/ephys-spikes-listen.bonsai workflow](../../workflows/tutorials/ephys-spikes-listen/ephys-spikes-listen.bonsai)
 :::
 
 > [!TIP]
@@ -27,7 +29,7 @@ package.
 > the <xref:dataio> and offset/scalar values as well as links to other documentation that pertain
 > to your particular headstage.
 
-## Set up and get started in Bonsai
+## Get Started in Bonsai
 
 Follow the [Getting Started](xref:getting-started) guide to set up and familiarize yourself with Bonsai. In particular:
 
@@ -37,12 +39,12 @@ installed. This tutorial assumes you're using the latest packages.
 - Read about [visualizing data](xref:visualize-data). We recommend verifying each step of the
 tutorial by visualizing the data produced.
 
-## Configure the hardware
+## Configure the Hardware
 
 Construct a [top-level hardware configuration chain](xref:initialize-onicontext): 
 
 ::: workflow
-![/workflows/tutorials/ephys-process-listen/configure.bonsai workflow](../../workflows/tutorials/ephys-process-listen/configure.bonsai)
+![/workflows/tutorials/ephys-spikes-listen/configure.bonsai workflow](../../workflows/tutorials/ephys-spikes-listen/configure.bonsai)
 :::
 
 1.  Place the [configuration operators](xref:configure) that corresponds to the hardware you intend
@@ -54,12 +56,12 @@ Construct a [top-level hardware configuration chain](xref:initialize-onicontext)
     acquisition chip) on the headstage 64 is the only device used in this tutorial, so you can
     disable other devices on the headstage and on the breakout board.
 
-## Stream ephys data into Bonsai
+## Stream Ephys Sata into Bonsai
 
 Place the relevant operators to stream electrophysiology data from your headstage:
 
 ::: workflow
-![/workflows/tutorials/ephys-process-listen/ephys-data.bonsai workflow](../../workflows/tutorials/ephys-process-listen/ephys-data.bonsai)
+![/workflows/tutorials/ephys-spikes-listen/ephys-data.bonsai workflow](../../workflows/tutorials/ephys-spikes-listen/ephys-data.bonsai)
 :::
 
 1.  We placed the <xref:OpenEphys.Onix1.Rhd2164Data> place into the workflow because the device on
@@ -77,24 +79,26 @@ Visualize the raw data to confirm that the ephys data operator is streaming data
 Connect a <xref:Bonsai.Dsp.SelectChannels> operator to the electrophysiology data stream and edit its "Channels" property:
 
 ::: workflow
-![/workflows/tutorials/ephys-process-listen/spike_select-channels.bonsai workflow](../../workflows/tutorials/ephys-process-listen/spike_select-channels.bonsai)
+![/workflows/tutorials/ephys-spikes-listen/spike_select-channels.bonsai workflow](../../workflows/tutorials/ephys-spikes-listen/spike_select-channels.bonsai)
 :::
 
 - Remember indexing starts at 0.
 - Reorder channels by listing the channel numbers in the order in which you want to visualize the
   channels.
 <!-- - Use commas to list multiple channels and brackets for ranges. -->
+<!-- ^ I couldn't get this to work -->
 
 ### Center the signal around zero
 
 Connect a <xref:Bonsai.Dsp.ConvertScale> operator to the `SelectChannels` operator and set its properties:
 
 ::: workflow
-![/workflows/tutorials/ephys-process-listen/spike_center-data.bonsai workflow](../../workflows/tutorials/ephys-process-listen/spike_center-data.bonsai)
+![/workflows/tutorials/ephys-spikes-listen/spike_center-data.bonsai workflow](../../workflows/tutorials/ephys-spikes-listen/spike_center-data.bonsai)
 :::
 
 - Edit its Shift property to subtract 2^bit depth - 1^ from the signal. In this example, we shift
-  -32768 because the Rhd2164 device outputs unsigned 16-bit data.
+  -32768 because the Rhd2164 device outputs unsigned 16-bit data. Use this
+  [reference](xref:reference) to find the equivalent value for your hardware.
 - Set the Depth property to S16 or F32. A sufficiently large data type is required to represent
   ephys data without overflow.
 
@@ -103,13 +107,13 @@ Connect a <xref:Bonsai.Dsp.ConvertScale> operator to the `SelectChannels` operat
 Connect a second `ConvertScale` to the first `ConvertScale` and set its properties:
 
 ::: workflow
-![/workflows/tutorials/ephys-process-listen/spike_scale-data.bonsai workflow](../../workflows/tutorials/ephys-process-listen/spike_scale-data.bonsai)
+![/workflows/tutorials/ephys-spikes-listen/spike_scale-data.bonsai workflow](../../workflows/tutorials/ephys-spikes-listen/spike_scale-data.bonsai)
 :::
 
 - Edit its Scale property to multiply the signal by a scalar in order to get microvolt values. This
   scalar is determined by the gain of the amplifier and resolution the ADC contained in the bioacquisition
   device. In this example, we scale by 0.195 because the Rhd2164 device on headstage64 has a step size
-  of 0.195&nbsp;μV/bit.
+  of 0.195&nbsp;μV/bit. Use this [reference](xref:reference) to find the equivalent value for your hardware.
 - Set the Depth property at F32 which is required to represent decimal values. 
 
 Visualize the transformed data to confirm the output of the shifting and scaling operations are
@@ -127,7 +131,7 @@ in microvolts.
 Connect a `FrequencyFilter` operator to the second `ConvertScale` operator and set its properties:
 
 ::: workflow
-![/workflows/tutorials/ephys-process-listen/spike_filter-data.bonsai workflow](../../workflows/tutorials/ephys-process-listen/spike_filter-data.bonsai)
+![/workflows/tutorials/ephys-spikes-listen/spike_filter-data.bonsai workflow](../../workflows/tutorials/ephys-spikes-listen/spike_filter-data.bonsai)
 :::
 
 - Set its SampleRate property to 30000. Ephys data in all devices is 30 kHz.
@@ -148,7 +152,7 @@ Visualize the filtered data to confirm that it matches your expectations.
 ### Detect spikes with fixed threshold
 
 ::: workflow
-![/workflows/tutorials/ephys-process-listen/spike_detect.bonsai workflow](../../workflows/tutorials/ephys-process-listen/spike_detect.bonsai)
+![/workflows/tutorials/ephys-spikes-listen/spike_detect.bonsai workflow](../../workflows/tutorials/ephys-spikes-listen/spike_detect.bonsai)
 :::
 
 Based on the amplitude of the signal on the selected channel, set a fixed threshold for detecting
@@ -161,15 +165,15 @@ Visualize the spike data.
 The output of `AmplifierData` can be directed into two separate signal processing streams. In other
 words, it is possible for two downstream operators to receiving the same sequence of
 `AmplifierDataFrames`. This is helpful for creating two distinct disparate processes for the same
-data stream.
+data stream. 
 
-### Select channel. Center, scale, and filter the signal
+### Select channel and process signal
 
 ::: workflow
-![/workflows/tutorials/ephys-process-listen/audio_process.bonsai workflow](../../workflows/tutorials/ephys-process-listen/audio_process.bonsai)
+![/workflows/tutorials/ephys-spikes-listen/audio_process.bonsai workflow](../../workflows/tutorials/ephys-spikes-listen/audio_process.bonsai)
 :::
 
-The same basic steps as the [Spike Detection](xref:ephys-process-listen#detect-spikes) section are performed.
+The same basic steps as the [Spike Detection](xref:ephys-spikes-listen#detect-spikes) section are performed.
 However, the property settings are critically different. 
 
 - Select a single channel for listening instead of multiple channels for detecting spikes.
@@ -180,10 +184,10 @@ However, the property settings are critically different.
 Visualize the data and compare it at various points in the processing pipeline to confirm it matches
 your expectations.
 
-### Audio playback
+### Play audio
 
 ::: workflow
-![/workflows/tutorials/ephys-process-listen/ephys-process-listen.bonsai workflow](../../workflows/tutorials/ephys-process-listen/ephys-process-listen.bonsai)
+![/workflows/tutorials/ephys-spikes-listen/ephys-spikes-listen.bonsai workflow](../../workflows/tutorials/ephys-spikes-listen/ephys-spikes-listen.bonsai)
 :::
 
 Connect an `AudioPlayback` operator to `FrequencyFilter` and set its SampleRate property to 30000.
@@ -193,11 +197,11 @@ Providing data to `AudioPlayback` that is outside of the bounds of a signed 16&n
 maintain a Scale property value of less than 1 for the volume knob `ConvertScale`. Maximize other
 volume settings on your PC before exceeding 1.
 
-## Refactoring the Workflow for your purpose
+<!-- ## Refactor the Workflow
 
 If the processing branches have overlap, it is possible to consolidate them. For example, if your
 filter parameters and offset parameters are identical, this workflow behaves identically as the
-example provided at the top of this page.
+example provided at the top of this page. -->
 
 > [!TIP] 
 > You can test the spike detection using pre-recorded data known to have spikes: recreate the
