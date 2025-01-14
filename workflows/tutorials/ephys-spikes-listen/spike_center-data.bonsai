@@ -2,6 +2,7 @@
 <WorkflowBuilder Version="2.8.5"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:onix1="clr-namespace:OpenEphys.Onix1;assembly=OpenEphys.Onix1"
+                 xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -23,7 +24,7 @@
           <onix1:AnalogIO>
             <onix1:DeviceName>BreakoutBoard/AnalogIO</onix1:DeviceName>
             <onix1:DeviceAddress>6</onix1:DeviceAddress>
-            <onix1:Enable>true</onix1:Enable>
+            <onix1:Enable>false</onix1:Enable>
             <onix1:InputRange0>TenVolts</onix1:InputRange0>
             <onix1:InputRange1>TenVolts</onix1:InputRange1>
             <onix1:InputRange2>TenVolts</onix1:InputRange2>
@@ -52,7 +53,7 @@
           <onix1:DigitalIO>
             <onix1:DeviceName>BreakoutBoard/DigitalIO</onix1:DeviceName>
             <onix1:DeviceAddress>7</onix1:DeviceAddress>
-            <onix1:Enable>true</onix1:Enable>
+            <onix1:Enable>false</onix1:Enable>
           </onix1:DigitalIO>
           <onix1:ClockOutput>
             <onix1:DeviceName>BreakoutBoard/OutputClock</onix1:DeviceName>
@@ -65,7 +66,7 @@
           <onix1:HarpInput>
             <onix1:DeviceName>BreakoutBoard/HarpSyncInput</onix1:DeviceName>
             <onix1:DeviceAddress>12</onix1:DeviceAddress>
-            <onix1:Enable>true</onix1:Enable>
+            <onix1:Enable>false</onix1:Enable>
             <onix1:Source>Breakout</onix1:Source>
           </onix1:HarpInput>
           <onix1:MemoryMonitor>
@@ -81,29 +82,29 @@
           <onix1:Name>Headstage64</onix1:Name>
           <onix1:Rhd2164>
             <onix1:DeviceName>Headstage64/Rhd2164</onix1:DeviceName>
-            <onix1:DeviceAddress>512</onix1:DeviceAddress>
+            <onix1:DeviceAddress>256</onix1:DeviceAddress>
             <onix1:Enable>true</onix1:Enable>
             <onix1:DspCutoff>Dsp146mHz</onix1:DspCutoff>
             <onix1:AnalogLowCutoff>Low100mHz</onix1:AnalogLowCutoff>
-            <onix1:AnalogHighCutoff>High20000Hz</onix1:AnalogHighCutoff>
+            <onix1:AnalogHighCutoff>High10000Hz</onix1:AnalogHighCutoff>
           </onix1:Rhd2164>
           <onix1:Bno055>
             <onix1:DeviceName>Headstage64/Bno055</onix1:DeviceName>
-            <onix1:DeviceAddress>513</onix1:DeviceAddress>
-            <onix1:Enable>true</onix1:Enable>
+            <onix1:DeviceAddress>257</onix1:DeviceAddress>
+            <onix1:Enable>false</onix1:Enable>
           </onix1:Bno055>
           <onix1:TS4231>
             <onix1:DeviceName>Headstage64/TS4231V1</onix1:DeviceName>
-            <onix1:DeviceAddress>514</onix1:DeviceAddress>
-            <onix1:Enable>true</onix1:Enable>
+            <onix1:DeviceAddress>258</onix1:DeviceAddress>
+            <onix1:Enable>false</onix1:Enable>
           </onix1:TS4231>
           <onix1:ElectricalStimulator>
             <onix1:DeviceName>Headstage64/Headstage64ElectricalStimulator</onix1:DeviceName>
-            <onix1:DeviceAddress>515</onix1:DeviceAddress>
+            <onix1:DeviceAddress>259</onix1:DeviceAddress>
           </onix1:ElectricalStimulator>
           <onix1:OpticalStimulator>
             <onix1:DeviceName>Headstage64/Headstage64OpticalStimulator</onix1:DeviceName>
-            <onix1:DeviceAddress>516</onix1:DeviceAddress>
+            <onix1:DeviceAddress>260</onix1:DeviceAddress>
           </onix1:OpticalStimulator>
           <onix1:Port>PortA</onix1:Port>
           <onix1:PortVoltage xsi:nil="true" />
@@ -115,11 +116,37 @@
           <onix1:WriteSize>2048</onix1:WriteSize>
         </Combinator>
       </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="onix1:Rhd2164Data">
+          <onix1:DeviceName>Headstage64/Rhd2164</onix1:DeviceName>
+          <onix1:BufferSize>30</onix1:BufferSize>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>AmplifierData</Selector>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:SelectChannels">
+          <dsp:Channels>
+            <dsp:int>0</dsp:int>
+          </dsp:Channels>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:ConvertScale">
+          <dsp:Depth>S16</dsp:Depth>
+          <dsp:Scale>1</dsp:Scale>
+          <dsp:Shift>-32768</dsp:Shift>
+        </Combinator>
+      </Expression>
     </Nodes>
     <Edges>
       <Edge From="0" To="1" Label="Source1" />
       <Edge From="1" To="2" Label="Source1" />
       <Edge From="2" To="3" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
+      <Edge From="5" To="6" Label="Source1" />
+      <Edge From="6" To="7" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

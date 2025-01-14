@@ -1,4 +1,3 @@
 - href: index.md
-  items: [
-    href: basic-ephys-processing.md
-  ]
+  items: 
+  - href: ephys-spikes-listen.md
