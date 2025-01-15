@@ -43,7 +43,7 @@ you're using the latest software.
 ![/workflows/tutorials/basic-ephys-processing/configuration.bonsai workflow](../../workflows/tutorials/basic-ephys-processing/configuration.bonsai)
 :::
 
-Construct a [top-level hardware configuration chain](xref:initialize-onicontext): 
+Construct a [top-level hardware configuration chain](xref:configure-hardware): 
 
 1. Place the [configuration operators](xref:configure) that correspond to the hardware you intend to use between
 <xref:OpenEphys.Onix1.CreateContext> and <xref:OpenEphys.Onix1.StartAcquisition>. In this example, these are
