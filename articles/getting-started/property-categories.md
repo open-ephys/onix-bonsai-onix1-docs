@@ -3,48 +3,42 @@ uid: property-categories
 title: Property Categories
 ---
 
-There are specific categories of properties that define when and how an operator's properties can be
-modified. 
+Operators can be configured through editable properties. These properties fall
+into the following categories:
 
-## Configuration & Acquisition Properties
+<span class="badge oe-badge-border oe-badge-orange"
+id="configuration">Configuration</span> properties have an effect on hardware
+when a workflow is started and are used to initialize the hardware state. If
+they are changed while a workflow is running, they will not have an effect until
+the workflow is restarted. For example, the `Driver` and `Index` properties of
+<xref:OpenEphys.Onix1.CreateContext#properties> are used to specify the hardware
+prior to starting a recording.
 
-<span class="badge oe-badge-border oe-badge-yellow" id="configuration">Configuration</span>
-properties have an effect on hardware when a workflow is started and are used to initialize the
-hardware state. Even if they are changed while a workflow is running, they will not have an effect
-until the workflow is restarted.
+<span class="badge oe-badge-border oe-badge-blue"
+id="acquisition">Acquisition</span> properties have an immediate effect on
+hardware when the workflow is running. For example, the stimulus properties of
+<xref:OpenEphys.Onix1.Headstage64ElectricalStimulatorTrigger#properties> can be dynamically
+configured while a workflow is running to shape stimulus patterns in real-time.
 
-<span class="badge oe-badge-border oe-badge-blue" id="acquisition">Acquisition</span> properties
-have an immediate effect on hardware when the workflow is running. For instance, stimulus waveform
-properties can be dynamically modified according to parameters in your workflow.
+<span class="badge oe-badge-border oe-badge-green" id="device-group">Device
+Group</span> properties are only available through [Device Group configuration
+operators](xref:configure) that are used for globally configuring groups of
+devices. For example,
+<xref:OpenEphys.Onix1.ConfigureBreakoutBoard.BreakoutBoard#breakoutboard> property can be used
+to provide a unique name to different Breakout boards if multiple are used on a
+single host computer.
 
-## Aggregate & Device Properties
+<span class="badge oe-badge-border oe-badge-red" id="device">Device</span>
+properties are available through [Device configuration
+operators](xref:device-configure) and device group configuration operators that
+combine multiple individual devices. For example, the
+<xref:OpenEphys.Onix1.ConfigureBreakoutBoard.AnalogIO#analogio> property can be used to
+configure the Analog IO device on a breakout board.
 
-<span class="badge oe-badge-border oe-badge-green" id="device-group">Device Group</span> properties are
-only available through [device group configuration operators](xref:configure). 
-
-<span class="badge oe-badge-border oe-badge-red" id="device">Device</span> properties are available
-through [device configuration operators](xref:device-configure) and device group configuration
-operators that derive them from device configuration operators. For example,
-<xref:OpenEphys.Onix1.ConfigureHeadstage64> derives properties from
-<xref:OpenEphys.Onix1.ConfigureBno055>. 
-
-Writing <span class="badge oe-badge-border oe-badge-blue" id="acquisition">Acquisition</span> <span
+<!-- TODO: Move this to the user guide -->
+<!-- Writing <span class="badge oe-badge-border oe-badge-blue" id="acquisition">Acquisition</span> <span
 class="badge oe-badge-border oe-badge-red" id="device">Device</span> properties to hardware
 dynamically (e.g. while the the workflow is running) requires using device configuration operators
 because externalizing device properties from a device group configuration operator in Bonsai is
-currently not possible. 
+currently not possible. -->
 
-<!-- <table style="border:transparent; width:20%">
-  <tr>
-    <td><span class="badge oe-badge-border oe-badge-orange">Configuration</span></td>
-    <td><span class="badge oe-badge-border oe-badge-blue">Acquisition</span></td>
-  </tr>
-  <tr>
-    <td><span class="badge oe-badge-border oe-badge-red">Device</span></td>
-    <td><span class="badge oe-badge-border oe-badge-green">Device Group</span></td>
-  </tr>
-  <tr>
-    <td><span class="badge oe-badge-border oe-badge-yellow">Fixed-rate</span></td>
-    <td><span class="badge oe-badge-border oe-badge-purple">Variable-rate</span></td>
-  </tr>
-</table> -->
