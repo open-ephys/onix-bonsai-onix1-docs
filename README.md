@@ -20,33 +20,31 @@ Download and install [git](https://git-scm.com/downloads) if it is not installed
 > It often appears to hang because it does not output any status information.
 > Usually, the command will eventually return.
 
-1. Clone the documentation repository:
+1. Using Windows PowerShell or a Git Bash terminal, clone the documentation repository:
     ``` console
-    git clone https://github.com/open-ephys/onix1-bonsai-docs
-    cd onix1-bonsai-docs
+    git clone https://github.com/open-ephys/bonsai-onix1-docs
+    cd bonsai-onix1-docs
     ```
 1. Pull in the latest files from the submodules according to the commit that the submodules point to:
     ``` console
     git submodule update --recursive --init
     ```
     In particular, the source code is available in this repo as a submodule. This will update the source code to the latest commit on main.
-1. Configure the docfx version and restore docfx companion tools such as [DocLinkChecker](https://github.com/Ellerbach/docfx-companion-tools/tree/main/src/DocLinkChecker).
-    ``` console
-    dotnet tool restore --configfile ./.bonsai/NuGet.config
-    ```
-1. To make the `docfx` command available after restoring the config file from the previous step, run:
+1. Configure the docfx version and restore docfx companion tools such as [DocLinkChecker](https://github.com/Ellerbach/docfx-companion-tools/tree/main/src/DocLinkChecker). You need to be in the same root folder where you cloned the repository for this to work. Run:
     ``` console
     dotnet tool restore
     ```
+    to make the `docfx` command available.
+   
     If the above command yields the following error:
     ``` console
     It was not possible to find any installed .NET Core SDKs
     ```
     even after installing .NET as described previously in the readme, refer to [this comment](https://github.com/dotnet/core/issues/6095#issuecomment-809006602) for a potential fix. If you follow the instructions described in the comment, make sure you proceed in a terminal or command prompt opened after changing the environment variables.
-1. Set up a local Bonsai environment for automatically exporting SVGs, run: 
+1. Set up a local Bonsai environment for automatically exporting SVGs, run Setup.ps1 in PowerShell (or, if not using PowerShell, run Setup.Cmd): 
     ``` console
     ./.bonsai/Setup.ps1
-    ```
+    ```    
     If the above command yields the following error:
     ``` console
     ./Setup.ps1 : File C:\Users\User\...\bonsai-onix1-docs\Setup.ps1 cannot be loaded because running scripts is      
@@ -65,6 +63,8 @@ To build the docs and serve locally, run in PowerShell:
 ``` console
 ./build.ps1 --serve
 ```
+
+If this doesn't run, see comment in section above.
 
 If SVGs are already exported and do not need to be updated, they don't need to be re-exported. In that case, to build the docs and serve locally more quickly, run:
 
