@@ -27,7 +27,7 @@ package.
 > the <xref:dataio> and offset/scalar values as well as links to other documentation that pertain
 > to your particular headstage.
 
-## Set up and get started in Bonsai
+## Get Started in Bonsai
 
 Follow the [Getting Started](xref:getting-started) guide to set up and familiarize yourself with Bonsai. In particular:
 
@@ -37,7 +37,7 @@ installed. This tutorial assumes you're using the latest packages.
 - Read about [visualizing data](xref:visualize-data). We recommend verifying each step of the
 tutorial by visualizing the data produced.
 
-## Configure the hardware
+## Configure the Hardware
 
 Construct a [top-level hardware configuration chain](xref:initialize-onicontext): 
 
@@ -54,7 +54,7 @@ Construct a [top-level hardware configuration chain](xref:initialize-onicontext)
     acquisition chip) on the headstage 64 is the only device used in this tutorial, so you can
     disable other devices on the headstage and on the breakout board.
 
-## Stream ephys data into Bonsai
+## Stream Ephys Data into Bonsai
 
 Place the relevant operators to stream electrophysiology data from your headstage:
 
@@ -163,7 +163,7 @@ words, it is possible for two downstream operators to receiving the same sequenc
 `AmplifierDataFrames`. This is helpful for creating two distinct disparate processes for the same
 data stream.
 
-### Select channel. Center, scale, and filter the signal
+### Select a channel and process the signal for audio
 
 ::: workflow
 ![/workflows/tutorials/ephys-process-listen/audio_process.bonsai workflow](../../workflows/tutorials/ephys-process-listen/audio_process.bonsai)
@@ -180,7 +180,7 @@ However, the property settings are critically different.
 Visualize the data and compare it at various points in the processing pipeline to confirm it matches
 your expectations.
 
-### Audio playback
+### Play ephys data as audio
 
 ::: workflow
 ![/workflows/tutorials/ephys-process-listen/ephys-process-listen.bonsai workflow](../../workflows/tutorials/ephys-process-listen/ephys-process-listen.bonsai)
