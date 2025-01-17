@@ -161,7 +161,7 @@ Visualize the spike data.
 The output of `AmplifierData` can be directed into two separate signal processing streams. In other
 words, it is possible for two downstream operators to receiving the same sequence of
 `AmplifierDataFrames`. This is helpful for creating two distinct disparate processes for the same
-data stream.
+data stream, one for visualizing spikes in several channels (as above) and one for listening to a single channel as follows.
 
 ### Select a channel and process the signal for audio
 
