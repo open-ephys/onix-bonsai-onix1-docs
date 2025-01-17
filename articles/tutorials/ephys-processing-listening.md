@@ -145,7 +145,7 @@ Visualize the filtered data to confirm that it matches your expectations.
 > and scaling to save raw data instead of scaled or filtered data. Converting to microvolts with the
 > second `ConvertScale` operator increases the size of your data (because it's converted to F32 from
 > S16) without increasing meaningful information. Filtering with the `FrequencyFilter` operator
-> before recording removes sign in irrecoverable ways. It's preferable to either save both or apply
+> before recording removes signal in irrecoverable ways. It's preferable to either save both or apply
 > another filter when loading and processing the data. 
 
 ### Detect spikes with fixed threshold
@@ -162,7 +162,7 @@ Visualize the spike data.
 ## Listen to Ephys
 
 The output of `AmplifierData` can be directed into two separate signal processing streams. In other
-words, it is possible for two downstream operators to receiving the same sequence of
+words, it is possible for two downstream operators to receive the same sequence of
 `AmplifierDataFrames`. This is helpful for creating two distinct disparate processes for the same
 data stream, one for visualizing spikes in several channels as we did above and one for listening to a single channel as follows.
 
