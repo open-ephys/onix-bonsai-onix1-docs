@@ -94,7 +94,7 @@ Connect a <xref:Bonsai.Dsp.ConvertScale> operator to the `SelectChannels` operat
 :::
 
 - Edit its Shift property to subtract 2^bit depth - 1^ from the signal. In this example, we shift
-  -32768 because the Rhd2164 device outputs unsigned 16-bit data.
+  -32768 because the Rhd2164 device outputs unsigned 16-bit data. Use this [reference](xref:reference) to find the equivalent value for your hardware.
 - Set the Depth property to S16 or F32. A sufficiently large data type is required to represent
   ephys data without overflow.
 
@@ -109,7 +109,7 @@ Connect a second `ConvertScale` to the first `ConvertScale` and set its properti
 - Edit its Scale property to multiply the signal by a scalar in order to get microvolt values. This
   scalar is determined by the gain of the amplifier and resolution the ADC contained in the bioacquisition
   device. In this example, we scale by 0.195 because the Rhd2164 device on headstage64 has a step size
-  of 0.195&nbsp;μV/bit.
+  of 0.195&nbsp;μV/bit. Use this [reference](xref:reference) to find the equivalent value for your hardware.
 - Set the Depth property at F32 which is required to represent decimal values. 
 
 Visualize the transformed data to confirm the output of the shifting and scaling operations are
