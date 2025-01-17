@@ -41,7 +41,7 @@ in more advanced workflows that require writing to hardware while the workflow i
 Any number of configuration operators can be chained following a CreateContext operator. If you use
 only multi-device configuration operators, you'll probably have between one and three total
 configuration operators: one for the breakout board and one for each port that is connected to a
-headstage or miniscope. For example:
+headstage or miniscope. 
 
 ::: workflow
 ![/workflows/getting-started/configure.bonsai workflow](../../workflows/getting-started/configure.bonsai)
@@ -84,15 +84,16 @@ an additional step: aliasing the multi-device configuration operator. Suppose yo
 orientation data from two Headstage64s through the Bno055Data operator. By default, the
 ConfigureHeadstage64 operators are both named "Headstage64". This causes their devices to also have
 identical names, "Headstage64/Bno055". We need to disambiguate the headstages and their devices. The
-solution is to alias one or both headstages. 
+solution is to alias one or both headstages by editing their Name property.
 
 ::: workflow
 ![/images/bno055-data-alias.bonsai workflow](../../images/bno055-data-alias.bonsai)
 :::
 
-In this workflow, each operator previously named "Headstage64" has been suffixed by the port to
-which the headstage is plugged. Now you can use the names "Headstage64A/Bno055" and
-"Headstage64B/Bno055" when setting the DeviceName property in each Bno055Data operator. 
+In this workflow, each ConfigureHeadstage64 operator previously named "Headstage64" has been
+suffixed by the port to which the headstage is plugged. Now you can use the names
+"Headstage64A/Bno055" and "Headstage64B/Bno055" when setting the DeviceName property in
+each Bno055Data operator. 
 
 <!-- ## Configuring & Acquiring from Multiple ONIX Systems
 
