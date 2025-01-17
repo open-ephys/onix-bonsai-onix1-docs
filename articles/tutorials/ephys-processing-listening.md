@@ -193,6 +193,7 @@ Providing data to `AudioPlayback` that is outside of the bounds of a signed 16&n
 maintain a Scale property value of less than 1 for the volume knob `ConvertScale`. Maximize other
 volume settings on your PC before exceeding 1.
 
+<!-- 
 ## Refactoring the Workflow for your purpose
 
 If the processing branches have overlap, it is possible to consolidate them. For example, if your
@@ -206,4 +207,4 @@ example provided at the top of this page.
 > `MemberSelector` operators) with a `MatrixReader` that reads from a file containing spiking
 > ephys data in unsigned 16-bit format.
 
-<!-- add this workflow and some sample data -->
+add this workflow and some sample data -->
