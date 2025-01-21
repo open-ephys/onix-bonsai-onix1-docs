@@ -7,10 +7,6 @@ on:
   pull_request:
     branches: [ main ]
 
-concurrency:
-  group: docs
-  cancel-in-progress: true
-
 jobs:
   build:
     runs-on: windows-latest
