@@ -38,7 +38,7 @@ In addition to the absolute number of channels, there are other restrictions in 
 
 ### Keeping or discarding configuration settings
 
-While the GUI is open, any changes to the configuration settings can be freely modified and will not affect the configuration unless `Okay` is pressed. This includes all aspects of the configuration, such as which electrodes are enabled, the chosen reference channel, and the probe calibration file.
+While the GUI is open, any changes to the configuration settings can be freely modified and will not affect the configuration unless <kbd>Ok</kbd> is pressed. This includes all aspects of the configuration, such as which electrodes are enabled, the chosen reference channel, and the probe calibration file.
 
 > [!NOTE]
 > The hardware is not actually configured until the workflow starts.
