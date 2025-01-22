@@ -23,10 +23,10 @@ configured while a workflow is running to shape stimulus patterns in real-time.
 <span class="badge oe-badge-border oe-badge-green" id="device-group">Device
 Group</span> properties are only available through [Device Group configuration
 operators](xref:configure) that are used for globally configuring groups of
-devices. For example,
-<xref:OpenEphys.Onix1.ConfigureBreakoutBoard.BreakoutBoard#breakoutboard> property can be used
-to provide a unique name to different Breakout boards if multiple are used on a
-single host computer.
+devices. For example, the
+[Name](xref:OpenEphys.Onix1.ConfigureBreakoutBoard#configuration) property of
+the Breakout Board can be used to provide a unique name to different Breakout
+boards if multiple are used on a single host computer.
 
 <span class="badge oe-badge-border oe-badge-red" id="device">Device</span>
 properties are available through [Device configuration
