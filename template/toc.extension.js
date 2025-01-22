@@ -43,7 +43,7 @@ exports.preTransform = function (model) {
           'items': 
           [
             {
-              'name': 'Device Configuration Operators',
+              'name': 'Single-Device Configuration Operators',
               'href' : 'device-configure.html',
               'topicHref': 'device-configure.html',
               'topicUid': 'device-configure',

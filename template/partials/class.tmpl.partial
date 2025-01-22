@@ -2,7 +2,7 @@
   <div class="Important alert alert-info">
     <h5>TIP</h5>
     <p>
-      This is a device configuration operator. <a class="xref" href="configure.html">Aggregate configuration operators</a> are recommended instead of <a class="xref" href="device-configure.html">device configuration operators</a> for interfacing with Open Ephys Onix hardware.
+      This is a <a class="xref" href="device-configure.html">single-device configuration operator</a>. <a class="xref" href="configure.html">Multi-device configuration operators</a> are recommended instead of single-device configuration operators for interfacing with Open Ephys Onix hardware.
     </p>
   </div>
 {{/oe.operator.configureDevice}}
@@ -36,15 +36,15 @@
 <h3 class="text-break" style="display: inline-block;">{{{object}}}</h3> 
 
 {{^constituentOperator}}
-<a class="xref" href="~/articles/getting-started/property-categories.html#device-group">
-  <button class="badge oe-badge-border oe-badge-green">Device Group</button>
+<a class="xref" href="~/articles/getting-started/property-categories.html#multi-device">
+  <button class="badge oe-badge-border oe-badge-green">Multi-device</button>
 </a>
-<p>These are properties of the {{{oe.name}}} <a class="xref" href="~/api/configure.html">device group configuration operator</a>:</p>
+<p>These are properties of the {{{oe.name}}} <a class="xref" href="~/api/configure.html">multi-device configuration operator</a>:</p>
 {{/constituentOperator}}
 
 {{#constituentOperator}}
-<a class="xref" href="~/articles/getting-started/property-categories.html#device">
-  <button class="badge oe-badge-border oe-badge-red">Device</button>
+<a class="xref" href="~/articles/getting-started/property-categories.html#single-device">
+  <button class="badge oe-badge-border oe-badge-purple">Single-device</button>
 </a>
 <p>{{{object}}} is a {{{type}}} device operator contained by the {{{oe.name}}} operator with the following properties:</p>
 {{/constituentOperator}}
