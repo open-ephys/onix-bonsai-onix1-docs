@@ -3,7 +3,7 @@ uid: ephys-socket
 title: Visualizing Data in the Open Ephys GUI
 ---
 
-This tutorial shows how to establish a TCP socket to visualize data acquired with ONIX hardware in the Open Ephys GUI, using the OpenEphys.Sockets.Bonsai and OpenEphys.Onix1 Bonsai packages, and the Ephys Socket Open Ephys GUI plugin.
+This tutorial shows how to establish a TCP connection to visualize data acquired with ONIX hardware in the Open Ephys GUI, using the OpenEphys.Sockets.Bonsai and OpenEphys.Onix1 Bonsai packages, and the Ephys Socket Open Ephys GUI plugin.
 
 In this example, we transmit two data streams from a NeuropixelsV1e probe: the LFP band and the AP band data (384 channels). This approach lets users take advantage of the specialized visualizers available in the Open Ephys GUI, such as the Probe Viewer which was specifically designed for very dense arrays like Neuropixels probes.
 
@@ -23,7 +23,7 @@ This tutorial guides you through building the following workflow:
 > Use this [reference](xref:reference) for which ephys <xref:dataio> and scaling you need to use for each headstage, and links to relevant
 > documentation. 
 
-## Set up and get started in Bonsai and the Open Ephys GUI
+## Get Started in Bonsai and the Open Ephys GUI
 
 Follow the [Getting Started](xref:getting-started) guide to set up and get familiarized with Bonsai. In particular:
 
@@ -35,7 +35,7 @@ Follow the [Getting Started](xref:getting-started) guide to set up and get famil
 
 <!-- Open Ephys GUI instructions -->
 
-## Configure the TCP socket in Bonsai
+## Configure the TCP Connection in Bonsai
 
 ::: workflow
 ![/workflows/tutorials/ephys-socket/configure-socket.bonsai workflow](../../workflows/tutorials/ephys-socket/configure-socket.bonsai)
@@ -44,7 +44,7 @@ Follow the [Getting Started](xref:getting-started) guide to set up and get famil
 <!-- add txt -->
 <!-- Tip about Use Alt and drag if not at the top -->
 
-## Configure the hardware
+## Configure the Hardware
 
 Construct a [top-level hardware configuration chain](xref:initialize-onicontext): 
 
@@ -57,7 +57,7 @@ Construct a [top-level hardware configuration chain](xref:initialize-onicontext)
 1. Confirm that the device that streams electrophysiology data is enabled. In this example, we will be using the device NeuropixelsV1eData.
 1. Configure the hardware as necessary. In the case of NeuropixelsV1e Headstage, you must provide gain and calibration files and can perform other configurations as explained in the [NeuropixelsV1e Headstage Configuration](xref:np1e_configuration).
 
-## Stream ephys data into Bonsai
+## Stream Ephys Data into Bonsai
 
 Place the relevant operators to stream electrophysiology data from your headstage:
 
@@ -70,7 +70,7 @@ Place the relevant operators to stream electrophysiology data from your headstag
 
 Visualize the raw data to confirm that the ephys data operator is streaming data. 
 
-## Configure data streams to transmit
+## Configure the Data Streams to Transmit
 
 Connect a `SendMatOverSocket` operator to each of the electrophysiology data streams. This operator comes from the OpenEphys.Sockets Bonsai package. Make sure it's [installed and updated](xref:install-configure-bonsai).
 
@@ -83,15 +83,15 @@ Connect a `SendMatOverSocket` operator to each of the electrophysiology data str
 Configure the "Connection" property of each `SendMatOverSocket` node to each of the TCP Socket names configured earlier. In this example, we used "socket1" for "SpikeData" and "socket2" for "LfPData".
 
 
-## Configure the TCP socket in the Open Ephys GUI
+## Configure the TCP Socket in the Open Ephys GUI
 
 <!-- add pics -->
 
-## Configure the visualizers in the Open Ephys GUI
+## Configure the Visualizers in the Open Ephys GUI
 
 <!-- add pics -->
 
-## Stream ephys data in Bonsai and visualize in the Open Ephys GUI
+## Stream Ephys Data in Bonsai and Visualize it in the Open Ephys GUI
 
 <!-- add video -->
 <!-- add troubleshooting -->
