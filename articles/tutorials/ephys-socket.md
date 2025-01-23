@@ -25,28 +25,40 @@ This tutorial guides you through building the following workflow:
 
 ## Get Started in Bonsai and the Open Ephys GUI
 
-Follow the [Getting Started](xref:getting-started) guide to set up and get familiarized with Bonsai. In particular:
+1. Follow the [Getting Started](xref:getting-started) guide to set up and get familiarized with Bonsai. In particular:
 
 - [Download the necessary Bonsai packages](xref:install-configure-bonsai#install-packages-in-bonsai) or 
 [check for updates](xref:install-configure-bonsai#update-packages-in-bonsai) if they're already installed. This tutorial assumes you're using the latest packages.
 - Read about [visualizing data](xref:visualize-data). We recommend verifying each step of the tutorial by visualizing the data produced.
 
-<!-- Make sure they install OpenEphys.Sockets.Bonsai, or is this going to be included in the "necessary Bonsai packages"? -->
+<!-- Do we list OpenEphys.Sockets.Bonsai or assume they'll download what is included in the "necessary Bonsai packages"? -->
 
-<!-- Open Ephys GUI instructions -->
+2. Follow the [Open Ephys GUI documentation](xref:https://open-ephys.github.io/gui-docs/) to set up and get familiarized with the Open Ephys GUI. In particular:
+
+- Download and install the application by following the [Open Ephys GUI installation instructions](xref:https://open-ephys.github.io/gui-docs/User-Manual/Installing-the-GUI.html)
+- Install the Ephys Socket plugin and the Probe Viewer plugin by using the [Plugin Installer](xref:https://open-ephys.github.io/gui-docs/User-Manual/Plugins/index.html#plugin-installer).
+- Read about [Exploring the user interface](https://open-ephys.github.io/gui-docs/User-Manual/Exploring-the-user-interface.html), [Building a signal chain](https://open-ephys.github.io/gui-docs/User-Manual/Building-a-signal-chain.html) and [General plugin features](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/index.html#general-plugin-features), as well as specific plugin pages such as the [Ephys Socket plugin](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/Ephys-Socket.html), [Probe Viewer plugin](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/Probe-Viewer.html) and the [LFP Viewer plugin](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/LFP-Viewer.html).
+
 
 ## Configure the TCP Connection in Bonsai
+
+Place one TcpServer node per datastream at the top of the workflow and set their properties:
 
 ::: workflow
 ![/workflows/tutorials/ephys-socket/configure-socket.bonsai workflow](../../workflows/tutorials/ephys-socket/configure-socket.bonsai)
 :::
 
-<!-- add txt -->
-<!-- Tip about Use Alt and drag if not at the top -->
+- Adress: Use "localhost" if using the Open Ephys GUI on the same PC or local network as Bonsai.
+- Name: give the communication channel a unique name. We will use this name to provide the datastream to the socket within Bonsai. In this example, we have named them "socket1" and "socket2".
+- Port: choose a unique port number. We will use this port number to establish the connection with the Open Ephys GUI.
+
+> [!TIP]
+> The TcpServer nodes need to be at the top of the workflow. If they end up somewhere else and you need to move them, do the following. Click and hold on the node, hold down the Alt key on the keyboard, hover over a node in the workflow row over which you want to place it - an arrow will appear - and let go.  
+
 
 ## Configure the Hardware
 
-Construct a [top-level hardware configuration chain](xref:initialize-onicontext): 
+Construct an ONIX [top-level hardware configuration chain](xref:initialize-onicontext): 
 
 ::: workflow
 ![/workflows/tutorials/ephys-socket/configuration.bonsai workflow](../../workflows/tutorials/ephys-socket/configuration.bonsai)
