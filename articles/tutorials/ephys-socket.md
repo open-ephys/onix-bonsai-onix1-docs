@@ -72,12 +72,16 @@ Visualize the raw data to confirm that the ephys data operator is streaming data
 
 ## Configure data streams to transmit
 
+Connect a `SendMatOverSocket` operator to each of the electrophysiology data streams. This operator comes from the OpenEphys.Sockets Bonsai package. Make sure it's [installed and updated](xref:install-configure-bonsai).
+
+<!-- I'm not sure how to link to the reference as was done with other nodes <xref:Bonsai.Dsp.SelectChannels> -->
+
 ::: workflow
 ![/workflows/tutorials/ephys-socket/ephys-socket.bonsai workflow](../../workflows/tutorials/ephys-socket/ephys-socket.bonsai)
 :::
 
-<!-- change txt -->
-Connect a <xref:Bonsai.Dsp.SelectChannels> operator to the electrophysiology data stream and edit its "" property.
+Configure the "Connection" property of each `SendMatOverSocket` node to each of the TCP Socket names configured earlier. In this example, we used "socket1" for "SpikeData" and "socket2" for "LfPData".
+
 
 ## Configure the TCP socket in the Open Ephys GUI
 
