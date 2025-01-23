@@ -65,7 +65,7 @@ Place the relevant operators to stream electrophysiology data from your headstag
 ![/workflows/tutorials/ephys-socket/ephys-data.bonsai workflow](../../workflows/tutorials/ephys-socket/ephys-data.bonsai)
 :::
 
-1. We placed the <xref:OpenEphys.Onix1.NeuropixelsV1eData> node into the workflow because the device on NeuropixelsV1e Headstage that streams electrophysiology data is the Neuropixels 1.0 probe.
+1. Place the <xref:OpenEphys.Onix1.NeuropixelsV1eData> node into the workflow, since the device on NeuropixelsV1e Headstage that streams electrophysiology data is the Neuropixels 1.0 probe.
 1. Select the relevant members from the data frames that `NeuropixelsV1eData` produces. In this example, the relevant members are "SpikeData" and "LfpData". To do this, right-click `NeuropixelsV1eData`, hover over the output option in the context menu, and select "SpikeData" from the list. Repeat for "LfpData".
 
 Visualize the raw data to confirm that the ephys data operator is streaming data. 
