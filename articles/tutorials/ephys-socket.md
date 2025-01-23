@@ -83,13 +83,26 @@ Connect a `SendMatOverSocket` operator to each of the electrophysiology data str
 Configure the "Connection" property of each `SendMatOverSocket` node to each of the TCP Socket names configured earlier. In this example, we used "socket1" for "SpikeData" and "socket2" for "LfPData".
 
 
-## Configure the TCP Socket in the Open Ephys GUI
+## Configure the TCP Socket in the Open Ephys GUI to Stream and View Data
+### Stream SpikeData using the Open Ephys GUI Ephys Socket processor
 
-<!-- add pics -->
+![TCP Socket Probe Open Ephys GUI configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_connect_probe_viewer.png){width=650px}
 
-## Configure the Visualizers in the Open Ephys GUI
+![TCP Socket Probe Open Ephys GUI configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_working_probe_viewer.png){width=650px}
 
-<!-- add pics -->
+### View SpikeData using the Open Ephys GUI Probe Viewer processor
+
+![TCP Socket Probe Open Ephys GUI visualizer](../../images/ephys-socket-tut/ephys_socket_probe_viewer_gui_window.png){width=650px}
+
+### Stream LfpData using the Open Ephys GUI Ephys Socket processor
+
+![TCP Socket LFP Open Ephys GUI configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_connect_lfp_viewer.png){width=650px}
+
+![TCP Socket LFP Open Ephys GUI configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_working_lfp_viewer.png){width=650px}
+
+### View SpikeData using the Open Ephys GUI LFP Viewer processor
+
+![TCP Socket LFP Open Ephys GUI visualizer](../../images/ephys-socket-tut/ephys_socket_lfp_viewer_gui_window.png){width=650px}
 
 ## Stream Ephys Data in Bonsai and Visualize it in the Open Ephys GUI
 
