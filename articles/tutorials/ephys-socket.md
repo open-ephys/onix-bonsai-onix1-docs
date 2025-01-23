@@ -106,5 +106,9 @@ Configure the "Connection" property of each `SendMatOverSocket` node to each of 
 
 ## Stream Ephys Data in Bonsai and Visualize it in the Open Ephys GUI
 
-<!-- add video -->
+<video controls>
+  <source src="../../images/ephys-socket.mp4" type="video/mp4">
+</video> 
+
+
 <!-- add troubleshooting -->
