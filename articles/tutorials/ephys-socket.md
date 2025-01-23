@@ -28,8 +28,8 @@ This tutorial guides you through building the following workflow:
 Follow the [Getting Started](xref:getting-started) guide to set up and get familiarized with Bonsai. In particular:
 
 - [Download the necessary Bonsai packages](xref:install-configure-bonsai#install-packages-in-bonsai) or 
-[check for updates](xref:install-configure-bonsai#update-packages-in-bonsai). This tutorial assumes 
-you're using the latest software.
+[check for updates](xref:install-configure-bonsai#update-packages-in-bonsai) if they're already installed. This tutorial assumes you're using the latest packages.
+- Read about [visualizing data](xref:visualize-data). We recommend verifying each step of the tutorial by visualizing the data produced.
 
 <!-- Make sure they install OpenEphys.Sockets.Bonsai, or is this going to be included in the "necessary Bonsai packages"? -->
 
@@ -37,46 +37,43 @@ you're using the latest software.
 
 ## Configure the TCP socket in Bonsai
 
+::: workflow
+![/workflows/tutorials/ephys-socket/configure-socket.bonsai workflow](../../workflows/tutorials/ephys-socket/configure-socket.bonsai)
+:::
+
 <!-- add txt -->
 <!-- Tip about Use Alt and drag if not at the top -->
 
 ## Configure the hardware
 
+Construct a [top-level hardware configuration chain](xref:initialize-onicontext): 
+
 ::: workflow
 ![/workflows/tutorials/ephys-socket/configuration.bonsai workflow](../../workflows/tutorials/ephys-socket/configuration.bonsai)
 :::
 
-Construct a [top-level hardware configuration chain](xref:initialize-onicontext): 
-
-<!-- change txt -->
 1. Place the [configuration operators](xref:configure) that correspond to the hardware you intend to use between
-<xref:OpenEphys.Onix1.CreateContext> and <xref:OpenEphys.Onix1.StartAcquisition>. In this example, these are
-<xref:OpenEphys.Onix1.ConfigureHeadstage64> and <xref:OpenEphys.Onix1.ConfigureBreakoutBoard>.
-1. Confirm that the device that streams electrophysiology data is enabled. The Rhd2164 device (an Intan amplifier) on
-the headstage64 is the only device used in this tutorial, so you could disable other devices on the headstage and on the
-breakout board to improve performance if you wanted to.
+<xref:OpenEphys.Onix1.CreateContext> and <xref:OpenEphys.Onix1.StartAcquisition>. In this example, these are <xref:OpenEphys.Onix1.ConfigureNeuropixelsV1eHeadstage> and <xref:OpenEphys.Onix1.ConfigureBreakoutBoard>.
+1. Confirm that the device that streams electrophysiology data is enabled. In this example, we will be using the device NeuropixelsV1eData.
+1. Configure the hardware as necessary. In the case of NeuropixelsV1e Headstage, you must provide gain and calibration files and can perform other configurations as explained in the [NeuropixelsV1e Headstage Configuration](xref:np1e_configuration).
 
 ## Stream ephys data into Bonsai
 
-<!-- change ref -->
+Place the relevant operators to stream electrophysiology data from your headstage:
+
 ::: workflow
 ![/workflows/tutorials/ephys-socket/ephys-data.bonsai workflow](../../workflows/tutorials/ephys-socket/ephys-data.bonsai)
 :::
 
-<!-- change txt -->
-Place the relevant operators to stream electrophysiology data from your headstage:
+1. We placed the <xref:OpenEphys.Onix1.NeuropixelsV1eData> node into the workflow because the device on NeuropixelsV1e Headstage that streams electrophysiology data is the Neuropixels 1.0 probe.
+1. Select the relevant members from the data frames that `NeuropixelsV1eData` produces. In this example, the relevant members are "SpikeData" and "LfpData". To do this, right-click `NeuropixelsV1eData`, hover over the output option in the context menu, and select "SpikeData" from the list. Repeat for "LfpData".
 
-1. Because the device on headstage64 that streams electrophysiology data is the Rhd2164 Intan amplifier, we placed the
-<xref:OpenEphys.Onix1.Rhd2164Data> node onto the workflow. Use this [reference](xref:reference) to find the ephys data operator
-that corresponds to each device.
-1. Select the relevant members from the data frames that the data operator produces. In this example, the relevant members are "AmplifierData" and "Clock". To select those members, right-click the `Rhd2164` node, hover over the output option in the context menu, and select it from
-the list.
-1. Visualize the raw data to confirm that the ephys data operator is streaming data. 
+Visualize the raw data to confirm that the ephys data operator is streaming data. 
 
 ## Configure data streams to transmit
 
 ::: workflow
-![/workflows/tutorials/ephys-socket/configure-socket.bonsai workflow](../../workflows/tutorials/ephys-socket/configure-socket.bonsai)
+![/workflows/tutorials/ephys-socket/ephys-socket.bonsai workflow](../../workflows/tutorials/ephys-socket/ephys-socket.bonsai)
 :::
 
 <!-- change txt -->
