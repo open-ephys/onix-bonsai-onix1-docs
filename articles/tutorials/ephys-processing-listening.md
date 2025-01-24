@@ -24,25 +24,28 @@ package.
 :::
 
 > [!TIP]
-> Although this tutorial uses headstage 64 as an example, the process is similar for other ephys
-> headstages. This tutorial assumes you are familiar with the [guide](xref:hardware) corresponding
-> to the headstage you intend to use. This [reference](xref:reference) provides information about
-> the <xref:dataio> and offset/scalar values as well as links to other documentation that pertain
-> to your particular headstage.
+> This tutorial uses the Headstage 64. To find pertinent information for processing data produced by
+> the Intan Rhd2164 ephys device on the Headstage 64 (such as the numbers used to convert DAC data
+> to units of voltage), navigate to <xref:OpenEphys.Onix1.Rhd2164DataFrame> which is the page for
+> the data element produced by the <xref:OpenEphys.Onix1.Rhd2164Data> operator. The process of
+> navigating the reference to find pertinent information is the same for other ephys headstages that
+> you might want to use to follow along in this tutorial. It also helps to be familiar with the
+> example workflow for your particular hardware available in the <xref:hardware>.
 
 ## Get Started in Bonsai
 
-Follow the [Getting Started](xref:getting-started) guide to set up and familiarize yourself with Bonsai. In particular:
+Follow the [Getting Started](xref:getting-started) guide to set up and familiarize yourself with
+Bonsai. In particular:
 
-- [Download the necessary Bonsai packages](xref:install-configure-bonsai#install-packages-in-bonsai)
-or [check for updates](xref:install-configure-bonsai#update-packages-in-bonsai) if they're already
+- [Download the necessary Bonsai packages](xref:install-configure-bonsai#install-packages)
+or [check for updates](xref:install-configure-bonsai#update-packages) if they're already
 installed. This tutorial assumes you're using the latest packages.
 - Read about [visualizing data](xref:visualize-data). We recommend verifying each step of the
 tutorial by visualizing the data produced.
 
 ## Configure the Hardware
 
-Construct a [top-level hardware configuration chain](xref:initialize-onicontext): 
+Construct a [top-level hardware configuration chain](xref:onix-bonsai#construct-top-level-configuration-chain): 
 
 ::: workflow
 ![/workflows/tutorials/ephys-process-listen/configure.bonsai workflow](../../workflows/tutorials/ephys-process-listen/configure.bonsai)
@@ -97,7 +100,7 @@ Connect a <xref:Bonsai.Dsp.ConvertScale> operator to the `SelectChannels` operat
 :::
 
 - Edit its Shift property to subtract 2^bit depth - 1^ from the signal. In this example, we shift
-  -32768 because the Rhd2164 device outputs unsigned 16-bit data. Use this [reference](xref:reference) to find the equivalent value for your hardware.
+  -32768 because the Rhd2164 device outputs unsigned 16-bit data.
 - Set the Depth property to S16 or F32. A sufficiently large data type is required to represent
   ephys data without overflow.
 
@@ -112,7 +115,7 @@ Connect a second `ConvertScale` to the first `ConvertScale` and set its properti
 - Edit its Scale property to multiply the signal by a scalar in order to get microvolt values. This
   scalar is determined by the gain of the amplifier and resolution the ADC contained in the bioacquisition
   device. In this example, we scale by 0.195 because the Rhd2164 device on headstage64 has a step size
-  of 0.195&nbsp;μV/bit. Use this [reference](xref:reference) to find the equivalent value for your hardware.
+  of 0.195&nbsp;μV/bit. 
 - Set the Depth property at F32 which is required to represent decimal values. 
 
 Visualize the transformed data to confirm the output of the shifting and scaling operations are

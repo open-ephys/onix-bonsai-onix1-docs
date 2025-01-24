@@ -1,14 +1,9 @@
 - href: getting-started/index.md
   items:
   - href: getting-started/install-configure-bonsai.md
-  - href: getting-started/bonsai-usage.md
-  - href: getting-started/operator-types.md
-  - href: getting-started/tips-tricks.md
-  - href: getting-started/property-categories.md
-  - href: getting-started/initialize-oni-context.md
-  - href: getting-started/start-workflow.md
+  - href: getting-started/workflow-editor.md
+  - href: getting-started/onix-bonsai.md
   - href: getting-started/visualize-data.md
-  - href: getting-started/reference.md
 
 - name: Hardware Guides
   href: hardware/index.md

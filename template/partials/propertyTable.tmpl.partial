@@ -12,7 +12,7 @@
       <code>{{{name}}}</code>
       {{#acquisition}}
       <div>
-        <a class="xref" href="~/articles/getting-started/property-categories.html#acquisition">
+        <a class="xref" href="~/api/OpenEphys.Onix1.html#acquisition">
           <button class="badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">
             acquisition
           </button>
@@ -21,7 +21,7 @@
       {{/acquisition}}
       {{#configuration}}
       <div>
-        <a class="xref" href="~/articles/getting-started/property-categories.html#configuration">
+        <a class="xref" href="~/api/OpenEphys.Onix1.html#configuration">
           <button class="badge bg-warning-subtle border border-warning-subtle text-warning-emphasis rounded-pill">
             configuration 
           </button>
