@@ -22,7 +22,7 @@ and the various types with pictures.
 Below is an example workflow which configures ONIX hardware. 
 
 ::: workflow
-![/workflows/getting-started/configure.bonsai workflow](../../workflows/getting-started/configure.bonsai)
+![/workflows/getting-started/start-acquisition.bonsai workflow](../../workflows/getting-started/start-acquisition.bonsai)
 :::
 
 We'll take a closer look at how it works in the following page.
@@ -42,20 +42,9 @@ This is how the workflow editor look. There are currently no operators in the wo
 
 From here, operators can be selected on the left-side and placed into the workspace.
 
-## Access Help Browser
-
-Even before placing a node, the first thing you should know after opening the workflow editor is how
-to access the Help browser. You can hover over the Help button in the top utility ribbon at the top
-of the Bonsai UI and click **View Help** or press <kbd>F1</kbd>. The contents that appear in the
-help browser depends on what is selected in the workflow editor when the help browser is opened. For
-example, without selecting anything, <kbd>F1</kbd> invokes the [official Bonsai docs Workflow Editor 
-page](https://bonsai-rx.org/docs/articles/editor.html). If a node in the workflow or a module in the
-Toolbox is selected, <kbd>F1</kbd> invokes documentation about that operator which can also be
-navigated to [here](xref:OpenEphys.Onix1).
-
 ## Place a Node onto the Workflow
 
-There are several different ways to finding an operator and adding it to the workflow. Because the
+There are several ways to find an operator and add it to the workflow. Because the
 [CreateContext](xref:OpenEphys.Onix1.CreateContext) operator is required for every workflow that
 interfaces with Onix hardware (as we'll learn in the next section), let's use it as an example: 
 
@@ -103,8 +92,6 @@ is on the right side, or on the top, these actions will not work.
 > The official Bonsai Documentation contains [a list of commands and
 > shortcuts](https://bonsai-rx.org/docs/articles/editor.html#commands-and-shortcuts).
 
-Information from this and the previous can be applied to start writing workflows. Create a hardware configuration chain. 
-
 ## Access GUIs
 
 Some operators, specifically many of the `Configure*` operators, can have a GUI attached to the
@@ -122,13 +109,23 @@ reach out to us.
 A number of Bonsai operators also come with GUIs, but similar to `OpenEphys.Onix1`, the
 corresponding `*.Design` library must be installed before it can be leveraged.
 
+## Access Help Browser
+
+The next most important thing is how to access the help browser. You can hover over the Help button
+in the top utility ribbon at the top of the Bonsai UI and click **View Help** or press
+<kbd>F1</kbd>. The content that appears in the help browser depends on what is selected in the
+workflow editor when the help browser is opened. For example, without selecting anything,
+<kbd>F1</kbd> opens the [official Bonsai docs Workflow Editor page](https://bonsai-rx.org/docs/articles/editor.html). 
+If a node in the workflow or a module in the Toolbox is selected, <kbd>F1</kbd> opens
+documentation about that operator which can also be navigated to by clicking [here](xref:OpenEphys.Onix1).
+
 ## Start the Workflow
 
-Once all operators have been placed and linked correctly, and all **Configuration** properties have
-been set, it is now possible to run a workflow. Note that some aspects of Bonsai are only available
-in specific contexts; for instance, the GUIs mentioned above can only be opened when a workflow is
-not running. Once a workflow is running, these GUIs are not accessible, but visualizers for certain
-operators can be opened to view the streaming data.
+Once all operators have been placed and all properties have been set, you can start the
+workflow. Note that some aspects of Bonsai are only available in specific contexts; for instance,
+the GUIs mentioned above can only be opened when a workflow is not running. Once a workflow is
+running, these GUIs are not accessible, but visualizers for certain operators can be opened to view
+the streaming data.
 
 Running a workflow can be done in one of two ways: (1) Press the **Start** button at the top of the
 Bonsai editor, and (2) Press F5. Upon starting a workflow, a context will be created, and all

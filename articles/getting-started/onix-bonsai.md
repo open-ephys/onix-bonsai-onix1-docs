@@ -82,7 +82,7 @@ AnalogIO device on the breakout board.
 
 ## Use Multiple Instances of Identical Hardware
 
-### Multiple Headstages/Miniscopes
+### Multiple headstages/miniscopes
 
 Linking the data I/O operator to devices when using two identical headstages or miniscopes involves
 an additional step: renaming a configuration operator. Suppose you want to stream
@@ -99,7 +99,7 @@ In this workflow, each ConfigureHeadstage64 operator previously named "Headstage
 suffixed by the port to which the headstage is plugged. Now, the names "Headstage64A/Bno055" and
 "Headstage64B/Bno055" are used to set the DeviceName property for each Bno055Data operator. 
 
-### Multiple ONIX Systems
+### Multiple ONIX systems
 
 If a second ONIX system is used on the same computer, a second configuration chain operator is
 required. In this case, the Index property of the configuration chain that corresponds to the second
