@@ -1,52 +1,32 @@
 ---
 uid: workflow-editor
-title: Bonsai Workflow Editor
+title: The Workflow Editor
 ---
 
-Scripts in Bonsai are known as workflows. A workflow comprises of "operators" that are represented
-by nodes which connect to form a data processing graph. Each connection indicates that the
-downstream operator on the right takes the sequence of data from the upstream operator on the left
-as input. The behavior of an operator depends on its type. For example:
+The **Workflow Editor** is a tool for designing and editing Bonsai workflows.
+This page describes how to use it.
 
-- A `source` operator produces its own sequence of data.
-- A `transform` operator transforms data in its input sequence.
-- A `sink` operator produces a side effect (such as writing data or outputting an external signal
-like a noise through your computer's speaker or a digital output toggle through your Onix breakout
-board).
-- A `combinator` operator controls the flow of downstream sequences.
 
-The workflow editor represents these operators using different colors and a grey arc. The [official
-Bonsai docs](https://bonsai-rx.org/docs/articles/operators.html) provides a nice description of operators 
-and the various types with pictures.
-
-Below is an example workflow which configures ONIX hardware. 
-
-::: workflow
-![/workflows/getting-started/start-acquisition.bonsai workflow](../../workflows/getting-started/start-acquisition.bonsai)
-:::
-
-We'll take a closer look at how it works in the following page.
-
-## Open the Workflow Editor
-
-The workflow editor in Bonsai can be opened by opening a workflow or .bonsai file in Bonsai. You can
-do this by starting Bonsai and clicking on the **New File** button, for example. If you have
-previously opened or saved a file in Bonsai, there will be a list of recently opened files on the
-right side; any of those can be chosen and they will be opened in the editor automatically. 
+## Opening the Workflow Editor
+To open the workflow editor, either open a previously saved .bonsai file or
+start Bonsai and click the **New File** button. Alteratively, you can select a
+file from the the list of recently opened files on the right side of the start
+up menu.
 
 ![Open a new file in Bonsai](../../images/bonsai-splash-page-new-file.png){width=650px}
 
-This is how the workflow editor look. There are currently no operators in the workflow.
+This is how the workflow editor looks. There are currently no operators in the workflow.
 
 ![Blank workflow](../../images/workflow-editor.png)
 
-From here, operators can be selected on the left-side and placed into the workspace.
+## Placing Operators into the Workflow
 
-## Place a Node onto the Workflow
-
-There are several ways to find an operator and add it to the workflow. Because the
-[CreateContext](xref:OpenEphys.Onix1.CreateContext) operator is required for every workflow that
-interfaces with Onix hardware (as we'll learn in the next section), let's use it as an example: 
+After opening the editor, operators can be selected from the left-side pane to
+construct a workflow. There are several ways to find an operator and add it to
+the workflow. Because the [CreateContext](xref:OpenEphys.Onix1.CreateContext)
+operator is required for every workflow that interfaces with ONIX hardware (as
+we'll learn in the next section), let's use it as an example. Here are three
+options to place a `CreateContext` operator in the workflow:
 
 1. From the Bonsai editor, navigate to the toolbox on the left side of the screen and expand the
    **Source** section. Next, expand the **OpenEphys.Onix1** section, and find the `CreateContext`
@@ -67,7 +47,7 @@ interfaces with Onix hardware (as we'll learn in the next section), let's use it
    the clipboard. Navigate back to Bonsai, and paste the copied workflow into the active editor.
    Pasting can be done via <kbd>Ctrl + V</kbd>, or right-clicking in the editor and choosing **Paste**.
 
-## Manipulate Node Connections
+## Editing Connections
 
 The table below provides information on how to add connections between operators, remove
 connections, reordering operators horizontally and vertically, as well as some shortcuts to aid in
@@ -88,53 +68,70 @@ which editing actions can be taken. In the table below, the "first" operator is 
 is on the left side, or on the bottom for multiple rows of operators. If the first operator clicked
 is on the right side, or on the top, these actions will not work.
 
-> [!TIP] 
+> [!TIP]
 > The official Bonsai Documentation contains [a list of commands and
 > shortcuts](https://bonsai-rx.org/docs/articles/editor.html#commands-and-shortcuts).
 
-## Access GUIs
+## Editing Operator properties
 
-Some operators, specifically many of the `Configure*` operators, can have a GUI attached to the
-operator that allows for easy manipulation of **Configuration** properties in a graphical
-environment. These GUIs can be accessed by double-clicking on an operator; if there is a GUI
-assigned to it, then it will be opened up in a new window. Please note that not all operators have
-GUIs, but if you think that an operator would benefit from having this functionality added please
-reach out to us.
+> [!TODO]
+> Show how to use property pane to edit properties using images
+
+## Accessing Configuration GUIs
+
+Some operators, specifically many of the `Configure*` operators (e.g.
+<xref:np2e_gui>), can have a GUI attached to the operator that allows for easy
+manipulation of **Configuration** properties in a graphical environment. These
+GUIs can be accessed by double-clicking on an operator when the workflow is not
+running. If there is a GUI assigned to it, then it will be opened up in a new,
+modal window.
+
+> [!Note]
+>  Not all operators have GUIs, but if you think that an operator would benefit
+>  from having this functionality added please reach out to us.
 
 > [!Note]
 > GUIs are not part of the base `OpenEphys.Onix1` library. To take advantage of this added
 > functionality, you must install the accompanying `OpenEphys.Onix1.Design` library using the Bonsai
 > package manager.
 
-A number of Bonsai operators also come with GUIs, but similar to `OpenEphys.Onix1`, the
-corresponding `*.Design` library must be installed before it can be leveraged.
+A number of Bonsai operators also come with GUIs, but similar to
+`OpenEphys.Onix1`, the corresponding `*.Design` library must be installed before
+it can be leveraged.
 
-## Access Help Browser
+## Accessing the Documentation Browser
 
-The next most important thing is how to access the help browser. You can hover over the Help button
-in the top utility ribbon at the top of the Bonsai UI and click **View Help** or press
-<kbd>F1</kbd>. The content that appears in the help browser depends on what is selected in the
-workflow editor when the help browser is opened. For example, without selecting anything,
-<kbd>F1</kbd> opens the [official Bonsai docs Workflow Editor page](https://bonsai-rx.org/docs/articles/editor.html). 
-If a node in the workflow or a module in the Toolbox is selected, <kbd>F1</kbd> opens
-documentation about that operator which can also be navigated to by clicking [here](xref:OpenEphys.Onix1).
+The Bonsai Editor includes an embedded **Documentation Browser**. To access
+documentation, hover your mouse over an operator and right click. Then, select
+**View Help** from the dropdown menu that appears. Alternatively, pressing
+<kbd>F1</kbd> will also open the documentation browser. The content that appears
+in the help browser depends on what is selected in the workflow editor when the
+help browser is opened. For example, without selecting anything, <kbd>F1</kbd>
+opens the [official Bonsai docs Workflow Editor
+page](https://bonsai-rx.org/docs/articles/editor.html). If a node in the
+workflow or a module in the Toolbox is selected, <kbd>F1</kbd> opens
+documentation about that operator which can also be navigated to by clicking
+[here](xref:OpenEphys.Onix1).
 
-## Start the Workflow
+> [!TODO]
+> Show editor with help browser open.
 
-Once all operators have been placed and all properties have been set, you can start the
-workflow. Note that some aspects of Bonsai are only available in specific contexts; for instance,
-the GUIs mentioned above can only be opened when a workflow is not running. Once a workflow is
-running, these GUIs are not accessible, but visualizers for certain operators can be opened to view
-the streaming data.
+## Starting the Workflow
 
-Running a workflow can be done in one of two ways: (1) Press the **Start** button at the top of the
-Bonsai editor, and (2) Press F5. Upon starting a workflow, a context will be created, and all
-devices will be configured based on the **Configuration** properties. Any `*Data` operators will
-then begin streaming data, and can be visualized. 
+Once the desired operators have been placed, connected, and their properties
+have been set, you can start the workflow. Note that some aspects of Bonsai are
+only available in specific contexts. For instance, the GUIs mentioned above can
+only be opened when a workflow is not running. Once a workflow is running, these
+GUIs are not accessible, but [visualizers](<xref:visualize-data>) for certain
+operators can be opened to view the streaming data.
+
+Running a workflow can be done in one of two ways:
+
+- Press the **Start** button at the top of the Bonsai editor
+- Press <kbd>F5</kbd> on your keyboard.
 
 ![Start button in Bonsai editor](../../images/bonsai-editor-start-button.webp)
 
-## Next Step
-
-Now that you know the basics of how to make a workflow and navigating the workflow editor, the next
-step is to learn how to construct a workflow that is meant to interface with Onix hardware.
+Now that you know the basics of how to make a workflow and navigating the
+workflow editor, the next step is to construct and run workflow for ONIX
+hardware.

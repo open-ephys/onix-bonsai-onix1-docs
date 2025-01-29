@@ -1,6 +1,6 @@
 ---
 uid: visualize-data
-title: Visualize Data
+title: Data Visualization
 ---
 
 Bonsai has "[type visualizers](https://bonsai-rx.org/docs/articles/editor.html?#type-visualizers)"
@@ -10,7 +10,7 @@ while the workflow is running. Read below for more details about how to visualiz
 ## Select data member(s)
 
 Some operators, such as [ONIX data I/O operators](xref:dataio), require selecting members from their
-output to visualize their data:  
+output to visualize their data:
     1.  Right-click the node that corresponds to the data I/O operator that streams data you'd like to
         visualize.
     1. Hover the cursor over the "Output" option that appears in the context menu.
@@ -21,7 +21,7 @@ selects the single member from the data frame produced by the data I/O operator.
 
 <video controls>
   <source src="../../images/select-member.mp4" type="video/mp4">
-</video> 
+</video>
 
 > [!NOTE]
 > Member selection is required when an operator's output type doesn't have type visualizers that
@@ -37,7 +37,7 @@ Select the visualizer you would like to use for visualizing data:
 
 <video controls>
     <source src="../../images/set-visualizer.mp4" type="video/mp4">
-</video> 
+</video>
 
 At this point, the visualizer should open when the workflow is started.
 
@@ -50,27 +50,27 @@ At this point, the visualizer should open when the workflow is started.
 >   <xref:OpenEphys.Onix1.DigitalInput> operator only produces data when the digital port status
 >   changes state.
 
-> [!TIP] 
+> [!TIP]
 > Visualizers can be selected while the workflow is running which is helpful for more quickly trying
 > different visualizer options in succession if you are unsure about which one you want to use.
 
 ## Configure visualizers
 Some visualizers, in particular those that involve plots, allow additional configuration.
 Right-click the visualizer window to gain access to configuration options.
-  
+
 For example, the MatVisualizer allows configuration of:
 -   X and Y scale: click to toggle between "auto" and fixed values.
--   Channel view: click the grid square to toggle between superimposed or separate  
--   History Length: click the arrow and configure the number of samples displayed in the plot. 
--   Display Previous: click the arrow and configure the amount of buffers displayed in the plot. 
+-   Channel view: click the grid square to toggle between superimposed or separate
+-   History Length: click the arrow and configure the number of samples displayed in the plot.
+-   Display Previous: click the arrow and configure the amount of buffers displayed in the plot.
 -   Channel Offset: click the arrow and configure the Y offset.
 -   Channels per Page: click the arrow and configure the amount of channels displayed per visualizer
     page. The page number is displayed at the top of the visualizer. Move between pages by using the
-    PageUp and PageDn keys on the keyboard. 
+    PageUp and PageDn keys on the keyboard.
 
 <video controls>
   <source src="../../images/visualize-data.mp4" type="video/mp4">
-</video> 
+</video>
 
 > [!TIP]
 > For other data visualization options, additional visualizers are available as standalone operators
