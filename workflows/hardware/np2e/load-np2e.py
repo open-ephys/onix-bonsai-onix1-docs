@@ -36,7 +36,7 @@ plt.tight_layout()
 
 #%% Neuropixels 2.0 Data
 bit_depth = 12
-scalar = 2.44141
+scalar = 3.05176
 offset = -(2 ** (bit_depth - 1)) * scalar
 recording = se.read_binary(os.path.join(data_directory,  f"np2-a-ephys_{suffix}.raw"), 
                            3e5, 
