@@ -1,21 +1,18 @@
 - href: getting-started/index.md
   items:
   - href: getting-started/install-configure-bonsai.md
-  - href: getting-started/bonsai-usage.md
-  - href: getting-started/operator-types.md
-  - href: getting-started/tips-tricks.md
-  - href: getting-started/property-categories.md
-  - href: getting-started/initialize-oni-context.md
-  - href: getting-started/start-workflow.md
+  - href: getting-started/bonsai-workflows.md
+  - href: getting-started/workflow-editor.md
+  - href: getting-started/onix-configuration.md
+  - href: getting-started/onix-acquisition.md
   - href: getting-started/visualize-data.md
-  - href: getting-started/reference.md
 
 - name: Hardware Guides
   href: hardware/index.md
   expanded: true
   items:
   - href: hardware/breakout/overview.md
-    items: 
+    items:
     - name: Example Workflow
       href: hardware/breakout/workflow.md
     - name: Configuration
@@ -36,7 +33,7 @@
       href: hardware/breakout/memory-monitor.md
     - href: hardware/breakout/load-data.md
   - href: hardware/np1e/overview.md
-    items: 
+    items:
     - name: Configuration
       href: hardware/np1e/configuration.md
     - href: hardware/np1e/gui.md
@@ -49,10 +46,10 @@
     - href: hardware/np1e/memory-monitor.md
     - href: hardware/np1e/load-data.md
   - href: hardware/np2e/overview.md
-    items: 
+    items:
     - name: Configuration
       href: hardware/np2e/configuration.md
-    - href: hardware/np2e/gui.md 
+    - href: hardware/np2e/gui.md
     - name: Port Status
       href: hardware/np2e/port-status.md
     - name: Neuropixels 2.0 Data
@@ -62,7 +59,7 @@
     - href: hardware/np2e/memory-monitor.md
     - href: hardware/np2e/load-data.md
   - href: hardware/hs64/overview.md
-    items: 
+    items:
     - name: Example Workflow
       href: hardware/hs64/workflow.md
     - name: Configuration
@@ -83,7 +80,7 @@
       href: hardware/hs64/memory-monitor.md
     - href: hardware/hs64/load-data.md
   - href: hardware/rhs2116/overview.md
-    items: 
+    items:
     - name: Configuration
       href: hardware/rhs2116/configuration.md
     - name: Rhs2116 GUI
@@ -98,7 +95,7 @@
       href: hardware/rhs2116/memory-monitor.md
     - href: hardware/rhs2116/load-data.md
   - href: hardware/ucla-miniscope-v4/overview.md
-    items: 
+    items:
     - name: Configuration
       href: hardware/ucla-miniscope-v4/configuration.md
     - name: Port Status
