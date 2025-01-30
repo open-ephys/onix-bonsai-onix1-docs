@@ -6,7 +6,6 @@ title: The Workflow Editor
 The **Workflow Editor** is a tool for designing and editing Bonsai workflows.
 This page describes how to use it.
 
-
 ## Opening the Workflow Editor
 To open the workflow editor, either open a previously saved .bonsai file or
 start Bonsai and click the **New File** button. Alteratively, you can select a
@@ -74,21 +73,27 @@ is on the right side, or on the top, these actions will not work.
 
 ## Editing Operator properties
 
-> [!TODO]
-> Show how to use property pane to edit properties using images
+Each operator can be modified by editing its properties. Properties are edited by
+clicking a node in the workflow and changing values in the Properties panel. 
+
+![properties panel screenshot](../../images/properties-panel.webp)
+
+For example, the DigitalIO device will be enabled and the HarpInput device will 
+be disabled when the above workflow starts. We'll take a closer look at what this 
+workflow does and how it works in the following pages. 
 
 ## Accessing Configuration GUIs
 
-Some operators, specifically many of the `Configure*` operators (e.g.
-<xref:np2e_gui>), can have a GUI attached to the operator that allows for easy
+Some operators, specifically many of the `Configure*` operators can have a GUI 
+(e.g. <xref:np2e_gui>) attached to the operator that allows for easy
 manipulation of **Configuration** properties in a graphical environment. These
 GUIs can be accessed by double-clicking on an operator when the workflow is not
 running. If there is a GUI assigned to it, then it will be opened up in a new,
 modal window.
 
 > [!Note]
->  Not all operators have GUIs, but if you think that an operator would benefit
->  from having this functionality added please reach out to us.
+> Not all operators have GUIs, but if you think that an operator would benefit
+> from having this functionality added please reach out to us.
 
 > [!Note]
 > GUIs are not part of the base `OpenEphys.Onix1` library. To take advantage of this added
@@ -110,11 +115,14 @@ help browser is opened. For example, without selecting anything, <kbd>F1</kbd>
 opens the [official Bonsai docs Workflow Editor
 page](https://bonsai-rx.org/docs/articles/editor.html). If a node in the
 workflow or a module in the Toolbox is selected, <kbd>F1</kbd> opens
-documentation about that operator which can also be navigated to by clicking
-[here](xref:OpenEphys.Onix1).
+documentation about that operator. For example, this is 
+how it looks when the <xref:OpenEphys.Onix1.ConfigureBreakoutBoard> documentation is 
+open in the embedded Documentation browser:
 
-> [!TODO]
-> Show editor with help browser open.
+![documentation browser screenshot](../../images/documentation-browser.png){width=80%}
+
+The ConfigureBreakoutBoard documentation exists on this website. You can also navigate 
+to it from [here](xref:OpenEphys.Onix1.ConfigureBreakoutBoard).
 
 ## Starting the Workflow
 
@@ -130,7 +138,7 @@ Running a workflow can be done in one of two ways:
 - Press the **Start** button at the top of the Bonsai editor
 - Press <kbd>F5</kbd> on your keyboard.
 
-![Start button in Bonsai editor](../../images/bonsai-editor-start-button.webp)
+![Start button in Bonsai editor screenshot](../../images/bonsai-editor-start-button.webp)
 
 Now that you know the basics of how to make a workflow and navigating the
 workflow editor, the next step is to construct and run workflow for ONIX

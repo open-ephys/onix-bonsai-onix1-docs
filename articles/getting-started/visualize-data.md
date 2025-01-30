@@ -45,10 +45,10 @@ At this point, the visualizer should open when the workflow is started.
 > Data will only be visualized if the operator is producing data. If you can't see any data, check
 > that:
 > - The device from which you are trying to read is enabled.
-> - Events are occurring. Some devices are stream-based and some are event-based. Event-based
->   devices only produce data upon certain events. For example, the
+> - Events are occurring for event-based devices. Event-based devices only produce data upon certain
+>   events whereas other operators always producing data. For example, the
 >   <xref:OpenEphys.Onix1.DigitalInput> operator only produces data when the digital port status
->   changes state.
+>   changes state so it is event-based.
 
 > [!TIP]
 > Visualizers can be selected while the workflow is running which is helpful for more quickly trying

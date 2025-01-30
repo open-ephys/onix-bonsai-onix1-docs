@@ -8,7 +8,7 @@ title: Installation
 To download Bonsai, select between the portable download and the installer download
 [here](https://bonsai-rx.org/docs/articles/installation.html).
 
-*   The **Portable** download (.zip) installs a sandboxed version of Bonsai. Portable environments
+*   The **Portable** download (.zip) installs a sand-boxed version of Bonsai. Portable environments
     enable users to switch between different environments to prevent package conflicts or user
     different versions of packages.
     *   To install from the **Portable** download, extract the downloaded file. You can start the
@@ -45,7 +45,7 @@ The following packages are required to run the workflows in this documentation a
 > [!TIP]
 > Additional packages will allow you to extend the functionality of ONIX hardware beyond the scope
 > of this documentation. There are packages that allow ONIX be combined with [visual
-> psychophysics](https://bonsai-rx.org/docs/tutorials/vision-psychophysics.html), [markerless pose
+> psychophysics](https://bonsai-rx.org/docs/tutorials/vision-psychophysics.html), [marker-less pose
 > estimation](https://bonsai-rx.org/sleap/), [HARP behavioral devices](https://harp-tech.org/), and
 > much more.
 
@@ -109,7 +109,7 @@ Sometimes it is helpful to uninstall packages. Open the package manager and:
     Alternatively, if you want to uninstall a particular package, you may type that package's name in the search bar.
 1.  Click a package and click `Uninstall` to uninstall a packages.
 
-![Bonsai Uninstall](../../images/bonsai-uninstall-Bonsai.OpenEphys.webp){width=650px}
+![Bonsai Uninstall Screenshot](../../images/bonsai-uninstall-Bonsai.OpenEphys.webp){width=650px}
 
 ## Next Step
 

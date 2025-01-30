@@ -1,13 +1,13 @@
 ---
-uid: onix-bonsai
+uid: onix-configuration
 title: Hardware Configuration
 ---
 
 Because ONIX supports a variety of hardware, our workflow needs to be configured
-to capture data from the headstages, miniscopes, etc. we are using with the
-system. This section covers this process.
+to capture data from the specific headstages, miniscopes, etc. we are using with the
+system. This page covers this process.
 
-## Hardware Configuration
+## Hardware Configuration Chain
 
 Every workflow in Bonsai that is meant to work with ONIX hardware should contain a hardware
 configuration chain in its first row which comprises of the following steps:
@@ -24,7 +24,7 @@ place a <xref:OpenEphys.Onix1.CreateContext> into the workflow. The context's
 device driver and index are set by editing the CreateContext's properties. The
 Driver property is typically set to "riffa" which is the name of the PCIe device
 used by ONIX, and the Index property is typically set to 0 though that can
-change if [multiple ONIX systems](#multiple-onix-systems) are connected to your
+change if [multiple ONIX systems](xref:onix-acquisition#multiple-onix-systems) are connected to your
 PC.
 
 ::: workflow
@@ -70,8 +70,7 @@ system and avoiding data accumulation in the ONIX system's hardware buffer.
 ![/workflows/getting-started/start-acquisition.bonsai workflow](../../workflows/getting-started/start-acquisition.bonsai)
 :::
 
-> [!NOTE]
-> At this point the workflow can be run to configure ONIX hardware. However,
-> after doing so, the workflow will immediately stop. This is because we are
-> missing the portion of our workflow to acquire data. We will explore this in
-> the next section.
+At this point the workflow can be run to configure ONIX hardware. However,
+after doing so, the workflow will immediately stop. This is because we are
+missing the portion of our workflow to capture acquired data. We will explore 
+this in the next section.

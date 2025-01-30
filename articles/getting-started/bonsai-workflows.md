@@ -30,5 +30,5 @@ Below is an example workflow which configures ONIX hardware.
 > the Bonsai editor using the clipboard icon that appears when you hover your
 > mouse over the image.
 
-We'll take a closer look at how to use to create this workflow, and what this
-workflow is used for in the following pages.
+We'll take a closer look at how this workflow is created and what it's used for
+in the following pages.

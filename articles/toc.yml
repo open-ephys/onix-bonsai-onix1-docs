@@ -3,8 +3,8 @@
   - href: getting-started/install-configure-bonsai.md
   - href: getting-started/bonsai-workflows.md
   - href: getting-started/workflow-editor.md
-  - href: getting-started/onix-bonsai.md
-  - href: getting-started/onix-bonsai-acquisition.md
+  - href: getting-started/onix-configuration.md
+  - href: getting-started/onix-acquisition.md
   - href: getting-started/visualize-data.md
 
 - name: Hardware Guides

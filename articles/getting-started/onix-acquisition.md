@@ -1,30 +1,11 @@
 ---
-uid: onix-bonsai-acquisition
+uid: onix-acquisition
 title: Data Acquisition
 ---
 
-Data produced and consumed by ONIX hardware is captured using data input
+Data produced by ONIX hardware is captured using data input
 operators and sent to hardware using data output operators, respectively. This
 section covers their use.
-
-### Start acquisition
-
-The data acquisition process is started when ContextTask passes through
-<xref:OpenEphys.Onix1.StartAcquisition>. StartAcquisition allows the user to set
-parameters that are related to data acquisition such as ReadSize and WriteSize.
-Setting the ReadSize property for a particular workflow is a balancing act of
-minimizing latency of data data transfers from the ONIX system and avoiding data
-accumulation in the ONIX system's hardware buffer.
-
-<!-- TODO: Need a separate tutorial or guide on this -->
-
-::: workflow
-![Workflow with configuration only](../../workflows/getting-started/start-acquisition.bonsai)
-:::
-
-At this point the workflow can be run to configure ONIX hardware. However, after
-doing so, the workflow will immediately stop. This is because we are missing the portion
-of our workflow to acquire data. We will explore this in the next section.
 
 ## Acquire Data
 
@@ -49,7 +30,7 @@ AnalogIO device on the breakout board.
 
 Linking the data I/O operator to devices when using two identical headstages or
 miniscopes involves an additional step: renaming a configuration operator.
-Suppose you want to stream orientation data from two Neuropixel 2.0 Headstages
+Suppose you want to stream orientation data from two Neuropixels 2.0 Headstages
 through using two <xref:OpenEphys.Onix1.PolledBno055Data> operators. By default,
 the <xref:OpenEphys.Onix1.ConfigureNeuropixelsV2eHeadstage> operators are both
 named "NeuropixelsV2eHeadstage". This causes their devices to also have
