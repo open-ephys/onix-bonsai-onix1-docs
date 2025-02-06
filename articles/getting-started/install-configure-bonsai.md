@@ -41,6 +41,7 @@ The following packages are required to run the workflows in this documentation a
 * `OpenEphys.Onix1.Design`: An extension of the `OpenEphys.Onix1` library that includes graphical user interfaces (GUIs).
 * `Bonsai.StarterPack`: the "standard library" for Bonsai that contains tools that are used in almost every workflow.
 * `OpenEphys.Commutator`: Bonsai package for controlling Open Ephys commutators.
+* `OpenEphys.Sockets.Bonsai`: for establishing TCP Sockets.
 
 > [!TIP]
 > Additional packages will allow you to extend the functionality of ONIX hardware beyond the scope
