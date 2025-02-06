@@ -53,7 +53,7 @@ Place one TcpServer node per datastream at the top of the workflow and set their
 ![/workflows/tutorials/ephys-socket/configure-socket.bonsai workflow](../../workflows/tutorials/ephys-socket/configure-socket.bonsai)
 :::
 
-- Adress: Use "localhost" if using the Open Ephys GUI on the same PC or local network as Bonsai.
+- Address: Use "localhost" if using the Open Ephys GUI on the same PC or local network as Bonsai.
 - Name: give the communication channel a unique name. We will use this name to provide the datastream to the socket within Bonsai. In this example, we have named them "socket1" and "socket2".
 - Port: choose a unique port number. We will use this port number to establish the connection with the Open Ephys GUI.
 
