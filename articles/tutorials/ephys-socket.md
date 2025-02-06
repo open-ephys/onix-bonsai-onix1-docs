@@ -19,8 +19,9 @@ the [NeuropixelsV1e Headstage Hardware Guide](xref:np1e).
 
 This tutorial guides you through building the following workflow in Bonsai: 
 
-::: workflow ![/workflows/tutorials/ephys-socket/ephys-socket.bonsai
-workflow](../../workflows/tutorials/ephys-socket/ephys-socket.bonsai) :::
+::: workflow 
+![/workflows/tutorials/ephys-socket/ephys-socket.bonsai workflow](../../workflows/tutorials/ephys-socket/ephys-socket.bonsai) 
+:::
 
 And the corresponding Signal Chains for visualization of the SpikeData and LFPData in the Open Ephys
 GUI.
@@ -33,7 +34,8 @@ configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_workin
 
 <!-- This method is generalizable to any continuous data stream in the correct matrix format -->
 
-> [!NOTE] This tutorial uses NeuropixelsV1e Headstage as an example, but the process is similar for
+> [!NOTE] 
+> This tutorial uses NeuropixelsV1e Headstage as an example, but the process is similar for
 > other ephys headstages. This tutorial assumes you are familiar with the [hardware
 > guide](xref:hardware) of the ONIX headstage you intend to use. Use the information on the
 > <xref:dataio> reference page to know which shift and scaling you need to use for each device on
@@ -76,8 +78,9 @@ This tutorial assumes you're using the latest packages.
 
 Place one TcpServer node per datastream at the top of the workflow and set their properties:
 
-::: workflow ![/workflows/tutorials/ephys-socket/configure-socket.bonsai
-workflow](../../workflows/tutorials/ephys-socket/configure-socket.bonsai) :::
+::: workflow 
+![/workflows/tutorials/ephys-socket/configure-socket.bonsai workflow](../../workflows/tutorials/ephys-socket/configure-socket.bonsai) 
+:::
 
 - Address: Use "localhost" if using the Open Ephys GUI on the same PC or local network as Bonsai.
 - Name: give the communication channel a unique name. We will use this name to provide the
@@ -86,7 +89,8 @@ workflow](../../workflows/tutorials/ephys-socket/configure-socket.bonsai) :::
 - Port: choose a unique port number. We will use this port number to establish the connection with
   the Open Ephys GUI.
 
-> [!TIP] The TcpServer nodes need to be at the top of the workflow. If they end up somewhere else
+> [!TIP] 
+> The TcpServer nodes need to be at the top of the workflow. If they end up somewhere else
 > and you need to move them, do the following: click and hold on the node, hold down the Alt key on
 > the keyboard, hover over a node in the workflow row over which you want to place it until an arrow
 > appears, and let go.  
@@ -96,8 +100,9 @@ workflow](../../workflows/tutorials/ephys-socket/configure-socket.bonsai) :::
 
 Construct an ONIX [top-level hardware configuration chain](xref:onix-configuration): 
 
-::: workflow ![/workflows/tutorials/ephys-socket/configuration.bonsai
-workflow](../../workflows/tutorials/ephys-socket/configuration.bonsai) :::
+::: workflow 
+![/workflows/tutorials/ephys-socket/configuration.bonsai workflow](../../workflows/tutorials/ephys-socket/configuration.bonsai) 
+:::
 
 1. Place the [configuration operators](xref:configure) that correspond to the hardware you intend to
 use between <xref:OpenEphys.Onix1.CreateContext> and <xref:OpenEphys.Onix1.StartAcquisition>. In
@@ -114,8 +119,9 @@ this example, these are <xref:OpenEphys.Onix1.ConfigureNeuropixelsV1eHeadstage> 
 
 Place the relevant operators to stream electrophysiology data from your headstage:
 
-::: workflow ![/workflows/tutorials/ephys-socket/ephys-data.bonsai
-workflow](../../workflows/tutorials/ephys-socket/ephys-data.bonsai) :::
+::: workflow 
+![/workflows/tutorials/ephys-socket/ephys-data.bonsai workflow](../../workflows/tutorials/ephys-socket/ephys-data.bonsai)
+:::
 
 1. Place the <xref:OpenEphys.Onix1.NeuropixelsV1eData> node into the workflow, since the device on
    NeuropixelsV1e Headstage that streams electrophysiology data is the Neuropixels 1.0 probe.
@@ -134,8 +140,9 @@ updated](xref:install-configure-bonsai).
 
 <!-- I'm not sure how to link to the reference as was done with other nodes <xref:Bonsai.Dsp.SelectChannels> -->
 
-::: workflow ![/workflows/tutorials/ephys-socket/ephys-socket.bonsai
-workflow](../../workflows/tutorials/ephys-socket/ephys-socket.bonsai) :::
+::: workflow 
+![/workflows/tutorials/ephys-socket/ephys-socket.bonsai workflow](../../workflows/tutorials/ephys-socket/ephys-socket.bonsai) 
+:::
 
 Configure the "Connection" property of each `SendMatOverSocket` node to each of the TCP Socket names
 configured earlier. In this example, we used "socket1" for "SpikeData" and "socket2" for "LfPData".
@@ -202,7 +209,8 @@ Click the play button in the Control Panel at the top of the GUI to begin data a
 ![TCP Socket LFP Open Ephys GUI
 visualizer](../../images/ephys-socket-tut/ephys_socket_lfp_viewer_gui_window.png){width=650px}
 
-> [!TIP] You can read more about using each specific plugin in the [Plugins section of the Open
+> [!TIP] 
+> You can read more about using each specific plugin in the [Plugins section of the Open
 > Ephys GUI documentation](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/index.html) 
 
 ## Stream Ephys Data in Bonsai and Visualize it in the Open Ephys GUI
