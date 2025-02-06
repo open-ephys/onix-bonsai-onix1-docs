@@ -38,9 +38,9 @@ The Bonsai package manager can be accessed from Bonsai's landing window or its w
 
 The following packages are required to run the workflows in this documentation are:
 
+* `OpenEphys.Onix1.Design`: An extension of the `OpenEphys.Onix1` library that includes graphical user interfaces (GUIs).
 * `Bonsai.StarterPack`: the "standard library" for Bonsai that contains tools that are used in almost every workflow.
 * `OpenEphys.Commutator`: Bonsai package for controlling Open Ephys commutators.
-* `OpenEphys.Onix1.Design`: An extension of the `OpenEphys.Onix1` library that includes graphical user interfaces (GUIs).
 
 > [!TIP]
 > Additional packages will allow you to extend the functionality of ONIX hardware beyond the scope
