@@ -32,17 +32,17 @@ And the corresponding Signal Chains for visualization of the SpikeData and LFPDa
 
 1. Follow the [Getting Started](xref:getting-started) guide to set up and get familiarized with Bonsai. In particular:
 
-- [Download the necessary Bonsai packages](xref:install-configure-bonsai#install-packages-in-bonsai) or 
-[check for updates](xref:install-configure-bonsai#update-packages-in-bonsai) if they're already installed. This tutorial assumes you're using the latest packages.
-- Read about [visualizing data](xref:visualize-data). We recommend verifying each step of the tutorial by visualizing the data produced.
+    - [Download the necessary Bonsai packages](xref:install-configure-bonsai#package-installation) or 
+[check for updates](xref:install-configure-bonsai#update-packages) if they're already installed. This tutorial assumes you're using the latest packages.
+    - Read about [visualizing data](xref:visualize-data). We recommend verifying each step of the tutorial by visualizing the data produced.
 
 <!-- Do we list OpenEphys.Sockets.Bonsai or assume they'll download what is included in the "necessary Bonsai packages"? -->
 
-2. Follow the [Open Ephys GUI documentation](xref:https://open-ephys.github.io/gui-docs/) to set up and get familiarized with the Open Ephys GUI. In particular:
+2. Follow the [Open Ephys GUI documentation](https://open-ephys.github.io/gui-docs/) to set up and get familiarized with the Open Ephys GUI. In particular:
 
-- Download and install the application by following the [Open Ephys GUI installation instructions](xref:https://open-ephys.github.io/gui-docs/User-Manual/Installing-the-GUI.html)
-- Install the Ephys Socket plugin and the Probe Viewer plugin by using the [Plugin Installer](xref:https://open-ephys.github.io/gui-docs/User-Manual/Plugins/index.html#plugin-installer).
-- Read about [Exploring the user interface](https://open-ephys.github.io/gui-docs/User-Manual/Exploring-the-user-interface.html), [Building a signal chain](https://open-ephys.github.io/gui-docs/User-Manual/Building-a-signal-chain.html) and [General plugin features](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/index.html#general-plugin-features), as well as specific plugin pages such as the [Ephys Socket plugin](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/Ephys-Socket.html), [Probe Viewer plugin](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/Probe-Viewer.html) and the [LFP Viewer plugin](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/LFP-Viewer.html).
+    - Download and install the application by following the [Open Ephys GUI installation instructions](https://open-ephys.github.io/gui-docs/User-Manual/Installing-the-GUI.html)
+    - Install the Ephys Socket plugin and the Probe Viewer plugin by using the [Plugin Installer](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/index.html#plugin-installer).
+    - Read about [Exploring the user interface](https://open-ephys.github.io/gui-docs/User-Manual/Exploring-the-user-interface.html), [Building a signal chain](https://open-ephys.github.io/gui-docs/User-Manual/Building-a-signal-chain.html) and [General plugin features](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/index.html#general-plugin-features), as well as specific plugin pages such as the [Ephys Socket plugin](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/Ephys-Socket.html), [Probe Viewer plugin](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/Probe-Viewer.html) and the [LFP Viewer plugin](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/LFP-Viewer.html).
 
 
 ## Configure the TCP Connection in Bonsai
@@ -63,7 +63,7 @@ Place one TcpServer node per datastream at the top of the workflow and set their
 
 ## Configure the Hardware
 
-Construct an ONIX [top-level hardware configuration chain](xref:initialize-onicontext): 
+Construct an ONIX [top-level hardware configuration chain](xref:onix-configuration): 
 
 ::: workflow
 ![/workflows/tutorials/ephys-socket/configuration.bonsai workflow](../../workflows/tutorials/ephys-socket/configuration.bonsai)
@@ -144,14 +144,14 @@ Click the play button in the Control Panel at the top of the GUI to begin data a
 ![TCP Socket LFP Open Ephys GUI visualizer](../../images/ephys-socket-tut/ephys_socket_lfp_viewer_gui_window.png){width=650px}
 
 > [!TIP]
-> You can read more about using each specific plugin in the [Plugins section of the Open Ephys GUI documentation](xref:https://open-ephys.github.io/gui-docs/User-Manual/Plugins/index.html) 
+> You can read more about using each specific plugin in the [Plugins section of the Open Ephys GUI documentation](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/index.html) 
 
 ## Stream Ephys Data in Bonsai and Visualize it in the Open Ephys GUI
 
 Here is a video showing how this works:
 
 <video controls>
-  <source src="../../images/ephys-socket.mp4" type="video/mp4">
+  <source src="../../images/ephys-socket-tut/ephys_socket.mp4" type="video/mp4">
 </video> 
 
 
