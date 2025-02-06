@@ -38,7 +38,7 @@ The Bonsai package manager can be accessed from Bonsai's landing window or its w
 
 The following packages are required to run the workflows in this documentation are:
 
-* `OpenEphys.Onix1.Design`: An extension of the `OpenEphys.Onix1` library that includes graphical user interfaces (GUIs).
+* `OpenEphys.Onix1.Design`: An extension of the `OpenEphys.Onix1` library that includes graphical user interfaces (GUIs). Installing OpenEphys.Onix1.Design automatically installs `OpenEphys.Onix1` because it's a dependency.
 * `Bonsai.StarterPack`: the "standard library" for Bonsai that contains tools that are used in almost every workflow.
 * `OpenEphys.Commutator`: Bonsai package for controlling Open Ephys commutators.
 * `OpenEphys.Sockets.Bonsai`: for establishing TCP Sockets.
@@ -50,42 +50,15 @@ The following packages are required to run the workflows in this documentation a
 > estimation](https://bonsai-rx.org/sleap/), [HARP behavioral devices](https://harp-tech.org/), and
 > much more.
 
-#### OpenEphys.Onix1.Design
-
-To install the `OpenEphys.Onix1.Design` package, open the package manager and:
+To install packages, open the package manager and:
 
 1.  Click the `Browse` tab.
-1.  Set `Package source` to `All` or `NuGet`.
-1.  Search `OpenEphys.Onix1.Design`.
+1.  Set `Package source` to `All`.
+1.  Search for the exact package name listed above, e.g. `OpenEphys.Onix1.Design`.
 1.  Click `Install`.
-1.  Click `I Accept` when the license agreement window appears.
+1.  If a license agreement window appears, click `I Accept`.
 
 ![Bonsai OpenEphys.Onix1.Design Install Screenshot](../../images/bonsai-install-OpenEphys.Onix1.Design.webp){width=650px}
-
-> [!NOTE]
-> Installing OpenEphys.Onix1.Design automatically installs `OpenEphys.Onix1` because it's a dependency.
-
-#### Bonsai.StarterPack
-
-To install the `Bonsai.StarterPack` package, open the package manager and:
-
-1.  Click the `Browse` tab.
-1.  Set `Package source` to `Bonsai Packages`.
-1.  Search for `Bonsai.StarterPack`.
-1.  Click `Install`.
-
-![Bonsai Bonsai.StarterPack Install Screenshot](../../images/bonsai-install-Bonsai.StarterPack.webp){width=650px}
-
-#### OpenEphys.Commutator
-
-To install the `OpenEphys.Commutator` package, open the package manager and:
-
-1.  Click the `Browse` tab.
-1.  Set `Package source` to `All` or `NuGet`.
-1.  Search for `OpenEphys.Commutator`.
-1.  Click `Install`.
-
-![Bonsai OpenEphys.Commutator Install Screenshot](../../images/bonsai-install-OpenEphys.Commutator.webp){width=650px}
 
 ### Update Packages
 
