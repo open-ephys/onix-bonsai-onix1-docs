@@ -20,33 +20,41 @@ Download and install [git](https://git-scm.com/downloads) if it is not installed
 > It often appears to hang because it does not output any status information.
 > Usually, the command will eventually return.
 
-1. Clone the documentation repository:
-
+1. Using Windows PowerShell or a Git Bash terminal, clone the documentation repository:
     ``` console
-    git clone https://github.com/open-ephys/onix1-bonsai-docs
-    cd onix1-bonsai-docs
+    git clone https://github.com/open-ephys/bonsai-onix1-docs
+    cd bonsai-onix1-docs
     ```
 1. Pull in the latest files from the submodules according to the commit that the submodules point to:
-
     ``` console
     git submodule update --recursive --init
     ```
     In particular, the source code is available in this repo as a submodule. This will update the source code to the latest commit on main.
-1. Configure the docfx version and restore docfx companion tools such as [DocLinkChecker](https://github.com/Ellerbach/docfx-companion-tools/tree/main/src/DocLinkChecker).
-
-    ``` console
-    dotnet tool restore --configfile ./.bonsai/NuGet.config
-    ```
-1. To make the `docfx` command available after restoring the config file from the previous step, run:
-
+1. Configure the docfx version and restore docfx companion tools such as [DocLinkChecker](https://github.com/Ellerbach/docfx-companion-tools/tree/main/src/DocLinkChecker). You need to be in the same root folder where you cloned the repository for this to work. Run:
     ``` console
     dotnet tool restore
     ```
-1. Set up a local Bonsai environment for automatically exporting SVGs, run: 
-
+    to make the `docfx` command available.
+   
+    If the above command yields the following error:
     ``` console
-    ./.bonsai/Setup.cmd
+    It was not possible to find any installed .NET Core SDKs
     ```
+    even after installing .NET as described previously in the readme, refer to [this comment](https://github.com/dotnet/core/issues/6095#issuecomment-809006602) for a potential fix. If you follow the instructions described in the comment, make sure you proceed in a terminal or command prompt opened after changing the environment variables.
+1. Set up a local Bonsai environment for automatically exporting SVGs, run Setup.ps1 in PowerShell (or, if not using PowerShell, run Setup.Cmd): 
+    ``` console
+    ./.bonsai/Setup.ps1
+    ```    
+    If the above command yields the following error:
+    ``` console
+    ./Setup.ps1 : File C:\Users\User\...\bonsai-onix1-docs\Setup.ps1 cannot be loaded because running scripts is      
+    disabled on this system. For more information, see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170. 
+    At line:1 char:1
+    + ~~~~~~~~~~~
+        + CategoryInfo          : SecurityError: (:) [], PSSecurityException
+        + FullyQualifiedErrorId : UnauthorizedAccess
+    ```
+    Run a command like this `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned` in Windows Powershell as admin. You can modify the choose which [execution policy](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4) best suits your needs. The scope of the execution policy can also be set using [Set-ExecutionPolicy](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.5). `RemoteSigned` is the most restrictive policy that allows running local powershell scripts without signing them.
 
 ## Build Documentation Locally
 
@@ -55,6 +63,8 @@ To build the docs and serve locally, run in PowerShell:
 ``` console
 ./build.ps1 --serve
 ```
+
+If this doesn't run, see comment in section above.
 
 If SVGs are already exported and do not need to be updated, they don't need to be re-exported. In that case, to build the docs and serve locally more quickly, run:
 
@@ -86,7 +96,7 @@ The above set of commands can also be run using the `docfx-utils.ps1` Powershell
 To run the next command, install [Lychee](https://github.com/lycheeverse/lychee?tab=readme-ov-file) by following [these instructions](https://github.com/lycheeverse/lychee?tab=readme-ov-file#installation). If you are use Windows and download a Lychee executable, amend the below command according to the location and version of your Lychee executable, and run it.
 
 ``` console
-<lychee/installation/directory>/lychee-v<x.xx.x>-windows-x86_64.exe --verbose --no-progress --base _site --exclude ^https://github\.com.*merge.* --exclude ^https://github\.com.*apiSpec.* '_site/**/*.html'
+<lychee/installation/directory>/lychee-v<x.xx.x>-windows-x86_64.exe --no-progress --base _site --exclude ^https://github\.com.*merge.* --exclude ^https://github\.com.*apiSpec.* --exclude ^https://github\.com/open-ephys/onix1-bonsai-docs/blob/.*/#L1 '_site/**/*.html' --max-retries 0 --max-concurrency 32 --cache --max-cache-age 1d
 ```
 
 If you use a different operating systems and a different methods of installation, the above command might require additional amendments. 
@@ -175,14 +185,6 @@ If there are discrepancies between local and remote builds:
 * Confirm local and remote docfx versions are consistent. This inconsistency can occur when, for example, running `docfx` instead of `dotnet docfx` or running `dotnet tool restore --configfile <configfile>` on another config file other than the one in this repo.
 * Clear any locally cached files that aren't available remotely. Such files exist in the `api` directory (though care to not delete the `.gitignore` in that directory), the `_site` directory, and the workflows directory. Run `./docfx-utils.ps1 -c` to clean artifacts from previous builds. 
 
-## Docs Maintainability
+## Style Guide
 
-### Creating Edited Screenshots
-
-There are webpages with edited screenshots of Bonsai. The source material (.xcf GIMP files) belongs in the img-src directory for ease of maintenance. The headers below describe how you can quickly create a new screenshot.
-
-To take the screenshot (in Windows), use the `Windows+Shift+S` hotkey, select the `Window` option, and select the window you would like to screenshot. The preference is to take a screenshot against a grey background (e.g. create a (R: 127, G: 127, B: 127) background in GIMP) because some of the background makes it into the screenshot.
-
-#### Bonsai Package Manager Screenshot Edits
-
-The layer group consisting of the highlight layer and 1,2,3,4 layers of the screenshots in the bonsai-install\*.xcf or bonsai-update\*.xcf files can be copy and pasted on top of other screenshots. This enables an expedited editing process for creating new edited screenshots. When creating the screenshot, do not change the size of the package manager after opening it.
+Refer to the [Style Guide](style-guide.md).
