@@ -3,43 +3,30 @@ uid: ephys-socket
 title: Visualizing Data in the Open Ephys GUI
 ---
 
-This tutorial shows how to establish a TCP connection to visualize data acquired with ONIX hardware
-in the Open Ephys GUI, using the OpenEphys.Sockets.Bonsai and OpenEphys.Onix1 Bonsai packages, and
-the Ephys Socket Open Ephys GUI plugin.
-
-In this example, we transmit two data streams from a NeuropixelsV1e probe: the LFP band and the AP
-band data (384 channels). This approach lets users take advantage of the specialized visualizers
-available in the Open Ephys GUI, such as the Probe Viewer which was specifically designed for very
-dense arrays like Neuropixels probes.
-
-Even though the Open Ephys GUI has recording functionality, when acquiring data using the Bonsai
-ONIX package, data should be written to file in Bonsai following the [Hardware
-Guides](xref:hardware). In particular, for the NeuropixelsV1e data presented in this example, follow
-the [NeuropixelsV1e Headstage Hardware Guide](xref:np1e).
-
-This tutorial guides you through building the following workflow in Bonsai: 
+This tutorial shows how to stream data from ONIX hardware in Bonsai package and visualize it in the
+Open Ephys GUI through an intermediary TCP connection. This approach lets users take advantage of
+the extensibility of Bonsai and specialized visualizers available in the Open Ephys GUI such as the
+Probe Viewer which is specifically designed for very dense arrays like Neuropixels probes. By the
+end of this tutorial, you will have a workflow that transmits two data streams from a NeuropixelsV1e
+probe (384 channels of LFP band and AP band data) and an Open Ephys GUI signal chain that receives
+and visualizes the two data streams in the Open Ephys GUI: 
 
 ::: workflow 
 ![/workflows/tutorials/ephys-socket/ephys-socket.bonsai workflow](../../workflows/tutorials/ephys-socket/ephys-socket.bonsai) 
 :::
 
-And the corresponding Signal Chains for visualization of the SpikeData and LFPData in the Open Ephys
-GUI.
+![TCP Socket Probe Open Ephys GUI configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_working_probe_viewer.png)
 
-![TCP Socket Probe Open Ephys GUI
-configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_working_probe_viewer.png){width=650px}
+![TCP Socket LFP Open Ephys GUI configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_working_lfp_viewer.png)
 
-![TCP Socket LFP Open Ephys GUI
-configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_working_lfp_viewer.png){width=650px}
-
-<!-- This method is generalizable to any continuous data stream in the correct matrix format -->
+[This method is generalizable to any continuous data stream in the correct matrix format] #
 
 > [!NOTE] 
 > This tutorial uses NeuropixelsV1e Headstage as an example, but the process is similar for
 > other ephys headstages. This tutorial assumes you are familiar with the [hardware
 > guide](xref:hardware) of the ONIX headstage you intend to use. Use the information on the
-> <xref:dataio> reference page to know which shift and scaling you need to use for each device on
-> other headstages.
+> <xref:data-elements> reference page to know which shift and scaling you need to use for each
+> device on other headstages.
 
 ## Get Started in Bonsai and the Open Ephys GUI
 
@@ -51,8 +38,6 @@ or [check for updates](xref:install-configure-bonsai#update-packages) if they're
 This tutorial assumes you're using the latest packages.
     - Read about [visualizing data](xref:visualize-data). We recommend verifying each step of the
       tutorial by visualizing the data produced.
-
-<!-- Do we list OpenEphys.Sockets.Bonsai or assume they'll download what is included in the "necessary Bonsai packages"? -->
 
 2. Follow the [Open Ephys GUI documentation](https://open-ephys.github.io/gui-docs/) to set up and
    get familiarized with the Open Ephys GUI. In particular:
@@ -66,13 +51,7 @@ This tutorial assumes you're using the latest packages.
       [Building a signal
       chain](https://open-ephys.github.io/gui-docs/User-Manual/Building-a-signal-chain.html) and
       [General plugin
-      features](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/index.html#general-plugin-features),
-      as well as specific plugin pages such as the [Ephys Socket
-      plugin](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/Ephys-Socket.html), [Probe
-      Viewer plugin](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/Probe-Viewer.html)
-      and the [LFP Viewer
-      plugin](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/LFP-Viewer.html).
-
+      features](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/index.html#general-plugin-features)
 
 ## Configure the TCP Connection in Bonsai
 
@@ -109,7 +88,7 @@ use between <xref:OpenEphys.Onix1.CreateContext> and <xref:OpenEphys.Onix1.Start
 this example, these are <xref:OpenEphys.Onix1.ConfigureNeuropixelsV1eHeadstage> and
 <xref:OpenEphys.Onix1.ConfigureBreakoutBoard>.
 1. Confirm that the device that streams electrophysiology data is enabled. In this example, we will
-   be using the device NeuropixelsV1eData.
+   be using the NeuropixelsV1e device.
 1. Configure the hardware as necessary. In the case of NeuropixelsV1e Headstage, you must provide
    gain and calibration files and can perform other configurations as explained in the
    [NeuropixelsV1e Headstage Configuration](xref:np1e_configuration). In this example, we used an AP
@@ -135,8 +114,7 @@ Visualize the raw data to confirm that the ephys data operator is streaming data
 ## Configure the Data Streams to Transmit
 
 Connect a `SendMatOverSocket` operator to each of the electrophysiology data streams. This operator
-comes from the OpenEphys.Sockets Bonsai package. Make sure it's [installed and
-updated](xref:install-configure-bonsai).
+comes from the OpenEphys.Sockets Bonsai package. 
 
 <!-- I'm not sure how to link to the reference as was done with other nodes <xref:Bonsai.Dsp.SelectChannels> -->
 
@@ -147,6 +125,12 @@ updated](xref:install-configure-bonsai).
 Configure the "Connection" property of each `SendMatOverSocket` node to each of the TCP Socket names
 configured earlier. In this example, we used "socket1" for "SpikeData" and "socket2" for "LfPData".
 
+> [!TIP]
+> Although the Open Ephys GUI has recording functionality, data acquired using the Bonsai.Onix1
+> package should be written to file in Bonsai. You can learn to do this by following the [Hardware
+> Guides](xref:hardware) for your particular hardware. For this example, if you are using the
+> NeuropixelsV1e Headstage like the example, follow the [NeuropixelsV1e Headstage Hardware
+> Guide](xref:np1e).
 
 ## Configure the TCP Socket in the Open Ephys GUI to Stream and View Data
 ### Using the Ephys Socket and Probe Viewer processors for SpikeData
@@ -165,14 +149,12 @@ configured at 1000.
 - Edit its "Offset" property to subtract 2^bit depth - 1^ from the signal. In this example, we
   "Offset" 512 because the NeuropixelsV1e device outputs unsigned 10-bit data.
 
-![TCP Socket Probe Open Ephys GUI
-configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_connect_probe_viewer.png){width=650px}
+![TCP Socket Probe Open Ephys GUI configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_connect_probe_viewer.png)
 
 Press the "Connect" button on the `Ephys Socket` and open the visualizer by clicking the “tab”
 button in the upper right of the `Probe Viewer`.
 
-![TCP Socket Probe Open Ephys GUI
-configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_working_probe_viewer.png){width=650px}
+![TCP Socket Probe Open Ephys GUI configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_working_probe_viewer.png)
 
 Click the play button in the Control Panel at the top of the GUI to begin data acquisition.
 
@@ -195,23 +177,23 @@ configured at 50.
 - Edit its "Offset" property to subtract 2^bit depth - 1^ from the signal. In this example, we
   "Offset" 512 because the NeuropixelsV1e device outputs unsigned 10-bit data.
 
-![TCP Socket LFP Open Ephys GUI
-configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_connect_lfp_viewer.png){width=650px}
+![TCP Socket LFP Open Ephys GUI configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_connect_lfp_viewer.png)
 
 Press the "Connect" button on the `Ephys Socket` and open the visualizer by clicking the “tab”
 button in the upper right of the `LFP Viewer`.
 
-![TCP Socket LFP Open Ephys GUI
-configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_working_lfp_viewer.png){width=650px}
+![TCP Socket LFP Open Ephys GUI configuration](../../images/ephys-socket-tut/ephys_socket_gui_signalchain_working_lfp_viewer.png)
 
 Click the play button in the Control Panel at the top of the GUI to begin data acquisition.
 
 ![TCP Socket LFP Open Ephys GUI
 visualizer](../../images/ephys-socket-tut/ephys_socket_lfp_viewer_gui_window.png){width=650px}
 
-> [!TIP] 
-> You can read more about using each specific plugin in the [Plugins section of the Open
-> Ephys GUI documentation](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/index.html) 
+> [!TIP]
+> You can read more about using each specific plugins used in this tutorial by reading their documentation:
+> - [Ephys Socket plugin](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/Ephys-Socket.html)
+> - [Probe Viewer plugin](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/Probe-Viewer.html)
+> - [LFP Viewer plugin](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/LFP-Viewer.html)
 
 ## Stream Ephys Data in Bonsai and Visualize it in the Open Ephys GUI
 
