@@ -38,10 +38,10 @@ The Bonsai package manager can be accessed from Bonsai's landing window or its w
 
 The following packages are required to run the workflows in this documentation are:
 
-* `OpenEphys.Onix1.Design`: An extension of the `OpenEphys.Onix1` library that includes graphical user interfaces (GUIs). Installing OpenEphys.Onix1.Design automatically installs `OpenEphys.Onix1` because it's a dependency.
+* `OpenEphys.Onix1.Design`: An extension of the `OpenEphys.Onix1` library that includes graphical user interfaces (GUIs). Installing OpenEphys.Onix1.Design automatically installs `OpenEphys.Onix1` as a dependency.
 * `Bonsai.StarterPack`: the "standard library" for Bonsai that contains tools that are used in almost every workflow.
-* `OpenEphys.Commutator`: Bonsai package for controlling Open Ephys commutators.
-* `OpenEphys.Sockets.Bonsai`: for establishing TCP Sockets.
+* `OpenEphys.Commutator`: for controlling Open Ephys commutators.
+* `OpenEphys.Sockets.Bonsai`: for establishing TCP Sockets (to stream data to the Open Ephys GUI, for example).
 
 > [!TIP]
 > Additional packages will allow you to extend the functionality of ONIX hardware beyond the scope
