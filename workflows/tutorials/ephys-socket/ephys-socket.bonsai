@@ -8,14 +8,14 @@
     <Nodes>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="p1:TcpServer">
-          <p1:Name>SpikeSocket</p1:Name>
+          <p1:Name>SpikeServer</p1:Name>
           <p1:Port>9001</p1:Port>
           <p1:Address>localhost</p1:Address>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="p1:TcpServer">
-          <p1:Name>LfpSocket</p1:Name>
+          <p1:Name>LfpServer</p1:Name>
           <p1:Port>9002</p1:Port>
           <p1:Address>localhost</p1:Address>
         </Combinator>
@@ -137,7 +137,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="p1:SendMatOverSocket">
-          <p1:Connection>SpikeSocket</p1:Connection>
+          <p1:Connection>SpikeServer</p1:Connection>
         </Combinator>
       </Expression>
       <Expression xsi:type="MemberSelector">
@@ -145,7 +145,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="p1:SendMatOverSocket">
-          <p1:Connection>LfpSocket</p1:Connection>
+          <p1:Connection>LfpServer</p1:Connection>
         </Combinator>
       </Expression>
     </Nodes>

@@ -7,14 +7,14 @@
     <Nodes>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="p1:TcpServer">
-          <p1:Name>SpikeSocket</p1:Name>
+          <p1:Name>SpikeServer</p1:Name>
           <p1:Port>9001</p1:Port>
           <p1:Address>localhost</p1:Address>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="p1:TcpServer">
-          <p1:Name>LfpSocket</p1:Name>
+          <p1:Name>LfpServer</p1:Name>
           <p1:Port>9002</p1:Port>
           <p1:Address>localhost</p1:Address>
         </Combinator>
