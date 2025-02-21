@@ -4,7 +4,7 @@ title: Visualizing Data in the Open Ephys GUI
 ---
 
 This tutorial shows how to stream ephys data from Bonsai the Open Ephys
-GUIthrough an intermediary TCP connection. This approach lets users take
+GUI through an intermediary TCP connection. This approach lets users take
 advantage of both the extensibility of Bonsai and specialized visualizers
 available in the Open Ephys GUI such as the Probe Viewer which is specifically
 designed for very dense arrays like Neuropixels probes. By the end of this
@@ -13,24 +13,16 @@ NeuropixelsV1e headstage (384 channels of LFP band and AP band data) and an Open
 Ephys GUI signal chain that receives and visualizes the two data streams in the
 Open Ephys GUI:
 
-![screenshot of socket signal chain viewport](../../images/ephys-socket-tut/socket-viewport.webp)
-
-Click <a href="../../workflows/tutorials/ephys-socket/sockets-signal-chain" download>here</a> to
-download the signal chain that corresponds to the above graph.
+![screenshot of final result from following tutorial](../../images/ephys-socket-tut/sockets-end-result.webp)
 
 > [!NOTE]
-> This tutorial uses NeuropixelsV1e Headstage as an example, but the process is
-> similar for other ephys headstages. In fact, this tutorial can be used to send
-> data from any Bonsai operator that produces an applies to any data source that
-> produces matrices (`OpenCV.NET.Mat`s).
->
-> This tutorial assumes you are familiar with the [hardware
-> guide](xref:hardware) of the ONIX headstage you intend to use. Use the
-> information on the <xref:data-elements> reference page to know which shift and
-> scaling you need to use for each device on other headstages.
->
-> A [video summary](#video-summary) of this tutorial is is available at the
-> bottom of this page.
+> - This tutorial uses NeuropixelsV1e Headstage as an example, but the process is
+>   similar for other ephys headstages. In fact, this tutorial can be used to send
+>   data from any Bonsai operator that produces [matrices](xref:OpenCV.Net.Mat).
+> - This tutorial assumes you are familiar with the [hardware guide](xref:hardware) 
+>   of the ONIX headstage you intend to use. 
+> - A [video summary](#video-summary) of this tutorial is is available at the
+>   bottom of this page.
 
 ## Transmit Ephys Data to a TCP Server in Bonsai
 
@@ -39,8 +31,8 @@ familiarize yourself with Bonsai. In particular, [download the necessary Bonsai
 packages](xref:install-configure-bonsai#package-installation) or [check for
 updates](xref:install-configure-bonsai#update-packages) if they're already
 installed. Once you've done that, copy/paste the following workflow into your
-Bonsai editor. The following sections explain how to configure each element of
-this workflow
+Bonsai editor. The following sections explain how to create this workflow and 
+configure its elements.
 
 ::: workflow
 ![SVG of copyable functional workflow](../../workflows/tutorials/ephys-socket/ephys-socket.bonsai)
@@ -54,12 +46,11 @@ set their properties:
 ![Screenshot of TCPServer configuration in Bonsai](../../images/ephys-socket-tut/tcp-server-config.png)
 
 - **Address**: Use "localhost" if you are running Bonsai and the Open Ephys GUI
-  on the same machine or the IP address of the machine running the GUI if not.
-- **Name**: give the TCP server a unique name. We will use this name to provide
-  later in the workflow to send data though the connections established by this
-  server. In this example, we have named them "SpikeServer" and "LfpServer".
-  These names are arbitrary, but in our example they correspond to the kind of
-  data they will transmit.
+  on the same machine. Use the IP address of the machine running the GUI if not.
+- **Name**: give the TCP server a unique name. This name is used later in the
+  the workflow to specify to which server to send data. In this example, we have 
+  named them "SpikeServer" and "LfpServer". These names are arbitrary, but in 
+  our example they correspond to the kind of data they will transmit.
 - **Port**: choose a unique [port
   number](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers). We
   will use this port number to establish the connection with the Open Ephys GUI.
@@ -127,17 +118,17 @@ streams. This operator comes from the OpenEphys.Sockets Bonsai package.
 ![SVG of workflow that creates TCP sockets, configures hardware, & streams data over sockets](../../workflows/tutorials/ephys-socket/ephys-socket.bonsai)
 :::
 
-Configure the "Connection" property of each `SendMatOverSocket` operator to each
-of the TCP Socket names configured earlier. In this example, we used
-"SpikeServer" for "SpikeData" and "LfpServer" for "LfPData".
+Set the "Connection" property of each `SendMatOverSocket` operator to the name
+of a TCP Socket configured earlier. In this example, "SpikeServer" is used 
+for "SpikeData" and "LfpServer" for "LfPData".
 
 > [!TIP]
 > Although the Open Ephys GUI has recording functionality, data acquired using
 > the Bonsai.Onix1 package should be written to disk in Bonsai because it is
-> possible for data to be lost if e.g. the TCP Buffer overflows. You can learn
+> possible for data to be lost e.g. if the TCP Buffer overflows. You can learn
 > to do this by following the [Hardware Guides](xref:hardware) for your
-> particular hardware. For this example, if you are using the NeuropixelsV1e
-> Headstage like the example, follow the [NeuropixelsV1e Headstage Hardware
+> particular hardware. For example, if you are using the NeuropixelsV1e
+> Headstage like the example, you would follow the [NeuropixelsV1e Headstage Hardware
 > Guide](xref:np1e).
 
 ## Receive ONIX Data from Socket in Open Ephys GUI
@@ -156,6 +147,12 @@ get familiarized with the Open Ephys GUI. In particular:
   [General plugin
   features](https://open-ephys.github.io/gui-docs/User-Manual/Plugins/index.html#general-plugin-features)
 
+Once you've done that, <a href="../../workflows/tutorials/ephys-socket/sockets-signal-chain" download>download</a> 
+the following signal chain and load it into the GUI. The following sections explain how to 
+create this signal chain and configure its elements.
+
+![cropped screenshot of sockets signal chains A & B](../../images/ephys-socket-tut/sockets-signal-chain.webp)
+
 ### Configure processors to visualize spike data
 
 Drag the source processor `Ephys Socket` from the Processor list and drop it
@@ -164,7 +161,7 @@ onto the Signal Chain area, followed by the sink processor `Probe Viewer`.
 Ephys data in the Open Ephys GUI is represented using floating point values in units
 of microvolts. Data coming from Bonsai will need to be converted to microvolts in
 order to plot properly within the GUI. To do this, the  `Ephys Socket` processor
-provides the "Scale" and "Offset" values.:
+provides the "Scale" and "Offset" values:
 
  $Output\, (uV)= Scale * (Input - Offset)$
 
@@ -175,6 +172,12 @@ In this tutorial we used the following values:
   configured at 1000.
 - **Offset**: 512. The NeuropixelsV1e device outputs offset-binary
   encoded signed 10-bit data, so 512 corresponds to 0 volts.
+
+> [!TIP]
+> Use the information on the <xref:data-elements> reference page to know which 
+> shift and scaling values you need to use for each device on other headstages. For 
+> example, you can find these values for the Neuropixels 1.0 device 
+> [here](xref:OpenEphys.Onix1.NeuropixelsV1DataFrame): 
 
 After configuring `Ephys Socket` processor, press the "Connect" button to
 establish a connection with the `LfpServer` running in Bonsai.
