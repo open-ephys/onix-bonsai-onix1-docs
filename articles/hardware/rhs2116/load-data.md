@@ -3,14 +3,9 @@ uid: rhs2116_load-data
 title: Load Data
 ---
 
-The following python script can be used to load and plot the data produced by the Headstage Rhs2116
-[example workflow](xref:rhs2116). It can also be explored in a Google Colab where example data
-is available and the Python environment builds reliably.
-
-> [!TIP]
-> You will have to change the directory of the data files when using this script for your data.
-
-[!code-python[](../../../workflows/hardware/rhs2116/load-rhs2116.py)]
+A script for loading data from the NeuropixelsV2e Headstage [example workflow](xref:hs64) is
+available [here](https://colab.research.google.com/drive/1EJ6JQaxGRFmvjMstfisS-GyaTujPv-qg?usp=sharing) 
+as a Google Colab.
 
 > [!NOTE]
 > This script will attempt to load entire files into arrays. For long recordings, data will need to
