@@ -1,129 +1,117 @@
+# Import necessary packages
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 import spikeinterface.extractors as se
-import spikeinterface.widgets as sw
 import probeinterface
 import probeinterface.plotting
 
-ap_gain = 500 # Change to the ap band gain used
-lfp_gain = 500 # Change to the lfp band gain used
-suffix = 0 # Change to match file names' suffix
-num_channels = 384 # Decrease channels to expedite plotting and inspect fewer traces
-# Change this to the directory of your data. In this example, data's in the same directory as this data loading Python script
-data_directory = os.path.dirname(os.path.realpath(__file__))
-mode = 'auto' # This uses colormap plot above 50 channels and line plot below 50 channels. Refer to the spikeinterface docs for more options
-# Change this to the name of your probeinterface file (should be in the same directory as the rest of your data for this example script to work as-is)
-probeinterface_filename = 'np1-config.json'
+# Parameters
+suffix = 0                                                 # Change to match file names' suffix
+data_directory = 'C:/Users/open-ephys/Documents/data/np1e' # Change to match files' directory
+plot_num_channels = 10                                     # Number of channels to plot
+ap_gain = 1000                                             # Change to the ap band gain used
+lfp_gain = 50                                              # Change to the lfp band gain used
 
+# Constants
+fs_hz_ap = 30e3
+fs_hz_lfp = fs_hz_ap / 12
+sample_offset = 512
+sample_gain = 1171.875
+num_channels = 384
 
-plt.close('all')
-
-#%% Metadata
+# Load acquisition session data
 dt = {'names': ('time', 'acq_clk_hz', 'block_read_sz', 'block_write_sz'),
       'formats': ('datetime64[us]', 'u4', 'u4', 'u4')}
 meta = np.genfromtxt(os.path.join(data_directory, f'start-time_{suffix}.csv'), delimiter=',', dtype=dt, skip_header=1)
-print(f"Recording was started at {meta['time']} GMT")
+print(f'Recording was started at {meta["time"]} GMT')
+print(f'Acquisition clock rate was {meta["acq_clk_hz"] / 1e6 } MHz')
 
-#%% Neuropixels 1.0 probeinterface
-fig, ax = plt.subplots()
-np1_config = probeinterface.io.read_probeinterface(os.path.join(data_directory,  'np1-config.json'))
-contacts_colors = ['cyan' if device_channel_index > -1 else 'red' for device_channel_index in np1_config.probes[0].device_channel_indices]
-probeinterface.plotting.plot_probegroup(np1_config, ax=ax, contacts_colors=contacts_colors, contacts_kargs={'alpha' : 1, 'zorder' : 10}, show_channel_on_click=True)
-fig.set_size_inches(2, 9)
-enabled = mpatches.Patch(color='cyan', label='Enabled')
-disabled = mpatches.Patch(color='red', label='Disabled')
-fig.legend(handles=[enabled, disabled], loc='outside upper center') 
-plt.tight_layout()
+# Load Neuropixels 1.0 AP clock data
+ap_time = np.fromfile(os.path.join(data_directory, f'np1-clock_{suffix}.raw'), dtype=np.uint64).astype(np.double) / meta['acq_clk_hz']
 
+# Load and scale Neuropixels 1.0 AP data
+gain_to_uV_ap = sample_gain / ap_gain
+offset_to_uV_ap = -sample_offset * gain_to_uV_ap
+ap_rec = se.read_binary(os.path.join(data_directory, f'np1-spike_{suffix}.raw'),
+                        sampling_frequency=fs_hz_ap,
+                        dtype=np.uint16,
+                        num_channels=num_channels,
+                        gain_to_uV=gain_to_uV_ap,
+                        offset_to_uV=offset_to_uV_ap)
+ap_scaled = ap_rec.get_traces(return_scaled=True, channel_ids=np.arange(plot_num_channels))
 
-#%% Neuropixels 1.0 Data
-bit_depth = 10
-fig, ax = plt.subplots(1,2)
-fig.suptitle('Neuropixels 1.0 Data')
-fig.set_size_inches(9, 9)
-plt.subplots_adjust(wspace=0.3)
+# Load Neuropixels 1.0 LFP clock data. The LFP is sampled every at 1/12th the rate of AP data
+lfp_time = ap_time[::12]
 
-ap_scalar = 1.2e6 / (2 ** bit_depth) / ap_gain
-ap_offset = (2 ** (bit_depth - 1)) * ap_scalar
-ap_recording = se.read_binary(os.path.join(data_directory,  f"np1-spike_{suffix}.raw"), 
-                           3e5, 
-                           np.uint16, 
-                           num_channels, 
-                           gain_to_uV=ap_scalar, 
-                           offset_to_uV=-ap_offset) 
-ap_traces_plot = sw.plot_traces(ap_recording, 
-                   backend='matplotlib', 
-                   return_scaled=True, 
-                   mode=mode, 
-                   clim=(-ap_offset,ap_offset),
-                   ax=ax[0])
-ax[0].set_xlabel("time (sec)")
-ax[0].set_ylabel("AP (µV)")
+# Load and scale Neuropixels 1.0 LFP data
+gain_to_uV_lfp = sample_gain / lfp_gain
+offset_to_uV_lfp = -sample_offset * gain_to_uV_lfp
+lfp_rec = se.read_binary(os.path.join(data_directory, f'np1-lfp_{suffix}.raw'),
+                         sampling_frequency=fs_hz_lfp,
+                         dtype=np.uint16,
+                         num_channels=num_channels,
+                         gain_to_uV=gain_to_uV_lfp,
+                         offset_to_uV=offset_to_uV_lfp)
+lfp_scaled = lfp_rec.get_traces(return_scaled=True, channel_ids=np.arange(plot_num_channels))
 
-lfp_scalar = 1.2e6 / (2 ** bit_depth) / lfp_gain
-lfp_offset = (2 ** (bit_depth - 1)) * lfp_scalar
-lfp_recording = se.read_binary(os.path.join(data_directory,  f"np1-lfp_{suffix}.raw"), 
-                           3e5/12, 
-                           np.uint16, 
-                           num_channels, 
-                           gain_to_uV=lfp_scalar, 
-                           offset_to_uV=-lfp_offset) 
-lfp_traces_plot = sw.plot_traces(lfp_recording, 
-                   backend='matplotlib', 
-                   return_scaled=True, 
-                   mode=mode, 
-                   clim=(-lfp_offset,lfp_offset), 
-                  ax=ax[1])
-ax[1].set_xlabel("time (sec)")
-ax[1].set_ylabel("LFP (µV)")
-
-#%% Bno055
+# Load BNO055 data
 dt = {'names': ('clock', 'euler', 'quat', 'is_quat_id', 'accel', 'grav', 'temp'),
-      'formats': ('u8', '(1,3)f8', '(1,4)f8', '?', '(1,3)f8', '(1,3)f8', 'f8', '?')}
+      'formats': ('u8', '(1,3)f8', '(1,4)f8', '?', '(1,3)f8', '(1,3)f8', 'f8')}
 bno055 = np.genfromtxt(os.path.join(data_directory, f'bno055_{suffix}.csv'), delimiter=',', dtype=dt)
 
+# BNO055 time data
 bno055_time = bno055['clock'] / meta['acq_clk_hz']
 
-plt.figure()
-plt.subplot(231)
+# Plot time series
+fig = plt.figure(figsize=(12, 8))
+
+# Plot scaled Neuropixels 1.0 AP data
+plt.subplot(611)
+plt.plot(ap_time, ap_scaled)
+plt.xlabel('Time (seconds)')
+plt.ylabel('µV')
+plt.title('AP Band Voltage')
+
+# Plot scaled Neuropixels 1.0 LFP data
+plt.subplot(612)
+plt.plot(lfp_time, lfp_scaled)
+plt.xlabel('Time (seconds)')
+plt.ylabel('µV')
+plt.title('LFP Band Voltage')
+
+# Plot BNO055 data
+plt.subplot(613)
 plt.plot(bno055_time, bno055['euler'].squeeze())
-plt.xlabel("time (sec)")
-plt.ylabel("angle (deg.)")
-plt.ylim(-185, 365)
-plt.legend(['yaw', 'pitch', 'roll'])
-plt.title('Euler')
+plt.xlabel('Time (seconds)')
+plt.ylabel('degrees')
+plt.title('Euler Angles')
+plt.legend(['Yaw', 'Pitch', 'Roll'])
 
-plt.subplot(232)
+plt.subplot(614)
 plt.plot(bno055_time, bno055['quat'].squeeze())
-plt.xlabel("time (sec)")
-plt.ylim(-1.1, 1.1)
-plt.legend(['X', 'Y', 'Z', 'W'])
+plt.xlabel('Time (seconds)')
 plt.title('Quaternion')
+plt.legend(['X', 'Y', 'Z', 'W'])
 
-plt.subplot(233)
+plt.subplot(615)
 plt.plot(bno055_time, bno055['accel'].squeeze())
-plt.xlabel("time (sec)")
-plt.ylabel("accel. (m/s^2)")
+plt.xlabel('Time (seconds)')
+plt.ylabel('m/s\u00b2')
+plt.title('Linear Acceleration')
 plt.legend(['X', 'Y', 'Z'])
-plt.title('Lin. Accel.')
 
-plt.subplot(234)
+plt.subplot(616)
 plt.plot(bno055_time, bno055['grav'].squeeze())
-plt.xlabel("time (sec)")
-plt.ylabel("accel. (m/s^2)")
+plt.xlabel('Time (seconds)')
+plt.ylabel('m/s\u00b2')
+plt.title('Gravity Vector')
 plt.legend(['X', 'Y', 'Z'])
-plt.title('Gravity Vec.')
 
-plt.subplot(235)
-plt.plot(bno055_time, bno055['temp'].squeeze())
-plt.xlabel("time (sec)")
-plt.ylabel("temp. (°C)")
-plt.title('Headstage Temp.')
+fig.tight_layout()
 
-plt.tight_layout()
+# Load and plot Neuropixels 1.0 probeinterface probe group
+np1_config = probeinterface.io.read_probeinterface(os.path.join(data_directory, f'np1-config.json'))
+probeinterface.plotting.plot_probegroup(np1_config, show_channel_on_click=True)
 
 plt.show()
-
-fig.suptitle('BNO055 Data')
