@@ -6,75 +6,106 @@ import spikeinterface.extractors as se
 import probeinterface
 import probeinterface.plotting
 
-# Parameters
-suffix = 0                                                 # Change to match file names' suffix
+#%% Set parameters for loading data
+
+suffix = 0                                                 # Change to match filenames' suffix
 data_directory = 'C:/Users/open-ephys/Documents/data/np2e' # Change to match files' directory
 plot_num_channels = 10                                     # Number of channels to plot
 
-# Constants
+# Neuropixels 2.0 constants
 fs_hz = 30e3
 gain_to_uV = 3.05176
 offset_to_uV = -2048 * gain_to_uV
 num_channels = 384
 
-# Load acquisition session data
+#%%  Load acquisition session data
+
 dt = {'names': ('time', 'acq_clk_hz', 'block_read_sz', 'block_write_sz'),
       'formats': ('datetime64[us]', 'u4', 'u4', 'u4')}
 meta = np.genfromtxt(os.path.join(data_directory, f'start-time_{suffix}.csv'), delimiter=',', dtype=dt, skip_header=1)
 print(f'Recording was started at {meta["time"]} GMT')
 print(f'Acquisition clock rate was {meta["acq_clk_hz"] / 1e6 } MHz')
 
-# Load Neuropixels 2.0 clock data
-rec_time = np.fromfile(os.path.join(data_directory, f'np2-a-clock_{suffix}.raw'), dtype=np.uint64).astype(np.double) / meta['acq_clk_hz']
+#%% Load Neuropixels 2.0 Probe A data
 
-# Load and scale Neuropixels 2.0 ephys data
-rec = se.read_binary(os.path.join(data_directory, f'np2-a-ephys_{suffix}.raw'),
+np2_a = {}
+
+# Load Neuropixels 2.0 probe A time data and convert clock cycles to seconds
+np2_a['time'] = np.fromfile(os.path.join(data_directory, f'np2-a-clock_{suffix}.raw'), dtype=np.uint64).astype(np.double) / meta['acq_clk_hz']
+
+# Load and scale Neuropixels 2.0 probe A ephys data
+rec_a = se.read_binary(os.path.join(data_directory, f'np2-a-ephys_{suffix}.raw'),
                      sampling_frequency=fs_hz,
                      dtype=np.uint16,
                      num_channels=num_channels,
                      gain_to_uV=gain_to_uV,
                      offset_to_uV=offset_to_uV)
-rec_scaled = rec.get_traces(return_scaled=True, channel_ids=np.arange(plot_num_channels))
+np2_a['ephys_uV'] = rec_a.get_traces(return_scaled=True, channel_ids=np.arange(plot_num_channels))
 
-# Load BNO055 data
+#%% Load Neuropixels 2.0 Probe B data
+
+# np2_b = {}
+
+# Load Neuropixels 2.0 probe B time data and convert clock cycles to seconds
+# np2_b['time'] = np.fromfile(os.path.join(data_directory, f'np2-b-clock_{suffix}.raw'), dtype=np.uint64).astype(np.double) / meta['acq_clk_hz']
+
+# # Load and scale Neuropixels 2.0 probe B ephys data
+# rec_b = se.read_binary(os.path.join(data_directory, f'np2-b-ephys_{suffix}.raw'),
+#                      sampling_frequency=fs_hz,
+#                      dtype=np.uint16,
+#                      num_channels=num_channels,
+#                      gain_to_uV=gain_to_uV,
+#                      offset_to_uV=offset_to_uV)
+# np2_b['data_uV'] = rec_b.get_traces(return_scaled=True, channel_ids=np.arange(plot_num_channels))
+
+#%% Load BNO055 data
+
 dt = {'names': ('clock', 'euler', 'quat', 'is_quat_id', 'accel', 'grav', 'temp'),
       'formats': ('u8', '(1,3)f8', '(1,4)f8', '?', '(1,3)f8', '(1,3)f8', 'f8')}
 bno055 = np.genfromtxt(os.path.join(data_directory, f'bno055_{suffix}.csv'), delimiter=',', dtype=dt)
 
-# BNO055 time data
+# Convert clock cycles to seconds
 bno055_time = bno055['clock'] / meta['acq_clk_hz']
 
-# Plot time series
+#%% Plot time series
+
 fig = plt.figure(figsize=(12, 8))
 
-# Plot scaled Neuropixels 2.0 data
-plt.subplot(511)
-plt.plot(rec_time, rec_scaled)
+# Plot scaled Neuropixels 2.0 probe A data
+plt.subplot(611)
+plt.plot(np2_a['time'], np2_a['ephys_uV'])
 plt.xlabel('Time (seconds)')
 plt.ylabel('µV')
-plt.title('Neuropixels 2.0 Voltage')
+plt.title('Neuropixels 2.0  Probe A')
+
+# Plot scaled Neuropixels 2.0 probe B data
+plt.subplot(612)
+# plt.plot(np2_b['time'], np2_b['data_uV'])
+plt.xlabel('Time (seconds)')
+plt.ylabel('µV')
+plt.title('Neuropixels 2.0 Probe B')
 
 # Plot BNO055 data
-plt.subplot(512)
+plt.subplot(613)
 plt.plot(bno055_time, bno055['euler'].squeeze())
 plt.ylabel('degrees')
 plt.title('Euler Angles')
 plt.legend(['Yaw', 'Pitch', 'Roll'])
 
-plt.subplot(513)
+plt.subplot(614)
 plt.plot(bno055_time, bno055['quat'].squeeze())
 plt.xlabel('Time (seconds)')
 plt.title('Quaternion')
 plt.legend(['X', 'Y', 'Z', 'W'])
 
-plt.subplot(514)
+plt.subplot(615)
 plt.plot(bno055_time, bno055['accel'].squeeze())
 plt.xlabel('Time (seconds)')
 plt.ylabel('m/s\u00b2')
 plt.title('Linear Acceleration')
 plt.legend(['X', 'Y', 'Z'])
 
-plt.subplot(515)
+plt.subplot(616)
 plt.plot(bno055_time, bno055['grav'].squeeze())
 plt.xlabel('Time (seconds)')
 plt.ylabel('m/s\u00b2')
@@ -83,8 +114,16 @@ plt.legend(['X', 'Y', 'Z'])
 
 fig.tight_layout()
 
-# Load and plot Neuropixels 2.0 probeinterface probe group
-np2_config = probeinterface.io.read_probeinterface(os.path.join(data_directory, 'np2-config.json'))
-probeinterface.plotting.plot_probegroup(np2_config, show_channel_on_click=True)
+#%% Load and plot Neuropixels 2.0 ProbeInterface probe group
+
+fig, (ax_a, ax_b) = plt.subplots(1, 2)
+fig.set_size_inches(6, 8)
+
+np2_config_a = probeinterface.io.read_probeinterface(os.path.join(data_directory, 'np2-config-a.json'))
+probeinterface.plotting.plot_probegroup(np2_config_a, show_channel_on_click=True, ax=fig.axes[0])
+ax_a.set_title('Neuropixels 2.0 Probe A')
+# np2_config_b = probeinterface.io.read_probeinterface(os.path.join(data_directory, 'np2-config-b.json'))
+# probeinterface.plotting.plot_probegroup(np2_config_b, show_channel_on_click=True, ax=ax_b)
+ax_b.set_title('Neuropixels 2.0 Probe B')
 
 plt.show()
