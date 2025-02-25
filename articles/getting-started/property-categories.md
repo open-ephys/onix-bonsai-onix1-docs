@@ -21,13 +21,13 @@ hardware when the workflow is running. For example, the stimulus properties of
 dynamically configured while a workflow is running to shape stimulus patterns in 
 real-time.
 
-<span class="badge oe-badge-border oe-badge-green" id="multi-device">Multi-device</span> properties
-are only available through [multi-device configuration operators](xref:configure). They are used to
-configure a collection of devices contained by a single piece of hardware such as a headstage,
-miniscope, or breakout board. For example, the 
-[BreakoutBoard](xref:OpenEphys.Onix1.ConfigureBreakoutBoard#breakoutboard) property can be used to
-provide unique names to different Breakout boards and their devices if multiple are used on a single
-host computer.
+<span class="badge oe-badge-border oe-badge-green" id="device-group">Device
+Group</span> properties are only available through [Device Group configuration
+operators](xref:configure) that are used for globally configuring groups of
+devices. For example, the
+[Name](xref:OpenEphys.Onix1.ConfigureBreakoutBoard#configuration) property of
+the Breakout Board can be used to provide a unique name to different Breakout
+boards if multiple are used on a single host computer.
 
 <span class="badge oe-badge-border oe-badge-purple" id="single-device">Single-device</span>
 properties are available through [single-device configuration
