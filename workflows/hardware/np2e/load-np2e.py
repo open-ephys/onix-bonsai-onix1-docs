@@ -125,14 +125,19 @@ fig.tight_layout()
 
 #%% Load and plot Neuropixels 2.0 ProbeInterface probe group
 
-fig, (ax_a, ax_b) = plt.subplots(1, 2)
-fig.set_size_inches(6, 8)
-
 np2_config_a = probeinterface.io.read_probeinterface(os.path.join(data_directory, 'np2-config-a.json'))
-probeinterface.plotting.plot_probegroup(np2_config_a, show_channel_on_click=True, ax=fig.axes[0])
-ax_a.set_title('Neuropixels 2.0 Probe A')
 # np2_config_b = probeinterface.io.read_probeinterface(os.path.join(data_directory, 'np2-config-b.json'))
+
+fig = plt.figure()
+
+plt.subplot(121)
+ax_a = plt.gca()
+probeinterface.plotting.plot_probegroup(np2_config_a, show_channel_on_click=True, ax=ax_a)
+plt.title('Neuropixels 2.0 Probe A')
+
+plt.subplot(122)
+ax_b = plt.gca()
 # probeinterface.plotting.plot_probegroup(np2_config_b, show_channel_on_click=True, ax=ax_b)
-ax_b.set_title('Neuropixels 2.0 Probe B')
+plt.title('Neuropixels 2.0 Probe B')
 
 plt.show()
