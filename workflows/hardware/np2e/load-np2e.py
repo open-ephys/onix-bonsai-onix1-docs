@@ -1,102 +1,143 @@
+# Import necessary packages
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 import spikeinterface.extractors as se
-import spikeinterface.widgets as sw
 import probeinterface
 import probeinterface.plotting
 
-suffix = 0 # Change to match file names' suffix
-num_channels = 384 # Decrease channels to expedite plotting and inspect fewer traces
-# Change this to the directory of your data. In this example, data's in the same directory as this data loading Python script
-data_directory = os.path.dirname(os.path.realpath(__file__)) 
-mode = 'auto' # This uses colormap plot above 50 channels and line plot below 50 channels. Refer to the spikeinterface docs for more options
-# Change this to the name of your probeinterface file (should be in the same directory as the rest of your data for this example script to work as-is)
-probeinterface_filename = 'np2-config.json'
+#%% Set parameters for loading data
 
-plt.close('all')
+suffix = 0                                                 # Change to match filenames' suffix
+data_directory = 'C:/Users/open-ephys/Documents/data/np2e' # Change to match files' directory
+plot_num_channels = 10                                     # Number of channels to plot
+start_t = 3.0                                              # Plot start time (seconds)
+dur = 2.0                                                  # Plot time duration (seconds)
 
-#%% Metadata
+# Neuropixels 2.0 constants
+fs_hz = 30e3
+gain_to_uV = 3.05176
+offset_to_uV = -2048 * gain_to_uV
+num_channels = 384
+
+#%%  Load acquisition session data
+
 dt = {'names': ('time', 'acq_clk_hz', 'block_read_sz', 'block_write_sz'),
       'formats': ('datetime64[us]', 'u4', 'u4', 'u4')}
 meta = np.genfromtxt(os.path.join(data_directory, f'start-time_{suffix}.csv'), delimiter=',', dtype=dt, skip_header=1)
-print(f"Recording was started at {meta['time']} GMT")
+print(f'Recording was started at {meta["time"]} GMT')
+print(f'Acquisition clock rate was {meta["acq_clk_hz"] / 1e6 } MHz')
 
-#%% Neuropixels 1.0 probeinterface
-fig, ax = plt.subplots()
-np2_config = probeinterface.io.read_probeinterface(os.path.join(data_directory, probeinterface_filename))
-contacts_colors = ['cyan' if device_channel_index > -1 else 'red' for device_channel_index in np2_config.probes[0].device_channel_indices]
-probeinterface.plotting.plot_probegroup(np2_config, ax=ax, contacts_colors=contacts_colors, contacts_kargs={'alpha' : 1, 'zorder' : 10}, show_channel_on_click=True)
-fig.set_size_inches(2, 9)
-enabled = mpatches.Patch(color='cyan', label='Enabled')
-disabled = mpatches.Patch(color='red', label='Disabled')
-fig.legend(handles=[enabled, disabled], loc='outside upper center') 
-plt.tight_layout()
+#%% Load Neuropixels 2.0 Probe A data
 
-#%% Neuropixels 2.0 Data
-bit_depth = 12
-scalar = 3.05176
-offset = -(2 ** (bit_depth - 1)) * scalar
-recording = se.read_binary(os.path.join(data_directory,  f"np2-a-ephys_{suffix}.raw"), 
-                           3e5, 
-                           np.uint16, 
-                           num_channels, 
-                           gain_to_uV=scalar, 
-                           offset_to_uV=-offset) 
-traces_plot = sw.plot_traces(recording, 
-                   backend='matplotlib', 
-                   return_scaled=True, 
-                   mode=mode, 
-                   clim=(-offset,offset),
-                   figsize=(6,9),
-                   figtitle='Neuropixels 2.0 Data')
-ax.set_xlabel("time (sec)")
-ax.set_ylabel("Ephys (µV)")
+np2_a = {}
 
-#%% Bno055
+# Load Neuropixels 2.0 probe A time data and convert clock cycles to seconds
+np2_a['time'] = np.fromfile(os.path.join(data_directory, f'np2-a-clock_{suffix}.raw'), dtype=np.uint64).astype(np.double) / meta['acq_clk_hz']
+
+# Load and scale Neuropixels 2.0 probe A ephys data
+rec_a = se.read_binary(os.path.join(data_directory, f'np2-a-ephys_{suffix}.raw'),
+                     sampling_frequency=fs_hz,
+                     dtype=np.uint16,
+                     num_channels=num_channels,
+                     gain_to_uV=gain_to_uV,
+                     offset_to_uV=offset_to_uV)
+np2_a['ephys_uV'] = rec_a.get_traces(return_scaled=True, channel_ids=np.arange(plot_num_channels))
+
+np2_a_time_mask = np.bitwise_and(np2_a['time'] >= start_t, np2_a['time'] < start_t + dur)
+
+#%% Load Neuropixels 2.0 Probe B data
+
+# np2_b = {}
+
+# Load Neuropixels 2.0 probe B time data and convert clock cycles to seconds
+# np2_b['time'] = np.fromfile(os.path.join(data_directory, f'np2-b-clock_{suffix}.raw'), dtype=np.uint64).astype(np.double) / meta['acq_clk_hz']
+
+# # Load and scale Neuropixels 2.0 probe B ephys data
+# rec_b = se.read_binary(os.path.join(data_directory, f'np2-b-ephys_{suffix}.raw'),
+#                      sampling_frequency=fs_hz,
+#                      dtype=np.uint16,
+#                      num_channels=num_channels,
+#                      gain_to_uV=gain_to_uV,
+#                      offset_to_uV=offset_to_uV)
+# np2_b['data_uV'] = rec_b.get_traces(return_scaled=True, channel_ids=np.arange(plot_num_channels))
+
+# np2_b_time_mask = np.bitwise_and(np2_b['time'] >= start_t, np2_b['time'] < start_t + dur)
+
+#%% Load BNO055 data
+
 dt = {'names': ('clock', 'euler', 'quat', 'is_quat_id', 'accel', 'grav', 'temp'),
       'formats': ('u8', '(1,3)f8', '(1,4)f8', '?', '(1,3)f8', '(1,3)f8', 'f8')}
 bno055 = np.genfromtxt(os.path.join(data_directory, f'bno055_{suffix}.csv'), delimiter=',', dtype=dt)
 
+# Convert clock cycles to seconds
 bno055_time = bno055['clock'] / meta['acq_clk_hz']
 
-plt.figure()
-plt.subplot(231)
-plt.plot(bno055_time, bno055['euler'].squeeze())
-plt.xlabel("time (sec)")
-plt.ylabel("angle (deg.)")
-plt.ylim(-185, 365)
-plt.legend(['yaw', 'pitch', 'roll'])
-plt.title('Euler')
+bno055_time_mask = np.bitwise_and(bno055_time >= start_t, bno055_time < start_t + dur)
 
-plt.subplot(232)
-plt.plot(bno055_time, bno055['quat'].squeeze())
-plt.xlabel("time (sec)")
-plt.ylim(-1.1, 1.1)
-plt.legend(['X', 'Y', 'Z', 'W'])
+#%% Plot time series
+
+fig = plt.figure(figsize=(12, 8))
+
+# Plot scaled Neuropixels 2.0 probe A data
+plt.subplot(611)
+plt.plot(np2_a['time'][np2_a_time_mask], np2_a['ephys_uV'][np2_a_time_mask])
+plt.xlabel('Time (seconds)')
+plt.ylabel('µV')
+plt.title('Neuropixels 2.0  Probe A')
+
+# Plot scaled Neuropixels 2.0 probe B data
+plt.subplot(612)
+# plt.plot(np2_b['time'][np2_b_time_mask], np2_b['data_uV'][np2_b_time_mask])
+plt.xlabel('Time (seconds)')
+plt.ylabel('µV')
+plt.title('Neuropixels 2.0 Probe B')
+
+# Plot BNO055 data
+plt.subplot(613)
+plt.plot(bno055_time[bno055_time_mask], bno055['euler'].squeeze()[bno055_time_mask])
+plt.xlabel('Time (seconds)')
+plt.ylabel('degrees')
+plt.title('Euler Angles')
+plt.legend(['Yaw', 'Pitch', 'Roll'])
+
+plt.subplot(614)
+plt.plot(bno055_time[bno055_time_mask], bno055['quat'].squeeze()[bno055_time_mask])
+plt.xlabel('Time (seconds)')
 plt.title('Quaternion')
+plt.legend(['X', 'Y', 'Z', 'W'])
 
-plt.subplot(233)
-plt.plot(bno055_time, bno055['accel'].squeeze())
-plt.xlabel("time (sec)")
-plt.ylabel("accel. (m/s^2)")
+plt.subplot(615)
+plt.plot(bno055_time[bno055_time_mask], bno055['accel'].squeeze()[bno055_time_mask])
+plt.xlabel('Time (seconds)')
+plt.ylabel('m/s\u00b2')
+plt.title('Linear Acceleration')
 plt.legend(['X', 'Y', 'Z'])
-plt.title('Lin. Accel.')
 
-plt.subplot(234)
-plt.plot(bno055_time, bno055['grav'].squeeze())
-plt.xlabel("time (sec)")
-plt.ylabel("accel. (m/s^2)")
+plt.subplot(616)
+plt.plot(bno055_time[bno055_time_mask], bno055['grav'].squeeze()[bno055_time_mask])
+plt.xlabel('Time (seconds)')
+plt.ylabel('m/s\u00b2')
+plt.title('Gravity Vector')
 plt.legend(['X', 'Y', 'Z'])
-plt.title('Gravity Vec.')
 
-plt.subplot(235)
-plt.plot(bno055_time, bno055['temp'].squeeze())
-plt.xlabel("time (sec)")
-plt.ylabel("temp. (°C)")
-plt.title('Headstage Temp.')
+fig.tight_layout()
 
-plt.tight_layout()
+#%% Load and plot Neuropixels 2.0 ProbeInterface probe group
 
-fig.suptitle('BNO055 Data')
+np2_config_a = probeinterface.io.read_probeinterface(os.path.join(data_directory, 'np2-config-a.json'))
+# np2_config_b = probeinterface.io.read_probeinterface(os.path.join(data_directory, 'np2-config-b.json'))
+
+fig = plt.figure()
+
+plt.subplot(121)
+ax_a = plt.gca()
+probeinterface.plotting.plot_probegroup(np2_config_a, show_channel_on_click=True, ax=ax_a)
+plt.title('Neuropixels 2.0 Probe A')
+
+plt.subplot(122)
+ax_b = plt.gca()
+# probeinterface.plotting.plot_probegroup(np2_config_b, show_channel_on_click=True, ax=ax_b)
+plt.title('Neuropixels 2.0 Probe B')
+
+plt.show()
