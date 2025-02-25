@@ -13,7 +13,7 @@ data_directory = 'C:/Users/open-ephys/Documents/data/np1e' # Change to match fil
 plot_num_channels = 10                                     # Number of channels to plot
 ap_gain = 1000                                             # Change to the ap band gain used
 lfp_gain = 50                                              # Change to the lfp band gain used
-start_t = 5.0                                              # Plot start time (seconds)
+start_t = 3.0                                              # Plot start time (seconds)
 dur = 2.0                                                  # Plot time duration (seconds)
 
 # Neuropixels 1.0 constants
@@ -128,9 +128,7 @@ fig.tight_layout()
 
 #%% Load and plot Neuropixels 1.0 probeinterface probe group
 
-fig = plt.figure(figsize=(3, 8))
-fig.add_subplot()
 np1_config = probeinterface.io.read_probeinterface(os.path.join(data_directory, f'np1-config.json'))
-probeinterface.plotting.plot_probegroup(np1_config, show_channel_on_click=True, ax=fig.axes[0])
+probeinterface.plotting.plot_probegroup(np1_config, show_channel_on_click=True)
 
 plt.show()

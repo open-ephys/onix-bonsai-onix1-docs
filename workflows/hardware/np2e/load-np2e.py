@@ -11,7 +11,7 @@ import probeinterface.plotting
 suffix = 0                                                 # Change to match filenames' suffix
 data_directory = 'C:/Users/open-ephys/Documents/data/np2e' # Change to match files' directory
 plot_num_channels = 10                                     # Number of channels to plot
-start_t = 5.0                                              # Plot start time (seconds)
+start_t = 3.0                                              # Plot start time (seconds)
 dur = 2.0                                                  # Plot time duration (seconds)
 
 # Neuropixels 2.0 constants
