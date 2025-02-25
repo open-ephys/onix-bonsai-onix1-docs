@@ -13,6 +13,8 @@ data_directory = 'C:/Users/open-ephys/Documents/data/np1e' # Change to match fil
 plot_num_channels = 10                                     # Number of channels to plot
 ap_gain = 1000                                             # Change to the ap band gain used
 lfp_gain = 50                                              # Change to the lfp band gain used
+start_t = 5.0                                              # Plot start time (seconds)
+dur = 2.0                                                  # Plot time duration (seconds)
 
 # Neuropixels 1.0 constants
 fs_hz_ap = 30e3
@@ -47,6 +49,8 @@ ap_rec = se.read_binary(os.path.join(data_directory, f'np1-spike_{suffix}.raw'),
                         offset_to_uV=offset_to_uV_ap)
 np1['ap_uV'] = ap_rec.get_traces(return_scaled=True, channel_ids=np.arange(plot_num_channels))
 
+ap_time_mask = np.bitwise_and(np1['ap_time'] >= start_t, np1['ap_time'] < start_t + dur)
+
 # Load Neuropixels 1.0 LFP clock data. The LFP is sampled every at 1/12th the rate of AP data
 np1['lfp_time'] = np1['ap_time'][::12]
 
@@ -61,6 +65,8 @@ lfp_rec = se.read_binary(os.path.join(data_directory, f'np1-lfp_{suffix}.raw'),
                          offset_to_uV=offset_to_uV_lfp)
 np1['lfp_uV'] = lfp_rec.get_traces(return_scaled=True, channel_ids=np.arange(plot_num_channels))
 
+lfp_time_mask = np.bitwise_and(np1['lfp_time'] >= start_t, np1['lfp_time'] < start_t + dur)
+
 #%% Load BNO055 data
 
 dt = {'names': ('clock', 'euler', 'quat', 'is_quat_id', 'accel', 'grav', 'temp'),
@@ -70,47 +76,49 @@ bno055 = np.genfromtxt(os.path.join(data_directory, f'bno055_{suffix}.csv'), del
 # Convert clock cycles to seconds
 bno055_time = bno055['clock'] / meta['acq_clk_hz']
 
+bno055_time_mask = np.bitwise_and(bno055_time >= start_t, bno055_time < start_t + dur)
+
 #%% Plot time series
 
 fig = plt.figure(figsize=(12, 8))
 
 # Plot scaled Neuropixels 1.0 AP data
 plt.subplot(611)
-plt.plot(np1['ap_time'], np1['ap_uV'])
+plt.plot(np1['ap_time'][ap_time_mask], np1['ap_uV'][ap_time_mask])
 plt.xlabel('Time (seconds)')
 plt.ylabel('µV')
 plt.title('AP Band Voltage')
 
 # Plot scaled Neuropixels 1.0 LFP data
 plt.subplot(612)
-plt.plot(np1['lfp_time'], np1['lfp_uV'])
+plt.plot(np1['lfp_time'][lfp_time_mask], np1['lfp_uV'][lfp_time_mask])
 plt.xlabel('Time (seconds)')
 plt.ylabel('µV')
 plt.title('LFP Band Voltage')
 
 # Plot BNO055 data
 plt.subplot(613)
-plt.plot(bno055_time, bno055['euler'].squeeze())
+plt.plot(bno055_time[bno055_time_mask], bno055['euler'].squeeze()[bno055_time_mask])
 plt.xlabel('Time (seconds)')
 plt.ylabel('degrees')
 plt.title('Euler Angles')
 plt.legend(['Yaw', 'Pitch', 'Roll'])
 
 plt.subplot(614)
-plt.plot(bno055_time, bno055['quat'].squeeze())
+plt.plot(bno055_time[bno055_time_mask], bno055['quat'].squeeze()[bno055_time_mask])
 plt.xlabel('Time (seconds)')
 plt.title('Quaternion')
 plt.legend(['X', 'Y', 'Z', 'W'])
 
 plt.subplot(615)
-plt.plot(bno055_time, bno055['accel'].squeeze())
+plt.plot(bno055_time[bno055_time_mask], bno055['accel'].squeeze()[bno055_time_mask])
 plt.xlabel('Time (seconds)')
 plt.ylabel('m/s\u00b2')
 plt.title('Linear Acceleration')
 plt.legend(['X', 'Y', 'Z'])
 
 plt.subplot(616)
-plt.plot(bno055_time, bno055['grav'].squeeze())
+plt.plot(bno055_time[bno055_time_mask], bno055['grav'].squeeze()[bno055_time_mask])
 plt.xlabel('Time (seconds)')
 plt.ylabel('m/s\u00b2')
 plt.title('Gravity Vector')

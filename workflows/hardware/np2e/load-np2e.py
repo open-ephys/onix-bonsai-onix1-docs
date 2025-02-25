@@ -11,6 +11,8 @@ import probeinterface.plotting
 suffix = 0                                                 # Change to match filenames' suffix
 data_directory = 'C:/Users/open-ephys/Documents/data/np2e' # Change to match files' directory
 plot_num_channels = 10                                     # Number of channels to plot
+start_t = 5.0                                              # Plot start time (seconds)
+dur = 2.0                                                  # Plot time duration (seconds)
 
 # Neuropixels 2.0 constants
 fs_hz = 30e3
@@ -42,6 +44,8 @@ rec_a = se.read_binary(os.path.join(data_directory, f'np2-a-ephys_{suffix}.raw')
                      offset_to_uV=offset_to_uV)
 np2_a['ephys_uV'] = rec_a.get_traces(return_scaled=True, channel_ids=np.arange(plot_num_channels))
 
+np2_a_time_mask = np.bitwise_and(np2_a['time'] >= start_t, np2_a['time'] < start_t + dur)
+
 #%% Load Neuropixels 2.0 Probe B data
 
 # np2_b = {}
@@ -58,6 +62,8 @@ np2_a['ephys_uV'] = rec_a.get_traces(return_scaled=True, channel_ids=np.arange(p
 #                      offset_to_uV=offset_to_uV)
 # np2_b['data_uV'] = rec_b.get_traces(return_scaled=True, channel_ids=np.arange(plot_num_channels))
 
+# np2_b_time_mask = np.bitwise_and(np2_b['time'] >= start_t, np2_b['time'] < start_t + dur)
+
 #%% Load BNO055 data
 
 dt = {'names': ('clock', 'euler', 'quat', 'is_quat_id', 'accel', 'grav', 'temp'),
@@ -67,46 +73,49 @@ bno055 = np.genfromtxt(os.path.join(data_directory, f'bno055_{suffix}.csv'), del
 # Convert clock cycles to seconds
 bno055_time = bno055['clock'] / meta['acq_clk_hz']
 
+bno055_time_mask = np.bitwise_and(bno055_time >= start_t, bno055_time < start_t + dur)
+
 #%% Plot time series
 
 fig = plt.figure(figsize=(12, 8))
 
 # Plot scaled Neuropixels 2.0 probe A data
 plt.subplot(611)
-plt.plot(np2_a['time'], np2_a['ephys_uV'])
+plt.plot(np2_a['time'][np2_a_time_mask], np2_a['ephys_uV'][np2_a_time_mask])
 plt.xlabel('Time (seconds)')
 plt.ylabel('µV')
 plt.title('Neuropixels 2.0  Probe A')
 
 # Plot scaled Neuropixels 2.0 probe B data
 plt.subplot(612)
-# plt.plot(np2_b['time'], np2_b['data_uV'])
+# plt.plot(np2_b['time'][np2_b_time_mask], np2_b['data_uV'][np2_b_time_mask])
 plt.xlabel('Time (seconds)')
 plt.ylabel('µV')
 plt.title('Neuropixels 2.0 Probe B')
 
 # Plot BNO055 data
 plt.subplot(613)
-plt.plot(bno055_time, bno055['euler'].squeeze())
+plt.plot(bno055_time[bno055_time_mask], bno055['euler'].squeeze()[bno055_time_mask])
+plt.xlabel('Time (seconds)')
 plt.ylabel('degrees')
 plt.title('Euler Angles')
 plt.legend(['Yaw', 'Pitch', 'Roll'])
 
 plt.subplot(614)
-plt.plot(bno055_time, bno055['quat'].squeeze())
+plt.plot(bno055_time[bno055_time_mask], bno055['quat'].squeeze()[bno055_time_mask])
 plt.xlabel('Time (seconds)')
 plt.title('Quaternion')
 plt.legend(['X', 'Y', 'Z', 'W'])
 
 plt.subplot(615)
-plt.plot(bno055_time, bno055['accel'].squeeze())
+plt.plot(bno055_time[bno055_time_mask], bno055['accel'].squeeze()[bno055_time_mask])
 plt.xlabel('Time (seconds)')
 plt.ylabel('m/s\u00b2')
 plt.title('Linear Acceleration')
 plt.legend(['X', 'Y', 'Z'])
 
 plt.subplot(616)
-plt.plot(bno055_time, bno055['grav'].squeeze())
+plt.plot(bno055_time[bno055_time_mask], bno055['grav'].squeeze()[bno055_time_mask])
 plt.xlabel('Time (seconds)')
 plt.ylabel('m/s\u00b2')
 plt.title('Gravity Vector')

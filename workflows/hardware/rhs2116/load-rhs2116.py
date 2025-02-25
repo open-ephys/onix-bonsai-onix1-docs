@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 suffix = 0                                                    # Change to match filenames' suffix
 data_directory = 'C:/Users/open-ephys/Documents/data/rhs2116' # Change to match files' directory
 plot_num_channels = 10                                        # Number of channels to plot
+start_t = 5.0                                                 # Plot start time (seconds)
+dur = 2.0                                                     # Plot time duration (seconds)
 
 # RHS2116 constants
 ac_uV_multiplier = 0.195
@@ -39,20 +41,22 @@ rhs2116['ac_uV'] = (ac.astype(np.float32) - ac_offset) * ac_uV_multiplier
 dc = np.reshape(np.fromfile(os.path.join(data_directory, f'rhs2116-dc_{suffix}.raw'), dtype=np.uint16), (-1, num_channels))
 rhs2116['dc_uV'] = (dc.astype(np.float32) - dc_offset) * dc_uV_multiplier
 
+rhs2116_time_mask = np.bitwise_and(rhs2116['time'] >= start_t, rhs2116['time'] < start_t + dur)
+
 #%% Plot time series
 
 fig = plt.figure()
 
 # Plot RHS2116 AC data
 plt.subplot(211)
-plt.plot(rhs2116['time'], rhs2116['ac_uV'][:,0:plot_num_channels])
+plt.plot(rhs2116['time'][rhs2116_time_mask], rhs2116['ac_uV'][:,0:plot_num_channels][rhs2116_time_mask])
 plt.xlabel('Time (seconds)')
 plt.ylabel('Voltage (µV)')
 plt.title('RHS2116 AC Data')
 
 # Plot RHS2116 DC data
 plt.subplot(212)
-plt.plot(rhs2116['time'], rhs2116['dc_uV'][:,0:plot_num_channels])
+plt.plot(rhs2116['time'][rhs2116_time_mask], rhs2116['dc_uV'][:,0:plot_num_channels][rhs2116_time_mask])
 plt.xlabel('Time (seconds)')
 plt.ylabel('Voltage (µV)')
 plt.title('RHS2116 DC Data')
