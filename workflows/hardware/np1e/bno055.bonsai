@@ -8,7 +8,7 @@
     <Nodes>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="onix1:PolledBno055Data">
-          <onix1:DeviceName>NeuropixelsV1eHeadstage/PolledBno055</onix1:DeviceName>
+          <onix1:DeviceName>HeadstageNeuropixelsV1e/PolledBno055</onix1:DeviceName>
           <onix1:PolledRegisters>All</onix1:PolledRegisters>
         </Combinator>
       </Expression>

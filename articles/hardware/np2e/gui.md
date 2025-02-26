@@ -10,7 +10,7 @@ The `NeuropixelsV2e` headstage has a graphical user interface when the `OpenEphy
 
 ## Overview
 
-For `NeuropixelsV2eHeadstage`, the GUI allows for an easy way to change settings and visualize the effect. From the GUI, you can:
+For `HeadstageNeuropixelsV2e`, the GUI allows for an easy way to change settings and visualize the effect. From the GUI, you can:
 
 - Configure `Probe A` and `Probe B` independently
     - Choose the probe calibration file
@@ -47,7 +47,7 @@ If the window is closed any other way (such as by pressing `Cancel`, or pressing
 
 ### ProbeInterface
 
-The `NeuropixelsV2eHeadstage` GUI uses [ProbeInterface](https://probeinterface.readthedocs.io/en/main/index.html) as the format to draw the probes and electrodes visually. For more information on ProbeInterface and the resulting JSON file, check out their [format specifications](https://probeinterface.readthedocs.io/en/main/format_spec.html) page. 
+The `HeadstageNeuropixelsV2e` GUI uses [ProbeInterface](https://probeinterface.readthedocs.io/en/main/index.html) as the format to draw the probes and electrodes visually. For more information on ProbeInterface and the resulting JSON file, check out their [format specifications](https://probeinterface.readthedocs.io/en/main/format_spec.html) page. 
 
 When opening the GUI, there is a default probe configuration that is loaded and drawn, which can be saved to a [JSON file](#save-probeinterface-file). Conversely, an existing JSON file can be [loaded](#load-probeinterface-file) to update the current channel configuration. If for any reason the default configuration is needed, it can be [loaded again](#load-default-configuration) at any time.
 
@@ -56,7 +56,7 @@ When opening the GUI, there is a default probe configuration that is loaded and 
 ![Open the GUI](../../../images/neuropixelsv2e-gui-tut/bonsai-editor-where-to-click.png)
 
 Steps to open the Probe Configuration GUI:
-- Select the `ConfigureNeuropixelsV2eHeadstage` node.
+- Select the `ConfigureHeadstageNeuropixelsV2e` node.
 - Click on the `NeuropixelsV2eProbeConfiguration` to edit (either `ProbeConfigurationA` or `ProbeConfigurationB`).
 - Select the <kbd>...</kbd> button on the right-most part of the property pane (#1 above).
 
@@ -176,7 +176,7 @@ To load the default channel configuration at any time, navigate to the File drop
 
 Step to open the headstage configuration GUI
 
-  - Double-click the `ConfigureNeuropixelsV2eHeadstage` node (#2 above)
+  - Double-click the `ConfigureHeadstageNeuropixelsV2e` node (#2 above)
 
 Once opened, if no probe calibration is selected for either `Probe A` or `Probe B`, then both tabs will only show their controls on the right and no probes (see below).
 

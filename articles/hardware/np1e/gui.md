@@ -8,7 +8,7 @@ The `NeuropixelsV1e` headstage has a graphical user interface when the `OpenEphy
 
 ## Overview
 
-For `NeuropixelsV1eHeadstage`, the GUI allows for an easy way to change settings and visualize the effect. From the GUI, you can:
+For `HeadstageNeuropixelsV1e`, the GUI allows for an easy way to change settings and visualize the effect. From the GUI, you can:
 
 - Configure the <xref:OpenEphys.Onix1.NeuropixelsV1ProbeConfiguration>
     - Choose the ADC calibration file
@@ -21,7 +21,7 @@ For `NeuropixelsV1eHeadstage`, the GUI allows for an easy way to change settings
 - Configure the [Bno055](xref:OpenEphys.Onix1.ConfigurePolledBno055)
     - Enable and disable the <xref:OpenEphys.Onix1.PolledBno055Data> stream
 
-The configuration dialog is accessible by double-clicking on the <xref:OpenEphys.Onix1.ConfigureNeuropixelsV1eHeadstage> operator.
+The configuration dialog is accessible by double-clicking on the <xref:OpenEphys.Onix1.ConfigureHeadstageNeuropixelsV1e> operator.
 
 ### Channel constraints
 
@@ -47,13 +47,13 @@ If the window is closed any other way (such as by pressing `Cancel`, or pressing
 
 ### ProbeInterface
 
-The `NeuropixelsV1eHeadstage` GUI uses [ProbeInterface](https://probeinterface.readthedocs.io/en/main/index.html) as the format to draw the probes and electrodes visually. For more information on ProbeInterface and the resulting JSON file, check out their [format specifications](https://probeinterface.readthedocs.io/en/main/format_spec.html) page. 
+The `HeadstageNeuropixelsV1e` GUI uses [ProbeInterface](https://probeinterface.readthedocs.io/en/main/index.html) as the format to draw the probes and electrodes visually. For more information on ProbeInterface and the resulting JSON file, check out their [format specifications](https://probeinterface.readthedocs.io/en/main/format_spec.html) page. 
 
 When opening the GUI, there is a default probe configuration that is loaded and drawn, which can be saved to a [JSON file](#save-probeinterface-file). Conversely, an existing JSON file can be [loaded](#load-probeinterface-file) to update the current channel configuration. If for any reason the default configuration is needed, it can be [loaded again](#load-default-configuration) at any time.
 
 ## Open Headstage Configuration GUI
 
-To open the headstage configuration GUI, double-click the `ConfigureNeuropixelsV1eHeadstage` operator.
+To open the headstage configuration GUI, double-click the `ConfigureHeadstageNeuropixelsV1e` operator.
 
 ![Open the GUI](../../..//images/neuropixelsv1e-gui-tut/bonsai-editor-where-to-click.png)
 

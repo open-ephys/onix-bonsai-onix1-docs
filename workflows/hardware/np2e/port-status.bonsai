@@ -9,7 +9,7 @@
     <Nodes>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="onix1:PortStatus">
-          <onix1:DeviceName>NeuropixelsV2eHeadstage/PortController</onix1:DeviceName>
+          <onix1:DeviceName>HeadstageNeuropixelsV2e/PortController</onix1:DeviceName>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">

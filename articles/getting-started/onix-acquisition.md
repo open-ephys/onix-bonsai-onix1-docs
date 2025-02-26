@@ -32,9 +32,9 @@ Linking the data I/O operator to devices when using two identical headstages or
 miniscopes involves an additional step: renaming a configuration operator.
 Suppose you want to stream orientation data from two Neuropixels 2.0 Headstages
 through using two <xref:OpenEphys.Onix1.PolledBno055Data> operators. By default,
-the <xref:OpenEphys.Onix1.ConfigureNeuropixelsV2eHeadstage> operators are both
-named "NeuropixelsV2eHeadstage". This causes their devices to also have
-identical names, "NeuropixelsV2eHeadstage/PolledBno055". The two headstages and
+the <xref:OpenEphys.Onix1.ConfigureHeadstageNeuropixelsV2e> operators are both
+named "HeadstageNeuropixelsV2e". This causes their devices to also have
+identical names, "HeadstageNeuropixelsV2e/PolledBno055". The two headstages and
 their devices must be disambiguated. To do this, you must edit one or both of
 headstages' `Name` property:
 
@@ -46,8 +46,8 @@ After this, the disambiguated source can be selected for each data operator
 
 
 In the following workflow workflow, the `Name` property of each
-<xref:OpenEphys.Onix1.ConfigureNeuropixelsV2eHeadstage> has been changed from
-"NeuropixelsV2eHeadstage" to "HS-NPX-AB" and "HS-NPX-B". The `DeviceName` of
+<xref:OpenEphys.Onix1.ConfigureHeadstageNeuropixelsV2e> has been changed from
+"HeadstageNeuropixelsV2e" to "HS-NPX-AB" and "HS-NPX-B". The `DeviceName` of
 each of the <xref:OpenEphys.Onix1.PolledBno055Data> operators has been set to
 "HS-NPX-A/PolledBno055" and "HS-NPX-B/PolledBno055" from the dropdown so each
 operator will take data from a different headstage.

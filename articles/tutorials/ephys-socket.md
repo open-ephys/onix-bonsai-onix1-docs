@@ -76,11 +76,11 @@ Construct an ONIX [hardware configuration chain](xref:onix-configuration):
 1.  Place the [configuration operators](xref:configure) that correspond to the
     hardware you intend to use between <xref:OpenEphys.Onix1.CreateContext> and
     <xref:OpenEphys.Onix1.StartAcquisition>. In this example, these are
-    <xref:OpenEphys.Onix1.ConfigureNeuropixelsV1eHeadstage> and
+    <xref:OpenEphys.Onix1.ConfigureHeadstageNeuropixelsV1e> and
     <xref:OpenEphys.Onix1.ConfigureBreakoutBoard>.
 1.  Confirm that the device that streams electrophysiology data is enabled. In
     this example, we will stream data from the NeuropixelsV1e device which can
-    be found in the properties panel by clicking the NeuropixelsV1eHeadstage
+    be found in the properties panel by clicking the HeadstageNeuropixelsV1e
     node.
 1.  In the case of NeuropixelsV1e Headstage, you must provide gain and
     calibration files and can perform other configurations as explained in the

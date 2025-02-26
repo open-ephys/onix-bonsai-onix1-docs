@@ -21,7 +21,7 @@
         <io:Overwrite>false</io:Overwrite>
         <io:Suffix>FileCount</io:Suffix>
         <io:IncludeHeader>false</io:IncludeHeader>
-        <io:Selector>Timestamp,Value</io:Selector>
+        <io:Selector>Timestamp,Value.Clock,Value.StatusCode</io:Selector>
       </Expression>
     </Nodes>
     <Edges>
