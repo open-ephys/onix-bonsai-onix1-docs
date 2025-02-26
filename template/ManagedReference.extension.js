@@ -13,6 +13,7 @@ function extractEnumData(model) {
     .map(child => ({
       'field&value': child.syntax.content[0].value,
       'description': [child.summary, child.remarks].join(''),
+      'id': child.uid.replaceAll('.', '_')
     }));
 }
 
@@ -40,7 +41,8 @@ function processChildProperty(child, sharedModel) {
       'enum': enumFields,
     },
     'configuration': configuration,
-    'acquisition': acquisition
+    'acquisition': acquisition,
+    'id': child.uid.replaceAll('.', '_')
   }
 }
 
@@ -80,6 +82,7 @@ function extractConstituentOperatorsData(model) {
         'constituentOperator': true,
         'hasProperties': properties === undefined || properties.length === 0 ? false : true,
         'properties': properties,
+        'id': child.uid.replaceAll('.', '_'),
       };
     }
   );

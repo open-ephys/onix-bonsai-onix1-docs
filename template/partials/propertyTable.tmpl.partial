@@ -9,10 +9,10 @@
   {{#properties}}
   <tr>
     <td style = "white-space: nowrap;">
-      <code>{{{name}}}</code>
+      <code id="{{{id}}}">{{{name}}}</code>
       {{#acquisition}}
       <div>
-        <a class="xref" href="~/articles/getting-started/property-categories.html#acquisition">
+        <a class="xref" href="~/api/OpenEphys.Onix1.html#acquisition">
           <button class="badge oe-badge-border oe-badge-blue">
             Acquisition
           </button>
@@ -21,8 +21,8 @@
       {{/acquisition}}
       {{#configuration}}
       <div>
-        <a class="xref" href="~/articles/getting-started/property-categories.html#configuration">
-          <button class="badge oe-badge-border oe-badge-orange">
+        <a class="xref" href="~/api/OpenEphys.Onix1.html#configuration">
+          <button class="badge oe-badge-border oe-badge-yellow">
             Configuration 
           </button>
         </a>
@@ -39,7 +39,7 @@
       <table>
         {{#enum}}
         <tr>
-          <td class="term"><code>{{{field&value}}}</code></td>
+          <td class="term" id="{{{id}}}"><code>{{{field&value}}}</code></td>
           <td class="description">{{{enumDescription}}}</td>
         </tr>
         {{/enum}}
