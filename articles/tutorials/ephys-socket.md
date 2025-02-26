@@ -174,10 +174,9 @@ In this tutorial we used the following values:
   encoded signed 10-bit data, so 512 corresponds to 0 volts.
 
 > [!TIP]
-> Use the information on the <xref:data-elements> reference page to know which 
-> shift and scaling values you need to use for each device on other headstages. For 
-> example, you can find these values for the Neuropixels 1.0 device 
-> [here](xref:OpenEphys.Onix1.NeuropixelsV1DataFrame): 
+> The appropriate scale and offset values for any headstage can be found by navigating to its 
+> respective Data Frame page. For example, those values for the Neuropixels 1.0 device are 
+> available on the <xref:OpenEphys.Onix1.NeuropixelsV1DataFrame> page. 
 
 After configuring `Ephys Socket` processor, press the "Connect" button to
 establish a connection with the `LfpServer` running in Bonsai.
