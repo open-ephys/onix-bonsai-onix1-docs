@@ -165,3 +165,10 @@ ol li div {
   background-color: var(--oe-purple-background);
   border-color: var(--oe-purple-border);
 }
+
+/* Avoid syntax highlighting in code blocks that have an equation to convert ADC values to
+voltage. For example, navigate to the api/OpenEphys.Onix1.NeuropixelsV1DataFrame.html page to find
+the following equation: `Electrode Voltage (µV) = 1,171.875 / LFPGain × (ADCSample – 512)` */
+.hljs-title {
+  color:black
+}
