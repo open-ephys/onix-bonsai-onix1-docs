@@ -50,7 +50,7 @@ or a single device.
 Group</span> properties are only available through [Device Group configuration
 operators](xref:configure). These properties are used to configure a group of
 devices. For example, ConfigureNeuropixelsV2eHeadstage's 
-<xref:OpenEphys.Onix1.ConfigureNeuropixelsV2eHeadstage.Port> property 
+<xref:OpenEphys.Onix1.ConfigureHeadstageNeuropixelsV2e.Port> property 
 configures the port name for all devices on the NeuropixelsV2e Headstage (which
 in turn automatically configures each device's address). 
 
