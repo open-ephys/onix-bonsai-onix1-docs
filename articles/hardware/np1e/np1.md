@@ -17,7 +17,7 @@ The <xref:OpenEphys.Onix1.NeuropixelsV1eData> operator generates a sequence of
   channel x 36 sample] `SpikeData` matrix, and a [384 channel x 3 sample] `LfpData` matrix. The Neuropixels 1.0 probe
   samples AP data at 30 kHz per channel (LFP data is sampled at a rate of 1/12 of the rate AP data) so this corresponds
   to 1.2 ms of data.
-- `DeviceName` is set to "NeuropixelsV1eHeadstage/NeuropixelsV1e". This links the `NeuropixelsV1eData` operator to the
+- `DeviceName` is set to "HeadstageNeuropixelsV1e/NeuropixelsV1e". This links the `NeuropixelsV1eData` operator to the
   corresponding configuration operator.
 
 Given the settings above, each frame will contain a [1 x 36 sample] `Clock` vector, a [384 channel x 36 sample]

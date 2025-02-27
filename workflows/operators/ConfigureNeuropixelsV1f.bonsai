@@ -13,7 +13,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="onix1:ConfigureNeuropixelsV1f">
-          <onix1:DeviceName>NeuropixelsV1fHeadstage/NeuropixelsV1A</onix1:DeviceName>
+          <onix1:DeviceName>HeadstageNeuropixelsV1f/NeuropixelsV1A</onix1:DeviceName>
           <onix1:DeviceAddress>256</onix1:DeviceAddress>
           <onix1:Enable>true</onix1:Enable>
           <onix1:ProbeConfiguration>
@@ -28,7 +28,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="onix1:ConfigureNeuropixelsV1f">
-          <onix1:DeviceName>NeuropixelsV1fHeadstage/NeuropixelsV1B</onix1:DeviceName>
+          <onix1:DeviceName>HeadstageNeuropixelsV1f/NeuropixelsV1B</onix1:DeviceName>
           <onix1:DeviceAddress>257</onix1:DeviceAddress>
           <onix1:Enable>true</onix1:Enable>
           <onix1:ProbeConfiguration>

@@ -77,7 +77,7 @@
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="onix1:ConfigureNeuropixelsV2eHeadstage">
+        <Combinator xsi:type="onix1:ConfigureHeadstageNeuropixelsV2e">
           <onix1:Name>HS-NPX-A</onix1:Name>
           <onix1:NeuropixelsV2e>
             <onix1:DeviceName>HS-NPX-A/NeuropixelsV2e</onix1:DeviceName>
@@ -106,7 +106,7 @@
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="onix1:ConfigureNeuropixelsV2eHeadstage">
+        <Combinator xsi:type="onix1:ConfigureHeadstageNeuropixelsV2e">
           <onix1:Name>HS-NPX-B</onix1:Name>
           <onix1:NeuropixelsV2e>
             <onix1:DeviceName>HS-NPX-B/NeuropixelsV2e</onix1:DeviceName>

@@ -13,7 +13,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="onix1:ConfigureNeuropixelsV2eBeta">
-          <onix1:DeviceName>NeuropixelsV2eBetaHeadstage/NeuropixelsV2eBeta</onix1:DeviceName>
+          <onix1:DeviceName>HeadstageNeuropixelsV2eBeta/NeuropixelsV2eBeta</onix1:DeviceName>
           <onix1:DeviceAddress>256</onix1:DeviceAddress>
           <onix1:Enable>true</onix1:Enable>
           <onix1:EnableLed>true</onix1:EnableLed>

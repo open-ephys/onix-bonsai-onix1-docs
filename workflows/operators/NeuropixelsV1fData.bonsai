@@ -7,7 +7,7 @@
     <Nodes>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="onix1:NeuropixelsV1fData">
-          <onix1:DeviceName>NeuropixelsV1fHeadstage/NeuropixelsV1A</onix1:DeviceName>
+          <onix1:DeviceName>HeadstageNeuropixelsV1f/NeuropixelsV1A</onix1:DeviceName>
           <onix1:BufferSize>36</onix1:BufferSize>
         </Combinator>
       </Expression>
